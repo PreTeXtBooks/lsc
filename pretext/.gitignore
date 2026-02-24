@@ -1,0 +1,51 @@
+# Boilerplate list of files in a PreTeXt project for git to ignore
+# ensure this file is tracked
+!.gitignore
+
+# don't track unpublished builds
+output
+
+# don't track assets generated from source
+generated-assets
+
+# don't track node packages
+node_modules
+
+# don't track error logs
+.error_schema.log
+cli.log
+
+# don't track OS related files (windows/macos/linux)
+.DS_Store
+.DS_Store?
+._*
+.AppleDouble
+.LSOverride
+.Spotlight-V100
+.Trashes
+Icon
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+*.lnk
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+[Dd]esktop.ini
+.directory
+.fuse_hidden*
+.Trash-*
+.nfs*
+
+# Don't include VSCode generated files
+.vscode
+*.code-workspace
