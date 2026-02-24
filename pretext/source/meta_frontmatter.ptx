@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This frontmatter division will contain all content before the -->
+<!-- first chapter.                                                -->
+
+<frontmatter xmlns:xi="http://www.w3.org/2001/XInclude" xml:id="meta_frontmatter">
+  <titlepage>
+    <author>
+      <personname>Danielle Navarro</personname>
+      <department>School of Psychology</department>
+      <institution>University of New South Wales</institution>
+    </author>
+    <author>
+      <personname>Róbert Fodor</personname>
+    </author>
+    <date><today/></date>
+  </titlepage>
+
+  <colophon>
+
+    <website>
+      <name><c>learningstatisticswithcogstat.com</c></name>
+      <address>https://learningstatisticswithcogstat.com</address>
+    </website>
+
+    <copyright>
+      <year>2022<ndash/>2023</year>
+      <holder>Danielle Navarro and Róbert Fodor</holder>
+      <shortlicense>
+        This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License.
+        To view a copy of this license, visit
+        <url
+          href="http://creativecommons.org/licenses/by-sa/4.0/"
+          visual="creativecommons.org/licenses/by-sa/4.0">
+          CreativeCommons.org</url>.
+      </shortlicense>
+    </copyright>
+
+  </colophon>
+
+  <preface xml:id="meta_frontmatter-preface">
+    <title>Overview</title>
+    <p>
+      <em>Learning Statistics with CogStat</em> covers the contents of an introductory
+      statistics class, as typically taught to undergraduate psychology students, focusing
+      on the use of the CogStat statistical software. The book discusses basic statistical
+      concepts and research design, followed by descriptive statistics and correlation.
+      From a statistical theory perspective, the book covers probability, sampling and
+      estimation, and null hypothesis testing. After introducing the theory, the book
+      covers categorical data analysis, t-tests, ANOVAs, and regression. Bayesian
+      statistics are covered at the end of the book.
+    </p>
+    <p>
+      This book is an adaptation of Danielle Navarro's
+      <url href="https://learningstatisticswithr.com" visual="learningstatisticswithr.com">
+        <em>Learning Statistics with R</em>
+      </url>
+      made by Róbert Fodor, with a focus on automatic statistical analysis performed
+      in <url href="https://www.cogstat.org" visual="cogstat.org">CogStat</url>.
+    </p>
+  </preface>
+
+  <preface xml:id="meta_frontmatter-pretext-note">
+    <title>About This Edition</title>
+    <p>
+      This is a <pretext /> version of <em>Learning Statistics with CogStat</em>,
+      originally written by
+      <url href="https://github.com/robertfodor" visual="github.com/robertfodor">Róbert Fodor</url>
+      and based on Danielle Navarro's
+      <url href="https://learningstatisticswithr.com" visual="learningstatisticswithr.com">
+        <em>Learning Statistics with R</em>
+      </url>.
+      The original source repository is hosted on
+      <url href="https://github.com/robertfodor/lsc" visual="github.com/robertfodor/lsc">GitHub</url>.
+    </p>
+    <p>
+      This <pretext /> adaptation was created to make the book available in an accessible,
+      interactive web format. If you encounter any issues specific to this edition, please
+      file a report at
+      <url href="https://github.com/PreTeXtBooks/lsc" visual="github.com/PreTeXtBooks/lsc">github.com/PreTeXtBooks/lsc</url>.
+    </p>
+  </preface>
+
+</frontmatter>

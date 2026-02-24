@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- This is the main file of the PreTeXt version of                     -->
+<!-- Learning Statistics with CogStat.  The main.ptx here always         -->
+<!-- starts with <pretext> tags.  In this example, the main file         -->
+<!-- just imports other .ptx files which contain content.                -->
+
+<pretext xml:lang="en-US" xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <!-- we first include a file which contains the docinfo element: -->
+  <xi:include href="./meta_docinfo.ptx" />
+
+  <!-- The <book> tags wrap all the content.  Change the @xml:id   -->
+  <!-- to some short (non-spaced) description of your book         -->
+  <book xml:id="learning-stats-with-cogstat">
+    <!-- The book needs a title and can have a subtitle  -->
+    <title>Learning Statistics with CogStat</title>
+    <subtitle>A Tutorial for Psychology Students and Other Beginners</subtitle>
+
+    <!-- Now we include files containing each main division.        -->
+
+    <!-- First a frontmatter for prefaces and such.                -->
+    <xi:include href="./meta_frontmatter.ptx" />
+
+    <!-- Part I: Introductions -->
+    <part xml:id="part-i-introductions">
+      <title>Introductions</title>
+
+      <!-- Chapter 1: Why do we learn statistics? -->
+      <xi:include href="./ch-p1-01-why-statistics.ptx" />
+
+      <!-- Chapter 2: Basic concepts (research design) -->
+      <xi:include href="./ch-p1-02-basic-concepts.ptx" />
+
+      <!-- Chapter 3: Automatic statistical analysis -->
+      <xi:include href="./ch-p1-03-automatic-analysis.ptx" />
+
+      <!-- Chapter 4: Introduction to CogStat -->
+      <xi:include href="./ch-p1-04-cogstat.ptx" />
+    </part>
+
+    <!-- Part II: Descriptive Statistics -->
+    <part xml:id="part-ii-descriptive-statistics">
+      <title>Descriptive Statistics</title>
+
+      <!-- Chapter 5: Exploring a single variable -->
+      <xi:include href="./ch-p2-01-descriptive.ptx" />
+
+      <!-- Chapter 6: Exploring a variable pair (correlation) -->
+      <xi:include href="./ch-p2-02-correlation.ptx" />
+    </part>
+
+    <!-- Part III: Inferential Statistics -->
+    <part xml:id="part-iii-inferential-statistics">
+      <title>Inferential Statistics</title>
+
+      <!-- Chapter 7: Probability and distributions -->
+      <xi:include href="./ch-p3-01-probability.ptx" />
+
+      <!-- Chapter 8: Population, sampling, and estimation -->
+      <xi:include href="./ch-p3-02-sampling.ptx" />
+
+      <!-- Chapter 9: Hypothesis testing -->
+      <xi:include href="./ch-p3-03-hypothesis-testing.ptx" />
+    </part>
+
+    <!-- Part IV: Statistical Tools -->
+    <part xml:id="part-iv-statistical-tools">
+      <title>Statistical Tools</title>
+
+      <!-- Chapter 10: Categorical data analysis (chi-square) -->
+      <xi:include href="./ch-p4-01-chisquare.ptx" />
+
+      <!-- Chapter 11: Comparing two means (t-tests) -->
+      <xi:include href="./ch-p4-02-ttest.ptx" />
+
+      <!-- Chapter 12: Comparing several means (one-way ANOVA) -->
+      <xi:include href="./ch-p4-03-anova.ptx" />
+
+      <!-- Chapter 13: Comparing several groups (factorial ANOVA) -->
+      <xi:include href="./ch-p4-04-factorial-anova.ptx" />
+
+      <!-- Chapter 14: Linear regression -->
+      <xi:include href="./ch-p4-05-regression.ptx" />
+    </part>
+
+    <!-- Part V: Bayesian Statistics -->
+    <part xml:id="part-v-bayesian-statistics">
+      <title>Bayesian Statistics</title>
+
+      <!-- Chapter 15: Introduction to Bayesian statistics -->
+      <xi:include href="./ch-p5-01-bayes.ptx" />
+
+      <!-- Chapter 16: Bayesian hypothesis tests -->
+      <xi:include href="./ch-p5-02-bayesian-hypothesis-tests.ptx" />
+
+      <!-- Chapter 17: Why be a Bayesian? -->
+      <xi:include href="./ch-p5-03-why-bayes.ptx" />
+    </part>
+
+    <!-- Appendices -->
+    <part xml:id="part-appendices">
+      <title>Appendices</title>
+
+      <!-- Summary guide -->
+      <xi:include href="./ch-p99-01-summary-guide.ptx" />
+
+      <!-- Epilogue -->
+      <xi:include href="./ch-p99-02-epilogue.ptx" />
+    </part>
+
+    <!-- Finally we place the backmatter in its own file and include -->
+    <xi:include href="./meta_backmatter.ptx" />
+  </book>
+</pretext>
