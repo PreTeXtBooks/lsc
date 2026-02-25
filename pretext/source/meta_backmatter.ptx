@@ -130,6 +130,18 @@
       <em>Statistical Science</em>, 2, 45<ndash/>52.
     </biblio>
 
+    <biblio xml:id="Cohen1988" type="raw">
+      Cohen, J. (1988).
+      <em>Statistical Power Analysis for the Behavioral Sciences</em> (2nd ed.).
+      Lawrence Erlbaum.
+    </biblio>
+
+    <biblio xml:id="McGrath2006" type="raw">
+      McGrath, R. E. and Meyer, G. J. (2006).
+      When effect sizes disagree: The case of <m>r</m> and <m>d</m>.
+      <em>Psychological Methods</em>, 11, 386<ndash/>401.
+    </biblio>
+
     <biblio xml:id="Student1908" type="raw">
       Student, A. (1908).
       The probable error of a mean.
