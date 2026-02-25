@@ -5,8 +5,791 @@
 
   <introduction>
     <p>
-      Content to be added.
+      This chapter introduces one of the most widely used statistical tools known as "the analysis
+      of variance", which is usually referred to as ANOVA. Sir Ronald Fisher developed the basic
+      technique in the early 20th century, and it is to him that we owe the rather unfortunate
+      terminology.
+    </p>
+
+    <p>
+      The term ANOVA is a little misleading in two respects. Firstly, although the technique's
+      name refers to variances, ANOVA is concerned with investigating differences in means.
+      Secondly, several different things out there are all referred to as ANOVAs, some of which
+      have only a very tenuous connection to one another. Later in the book, we'll encounter
+      various ANOVA methods that apply in quite different situations. Still, for this chapter,
+      we'll only consider the simplest form of ANOVA, in which we have several different groups of
+      observations. We're interested in finding out whether those groups differ in terms of some
+      outcome variable of interest. This is the question that is addressed by a <term>one-way
+      ANOVA</term>.
+    </p>
+
+    <p>
+      After introducing the data, we'll describe the mechanics of the one-way ANOVA, how to
+      calculate effect sizes and post hoc tests. We'll also talk about how to check for normality
+      and homoscedasticity.
+    </p>
+
+    <p>
+      Now let's run a clinical trial!
     </p>
   </introduction>
+
+  <section xml:id="sec-anova-data">
+    <title>The Data</title>
+
+    <p>
+      Suppose you've become involved in a clinical trial in which you are testing a new
+      antidepressant drug called <em>Joyzepam</em>. In order to construct a fair test of the
+      drug's effectiveness, the study involves three different medications to be administered. One
+      is a placebo, and the other is an existing antidepressant / anti-anxiety drug called
+      <em>Anxifree</em>. A collection of 18 participants with moderate to severe depression are
+      recruited for your initial testing. Because the drugs are sometimes administered in
+      conjunction with psychological therapy, your study includes 9 people undergoing cognitive
+      behavioural therapy (CBT) and 9 who are not. Participants are randomly assigned (doubly
+      blinded, of course) a treatment, such that there are 3 CBT people and 3 no-therapy people
+      assigned to each of the 3 drugs. A psychologist assesses the mood of each person after a 3
+      month run with each drug: and the overall <em>improvement</em> in each person's mood is
+      assessed on a scale ranging from <m>-5</m> to <m>+5</m>.
+    </p>
+
+    <p>
+      With that as the study design, let's load our data file: <c>clinicaltrial.csv</c>. We have
+      three variables: <c>drug</c>, <c>therapy</c> and <c>mood_gain</c>. Next, let's print the
+      data frame to get a sense of what the data actually look like.
+    </p>
+
+    <p>
+      For the purposes of this chapter, what we're really interested in is the effect of
+      <c>drug</c> on <c>mood_gain</c>. The first thing to do is use the <c>Compare groups</c>
+      function. (But don't jump ahead by adding both <c>drug</c> and <c>therapy</c> to the
+      <c>Group(s)</c> box. That's going to be our factorial ANOVA in the next chapter.)
+    </p>
+
+    <figure xml:id="fig-moodbydrug">
+      <caption>Mood gain by drug.</caption>
+      <image source="moodbydrug.png"/>
+    </figure>
+
+    <p>
+      The results are shown in the boxplot in <xref ref="fig-moodbydrug"/>, which plots the
+      average mood gain for all three conditions; error bars show upper and lower quartile. As the
+      plot makes clear, there is a larger improvement in mood for participants in the Joyzepam
+      group than for either the Anxifree group or the placebo group. The Anxifree group shows a
+      larger mood gain than the control (i.e. placebo) group, but the difference isn't as large.
+    </p>
+
+    <p>
+      The question that we want to answer is: are these difference "real", or are they just due to
+      chance?
+    </p>
+
+  </section>
+
+  <section xml:id="sec-anovaintro">
+    <title>How ANOVA Works</title>
+
+    <p>
+      In order to answer the question posed by our clinical trial data, we're going to run a
+      one-way ANOVA. As usual, we're going to start by showing you how to do it the hard way to
+      make sure you really understand how ANOVA works, but with CogStat, you'll never <em>ever</em>
+      have do it this way.
+    </p>
+
+    <p>
+      The experimental design strongly suggests that we're interested in comparing the average mood
+      change for the three different drugs. In that sense, we're talking about an analysis similar
+      to the <m>t</m>-test (<xref ref="ch-ttest"/>), but involving more than two groups. If we let
+      <m>\mu_P</m> denote the population mean for the mood change induced by the placebo, and let
+      <m>\mu_A</m> and <m>\mu_J</m> denote the corresponding means for our two drugs, Anxifree and
+      Joyzepam, then the (somewhat pessimistic) null hypothesis that we want to test is that all
+      three population means are identical: that is, <em>neither</em> of the two drugs is any more
+      effective than a placebo.
+    </p>
+
+    <p>
+      Sidenote. This assumption of equal variances is Fisher's ANOVA. When we are explicitly not
+      assuming equal variances, we should be using Welch's ANOVA, but that's covered in this book
+      or in CogStat actually.
+    </p>
+
+    <p>
+      Back to our Fisher's one-way ANOVA. Mathematically, we write this null hypothesis like this:
+      <me>
+        \begin{array}{rcl}
+        {H}_{0} \amp : \amp \mbox{it is true that } \mu_P = \mu_A = \mu_J
+        \end{array}
+      </me>
+    </p>
+
+    <p>
+      As a consequence, our alternative hypothesis is that at least one of the three different
+      treatments is different from the others. It's a little trickier to write this mathematically,
+      because there are quite a few different ways in which the null hypothesis can be false. So
+      for now we'll just write the alternative hypothesis like this:
+      <me>
+        \begin{array}{rcl}
+        {H}_{1} \amp : \amp \mbox{it is \emph{not} true that } \mu_P = \mu_A = \mu_J
+        \end{array}
+      </me>
+    </p>
+
+    <p>
+      This null hypothesis is a lot trickier to test than any of the ones we've seen previously.
+      How shall we do it? A sensible guess would be to "do an ANOVA", since that's the title of
+      the chapter, but it's not particularly clear why an "analysis of <em>variances</em>" will
+      help us learn anything useful about the <em>means</em>. In fact, this is one of the greatest
+      conceptual difficulties that people have when first encountering ANOVA. To see how this
+      works, let us talk about variances first.
+    </p>
+
+    <subsection xml:id="subsec-anova-fromvariance">
+      <title>From Variance...</title>
+
+      <p>
+        We'll use <m>G</m> to refer to the total number of groups. For our data set, there are
+        three drugs, so there are <m>G=3</m> groups. Next, we'll use <m>N</m> to refer to the
+        total sample size: there are a total of <m>N=18</m> people in our data set. Similarly,
+        let's use <m>N_k</m> to denote the number of people in the <m>k</m>-th group. In our fake
+        clinical trial, the sample size is <m>N_k = 6</m> for all three groups.<fn>When all groups
+        have the same number of observations, the experimental design is said to be "balanced".
+        Balance isn't such a big deal for one-way ANOVA but becomes more important when you start
+        doing more complicated ANOVAs.</fn> Finally, we'll use <m>Y</m> to denote the outcome
+        variable (mood change). Specifically, we'll use <m>Y_{ik}</m> to refer to the mood change
+        experienced by the <m>i</m>-th member of the <m>k</m>-th group. Similarly, we'll use
+        <m>\bar{Y}</m> to be the average mood change, taken across all 18 people in the
+        experiment, and <m>\bar{Y}_k</m> to refer to the average mood change experienced by the 6
+        people in group <m>k</m>.
+      </p>
+
+      <p>
+        Excellent. Now that we've got our notation sorted out, we can start writing down formulas.
+        To start with, let's recall the formula for the variance that we used earlier in the book,
+        way back in those kinder days when we were just doing descriptive statistics. The sample
+        variance of <m>Y</m> is defined as follows:
+        <me>
+          \mbox{Var}(Y) = \frac{1}{N} \sum_{k=1}^G \sum_{i=1}^{N_k} \left(Y_{ik} - \bar{Y} \right)^2
+        </me>
+        This formula looks pretty much identical to the formula for the variance from descriptive
+        statistics. The only difference is that we are now summing over groups (i.e. values for
+        <m>k</m>) and over the people within the groups (i.e. values for <m>i</m>).
+      </p>
+
+      <p>
+        Let's consider a simple table to see how this formula works on our clinical trial data set.
+        The table below shows the person, the drug they were given, and their mood change.
+      </p>
+
+      <table xml:id="tbl-moodtable">
+        <title>Clinical trial data (excerpt).</title>
+        <tabular>
+          <row header="yes">
+            <cell>Row</cell>
+            <cell>Drug group (<m>k</m>)</cell>
+            <cell>Index in group (<m>i</m>)</cell>
+            <cell>Mood change (<m>Y_{ik}</m>)</cell>
+          </row>
+          <row><cell>1</cell><cell>placebo</cell><cell>1</cell><cell>0.5</cell></row>
+          <row><cell>2</cell><cell>placebo</cell><cell>2</cell><cell>0.3</cell></row>
+          <row><cell>3</cell><cell>placebo</cell><cell>3</cell><cell>0.1</cell></row>
+          <row><cell>4</cell><cell>anxifree</cell><cell>1</cell><cell>0.6</cell></row>
+          <row><cell>5</cell><cell>anxifree</cell><cell>2</cell><cell>0.4</cell></row>
+          <row><cell>6</cell><cell>...</cell><cell>...</cell><cell>...</cell></row>
+        </tabular>
+      </table>
+
+      <p>
+        Our average mood change is the mean of all the mood changes in the data set (which you can
+        see if you run <c>Explore variable</c> for <c>mood_gain</c>), which is <m>\bar{Y} = 0.88</m>.
+        The variance of the mood changes is the sum of the squared differences between each mood
+        change and the average mood change, divided by the total number of observations. So our
+        formula filled in would look like this:
+      </p>
+
+      <md>
+        <mrow>
+          \mbox{Var}(Y) = \frac{1}{18} ( (0.5 - 0.88 )^2 + (0.3 -0.88 )^2 + (0.1 - 0.88 )^2 +
+        </mrow>
+        <mrow>
+           (0.6 - 0.88 )^2 + (0.4 - 0.88 )^2 + (0.2 - 0.88 )^2 + (1.4 - 0.88 )^2 +
+        </mrow>
+        <mrow>
+           (1.7 - 0.88 )^2 + (1.3 - 0.88 )^2 + (0.6 - 0.88 )^2 + (0.9 - 0.88 )^2 +
+        </mrow>
+        <mrow>
+           (0.3 - 0.88 )^2 + (1.1 - 0.88 )^2 + (0.8 - 0.88 )^2 + (1.2 - 0.88 )^2 +
+        </mrow>
+        <mrow>
+           (1.8 - 0.88 )^2 + (1.3 - 0.88 )^2 + (1.4 - 0.88 )^2 )
+        </mrow>
+      </md>
+
+      <me>
+        \mbox{Var}(Y) = 0.269
+      </me>
+
+      <p>
+        Fortunately, we don't have to do these manually.<fn>You went into Excel and did it
+        manually, and got the same answer, great! No, you used the <c>VAR.P</c> function and got
+        the same answer. Great! Wait, you used the <c>VAR.S</c> and got <m>0.285</m>? Something's
+        not right. You went to jamovi or JASP or SPSS (because you're fancy) and got <m>0.285</m>.
+        What happened? There is a difference between population variance and estimated variance.
+        The population variance is the variance of the population based on the fact you know all
+        members of the population <mdash/> which is the case in our example, as we need the
+        population variance of our trial, not the population to which the trial results will extend
+        to. The estimated variance is always going to be a little bit bigger than the population
+        variance, because it's an estimate, and uses a slightly different formula. Namely, it
+        multiplies by <m>\frac{1}{N-1}</m>, not <m>\frac{1}{N}</m>.</fn>
+      </p>
+
+    </subsection>
+
+    <subsection xml:id="subsec-anova-totalss">
+      <title>...to Total Sum of Squares</title>
+
+      <p>
+        Okay, now that we've got a good grasp on how the population variance is calculated, let's
+        define something called the <term>total sum of squares</term>, which is denoted
+        <m>\mbox{SS}_{tot}</m>. This is very simple: instead of averaging the squared deviations,
+        which is what we do when calculating the variance, we just add them up. So the formula for
+        the total sum of squares is almost identical to the formula for the variance:
+        <me>
+          \mbox{SS}_{tot} = \sum_{k=1}^G \sum_{i=1}^{N_k} \left(Y_{ik} - \bar{Y} \right)^2
+        </me>
+        When we talk about analysing variances in the context of ANOVA, what we're really doing is
+        working with the total sums of squares rather than the actual variance. One very nice thing
+        about the total sum of squares is that we can break it up into two different kinds of
+        variation. Firstly, we can talk about the <term>within-group sum of squares</term>, in
+        which we look to see how different each individual person is from their own group mean:
+        <me>
+          \mbox{SS}_w = \sum_{k=1}^G \sum_{i=1}^{N_k} \left( Y_{ik} - \bar{Y}_k \right)^2
+        </me>
+        where <m>\bar{Y}_k</m> is a group mean.
+      </p>
+
+      <p>
+        In our example, <m>\bar{Y}_k</m> would be the average mood change experienced by those
+        people given the <m>k</m>-th drug. So, instead of comparing individuals to the average of
+        <em>all</em> people in the experiment, we're only comparing them to those people in the
+        same group. As a consequence, you'd expect the value of <m>\mbox{SS}_w</m> to be smaller
+        than the total sum of squares, because it's completely ignoring any group differences
+        <mdash/> that is, the fact that the drugs (if they work) will have different effects on
+        people's moods.
+      </p>
+
+      <p>
+        Next, we can define a third notion of variation which captures <em>only</em> the
+        differences <em>between groups</em>. We do this by looking at the differences between the
+        group means <m>\bar{Y}_k</m> and grand mean <m>\bar{Y}</m>. In order to quantify the
+        extent of this variation, what we do is calculate the <term>between-group sum of
+        squares</term>:
+        <md>
+          <mrow>
+            \mbox{SS}_{b} \amp = \sum_{k=1}^G \sum_{i=1}^{N_k} \left( \bar{Y}_k - \bar{Y} \right)^2
+          </mrow>
+          <mrow>
+            \amp = \sum_{k=1}^G N_k \left( \bar{Y}_k - \bar{Y} \right)^2
+          </mrow>
+        </md>
+      </p>
+
+      <p>
+        It's not too difficult to show that the total variation among people in the experiment
+        <m>\mbox{SS}_{tot}</m> is actually the sum of the differences between the groups
+        <m>\mbox{SS}_b</m> and the variation inside the groups <m>\mbox{SS}_w</m>. That is:
+        <me>
+          \mbox{SS}_w  + \mbox{SS}_{b} = \mbox{SS}_{tot}
+        </me>
+      </p>
+
+      <p>
+        Yay.
+      </p>
+
+      <figure xml:id="fig-anovavara">
+        <caption>Graphical illustration of "between-groups" variation.</caption>
+        <image source="anovavara-1.svg"/>
+      </figure>
+
+      <figure xml:id="fig-anovavarb">
+        <caption>Graphical illustration of "within groups" variation.</caption>
+        <image source="anovavarb-1.svg"/>
+      </figure>
+
+      <p>
+        Okay, so what have we found out?
+      </p>
+
+      <p>
+        We've discovered that the total variability associated with the outcome variable
+        (<m>\mbox{SS}_{tot}</m>) can be mathematically carved up into the sum of "the variation
+        due to the differences in the sample means for the different groups" (<m>\mbox{SS}_{b}</m>)
+        plus "all the rest of the variation" (<m>\mbox{SS}_{w}</m>).
+      </p>
+
+      <p>
+        Let's apply the formulas to our clinical trial example, and see what we get. We won't
+        bother with the calculations in details, because the formula is given, and CogStat will
+        not bore you with these either.
+      </p>
+
+      <md>
+        <mrow>
+          \mbox{SS}_w \amp = \sum_{k=1}^G \sum_{i=1}^{N_k} \left( Y_{ik} - \bar{Y}_k \right)^2
+        </mrow>
+        <mrow>
+          \amp = 1.3917
+        </mrow>
+      </md>
+
+      <md>
+        <mrow>
+          \mbox{SS}_b \amp = \sum_{k=1}^G N_k \left( \bar{Y}_k - \bar{Y} \right)^2
+        </mrow>
+        <mrow>
+          \amp = 3.4533
+        </mrow>
+      </md>
+
+      <p>
+        How does that help me find out whether the groups have different population means? If the
+        null hypothesis is true, then you'd expect all the sample means to be pretty similar to
+        each other, right? And that would imply that you'd expect <m>\mbox{SS}_{b}</m> to be
+        really small, or at least you'd expect it to be a lot smaller than the "the variation
+        associated with everything else", <m>\mbox{SS}_{w}</m>.
+      </p>
+
+      <p>
+        So, let's do a hypothesis test to validate.
+      </p>
+
+    </subsection>
+
+    <subsection xml:id="subsec-anova-ftest">
+      <title>From Sums of Squares to the <m>F</m>-Test</title>
+
+      <p>
+        As we saw in the last section, the <em>qualitative</em> idea behind ANOVA is to compare
+        the two sums of squares values <m>\mbox{SS}_b</m> and <m>\mbox{SS}_w</m> to each other:
+        if the between-group variation <m>\mbox{SS}_b</m> is large relative to the within-group
+        variation <m>\mbox{SS}_w</m>, then we have reason to suspect that the population means for
+        the different groups aren't identical to each other.
+      </p>
+
+      <p>
+        Our test statistic is called an <term><m>F</m>-ratio</term>. It's defined as the ratio of
+        the between-group variation to the within-group variation.
+      </p>
+
+      <p>
+        In order to convert our SS values into an <m>F</m>-ratio, the first thing we need to
+        calculate is the <term>degrees of freedom</term> associated with the SS<m>_b</m> and
+        SS<m>_w</m> values. As usual, the degrees of freedom corresponds to the number of unique
+        "data points" that contribute to a particular calculation, minus the number of
+        "constraints" that they need to satisfy.
+      </p>
+
+      <p>
+        For the within-groups variability, what we're calculating is the variation of the
+        individual observations (<m>N</m> data points) around the group means (<m>G</m>
+        constraints). In contrast, for the between-groups variability, we're interested in the
+        variation of the group means (<m>G</m> data points) around the grand mean (1 constraint).
+        Therefore, the degrees of freedom here are:
+        <md>
+          <mrow>
+            \mbox{df}_b \amp = G-1
+          </mrow>
+          <mrow>
+            \mbox{df}_w \amp = N-G
+          </mrow>
+        </md>
+      </p>
+
+      <p>
+        What we do next is convert our summed squares value into a "mean squares" value, which we
+        do by dividing by the degrees of freedom:
+        <md>
+          <mrow>
+            \mbox{MS}_b \amp = \displaystyle\frac{\mbox{SS}_b }{ \mbox{df}_b}
+          </mrow>
+          <mrow>
+            \mbox{MS}_w \amp = \displaystyle\frac{\mbox{SS}_w }{ \mbox{df}_w}
+          </mrow>
+        </md>
+      </p>
+
+      <p>
+        Finally, we calculate the <m>F</m>-ratio by dividing the between-groups MS by the
+        within-groups MS:
+        <me>
+          F = \frac{\mbox{MS}_b }{ \mbox{MS}_w }
+        </me>
+      </p>
+
+      <p>
+        At a very general level, the intuition behind the <m>F</m> statistic is straightforward:
+        bigger values of <m>F</m> means that the between-groups variation is large, relative to
+        the within-groups variation. As a consequence, the larger the value of <m>F</m>, the more
+        evidence we have against the null hypothesis. (To read more on how large does <m>F</m>
+        have to be to reject the null hypothesis, see the next chapter.)
+      </p>
+
+      <p>
+        In order to complete our hypothesis test, we need to know the sampling distribution for
+        <m>F</m> if the null hypothesis is true. Not surprisingly, the sampling distribution for
+        the <m>F</m> <em>statistic</em> under the null hypothesis is an <m>F</m>
+        <em>distribution</em>. As seen in the probability chapter, the <m>F</m> distribution has
+        two parameters, corresponding to the two degrees of freedom involved: the first one
+        df<m>_1</m> is the between-groups degrees of freedom df<m>_b</m>, and the second one
+        df<m>_2</m> is the within-groups degrees of freedom df<m>_w</m>.
+      </p>
+
+      <p>
+        A summary of all the key quantities involved in a one-way ANOVA, including the formulas
+        showing how they are calculated, is shown in <xref ref="tbl-anovatable"/>.
+      </p>
+
+      <table xml:id="tbl-anovatable">
+        <title>All of the key quantities involved in an ANOVA, organised into a "standard" ANOVA
+        table. The formulas for all quantities (except the <m>p</m>-value, which has a very ugly
+        formula and would be nightmarishly hard to calculate without a computer) are
+        shown.</title>
+        <tabular>
+          <row header="yes">
+            <cell></cell>
+            <cell>Between groups</cell>
+            <cell>Within groups</cell>
+          </row>
+          <row>
+            <cell>Degrees of freedom</cell>
+            <cell><m>\mbox{df}_b = G-1</m></cell>
+            <cell><m>\mbox{df}_w = N-G</m></cell>
+          </row>
+          <row>
+            <cell>Sum of squares</cell>
+            <cell><m>\mbox{SS}_b = \displaystyle\sum_{k=1}^G N_k (\bar{Y}_k - \bar{Y})^2</m></cell>
+            <cell><m>\mbox{SS}_w = \sum_{k=1}^G \sum_{i = 1}^{N_k} ( {Y}_{ik} - \bar{Y}_k)^2</m></cell>
+          </row>
+          <row>
+            <cell>Mean squares</cell>
+            <cell><m>\mbox{MS}_b = \frac{\mbox{SS}_b}{\mbox{df}_b}</m></cell>
+            <cell><m>\mbox{MS}_w = \frac{\mbox{SS}_w}{\mbox{df}_w}</m></cell>
+          </row>
+          <row>
+            <cell><m>F</m> statistic</cell>
+            <cell><m>F = \frac{\mbox{MS}_b }{ \mbox{MS}_w }</m></cell>
+            <cell>-</cell>
+          </row>
+          <row>
+            <cell><m>p</m> value</cell>
+            <cell>[complicated]</cell>
+            <cell>-</cell>
+          </row>
+        </tabular>
+      </table>
+
+      <p>
+        Now let's calculate these for our clinical trial example, again, behind the scenes. Let's
+        start with the degrees of freedom.
+      </p>
+
+      <md>
+        <mrow>
+          \mbox{df}_b \amp = G-1
+        </mrow>
+        <mrow>
+          \amp = 3-1
+        </mrow>
+        <mrow>
+          \amp = 2
+        </mrow>
+        <mrow>
+          \mbox{df}_w \amp = N-G
+        </mrow>
+        <mrow>
+          \amp = 18-3
+        </mrow>
+        <mrow>
+          \amp = 15
+        </mrow>
+      </md>
+
+      <p>
+        Now that that's done, we can calculate the mean squares values.
+      </p>
+
+      <md>
+        <mrow>
+          \mbox{MS}_b \amp = \displaystyle\frac{\mbox{SS}_b }{ \mbox{df}_b}
+        </mrow>
+        <mrow>
+          \amp = \displaystyle\frac{3.4533}{2}
+        </mrow>
+        <mrow>
+          \amp = 1.7267
+        </mrow>
+        <mrow>
+          \mbox{MS}_w \amp = \displaystyle\frac{\mbox{SS}_w }{ \mbox{df}_w}
+        </mrow>
+        <mrow>
+          \amp = \displaystyle\frac{1.3917}{15}
+        </mrow>
+        <mrow>
+          \amp = 0.0928
+        </mrow>
+      </md>
+
+      <p>
+        Finally, we can calculate the <m>F</m>-ratio.
+      </p>
+
+      <md>
+        <mrow>
+          F \amp = \frac{\mbox{MS}_b }{ \mbox{MS}_w }
+        </mrow>
+        <mrow>
+          \amp = \frac{1.7267}{0.0928}
+        </mrow>
+        <mrow>
+          \amp = 18.6067
+        </mrow>
+      </md>
+
+    </subsection>
+
+    <subsection xml:id="subsec-anovamodel">
+      <title>Further Reading: The Meaning of <m>F</m> (Advanced)</title>
+
+      <p>
+        At a fundamental level, ANOVA is a competition between two different statistical models,
+        <m>H_0</m> and <m>H_1</m>. If you recall, our null hypothesis was that all of the group
+        means are identical to one another. If so, then a natural way to think about the outcome
+        variable <m>Y_{ik}</m> is to describe individual scores in terms of a single population
+        mean <m>\mu</m>, plus the deviation from that population mean. This deviation is usually
+        denoted <m>\epsilon_{ik}</m> and is traditionally called the <em>error</em> or
+        <term>residual</term> associated with that observation. Be careful though: just like we
+        saw with the word "significant", the word "error" has a technical meaning in statistics
+        that isn't quite the same as its everyday English definition. The word "residual" is a
+        better term than the word "error". In statistics, both words mean "leftover variability":
+        that is, "stuff" that the model can't explain.
+      </p>
+
+      <p>
+        In any case, here's what the null hypothesis looks like when we write it as a statistical
+        model:
+        <me>
+          Y_{ik} = \mu + \epsilon_{ik}
+        </me>
+        where we make the <em>assumption</em> that the residual values <m>\epsilon_{ik}</m> are
+        normally distributed, with mean 0 and a standard deviation <m>\sigma</m> that is the same
+        for all groups. To use the notation that we introduced in the probability chapter we would
+        write this assumption like this:
+        <me>
+          \epsilon_{ik} \sim \mbox{Normal}(0, \sigma^2)
+        </me>
+      </p>
+
+      <p>
+        What about the alternative hypothesis, <m>H_1</m>? The only difference between the null
+        hypothesis and the alternative hypothesis is that we allow each group to have a different
+        population mean. So, if we let <m>\mu_k</m> denote the population mean for the <m>k</m>-th
+        group in our experiment, then the statistical model corresponding to <m>H_1</m> is:
+        <me>
+          Y_{ik} = \mu_k + \epsilon_{ik}
+        </me>
+        where, once again, we assume that the error terms are normally distributed with mean 0 and
+        standard deviation <m>\sigma</m>. That is, the alternative hypothesis also assumes that
+        <me>
+          \epsilon \sim \mbox{Normal}(0, \sigma^2)
+        </me>
+      </p>
+
+      <p>
+        Okay, now that we've described the statistical models underpinning <m>H_0</m> and
+        <m>H_1</m> in more detail, it's now pretty straightforward to say what the mean square
+        values are measuring and what this means for the interpretation of <m>F</m>.
+      </p>
+
+      <p>
+        It turns out that the within-groups mean square, MS<m>_w</m>, can be viewed as an
+        estimator (in the technical sense: see the estimation chapter) of the error variance
+        <m>\sigma^2</m>. The between-groups mean square MS<m>_b</m> is also an estimator; but
+        what it estimates is the error variance <em>plus</em> a quantity that depends on the true
+        differences among the group means. If we call this quantity <m>Q</m>, then we can see that
+        the <m>F</m>-statistic is basically
+        <me>
+          F = \frac{\hat{Q} + \hat\sigma^2}{\hat\sigma^2}
+        </me>
+        where the true value <m>Q=0</m> if the null hypothesis is true, and <m>Q > 0</m> if the
+        alternative hypothesis is true <xref ref="Hays1994"/>. Therefore, at a bare minimum
+        <em>the <m>F</m> value must be larger than 1</em> to have any chance of rejecting the
+        null hypothesis. Note that this <em>doesn't</em> mean that it's impossible to get an
+        <m>F</m>-value less than 1. What it means is that, if the null hypothesis is true the
+        sampling distribution of the <m>F</m> ratio has a mean of 1,<fn>Or, more accurately,
+        <m>1 + \frac{2}{df_2 - 2}</m>.</fn> and so we need to see <m>F</m>-values larger than 1
+        in order to safely reject the null.
+      </p>
+
+      <p>
+        To be a bit more precise about the sampling distribution, notice that if the null
+        hypothesis is true, both MS<m>_b</m> and MS<m>_w</m> are estimators of the variance of
+        the residuals <m>\epsilon_{ik}</m>. If those residuals are normally distributed, then you
+        might suspect that the estimate of the variance of <m>\epsilon_{ik}</m> is chi-square
+        distributed. Because that's what a chi-square distribution <em>is</em>: it's what you get
+        when you square a bunch of normally-distributed things and add them up. And since the
+        <m>F</m> distribution is (again, by definition) what you get when you take the ratio
+        between two things that are <m>\chi^2</m> distributed, we have our sampling distribution.
+      </p>
+
+    </subsection>
+
+  </section>
+
+  <section xml:id="sec-introduceaov">
+    <title>Interpreting Our Results in CogStat</title>
+
+    <p>
+      You already know the answers because we calculated it step by step, but you have a more
+      in-depth understanding of how it all ties together. CogStat will do all of this for you, but
+      it's good to know what's going on behind the scenes. Let's see how CogStat displays our
+      data.
+    </p>
+
+    <p>
+      So what we had to do, was simply run the <c>Compare groups</c> function with
+      <c>mood_gain</c> by <c>drug</c>.
+    </p>
+
+    <figure xml:id="fig-cogcompbydrugdialog">
+      <caption>CogStat dialogue for <c>Compare groups</c> function with our clinical trial data
+      set with variables <c>mood_gain</c> grouped by <c>drug</c>.</caption>
+      <image source="comparegroupsbydrug.png"/>
+    </figure>
+
+    <figure xml:id="fig-cogcompbydrugdescr">
+      <caption>CogStat result set displaying descriptives and boxplots as a result of <c>Compare
+      groups</c> function with our clinical trial data set with variables <c>mood_gain</c> grouped
+      by <c>drug</c>.</caption>
+      <image source="moodbydrug.png"/>
+    </figure>
+
+    <figure xml:id="fig-cogcompbydrug">
+      <caption>CogStat result set with hypothesis test results, effect size and post hoc results
+      after running <c>Compare groups</c> function with our clinical trial data set with variables
+      <c>mood_gain</c> grouped by <c>drug</c>.</caption>
+      <image source="moodbydrughypo.png"/>
+    </figure>
+
+    <p>
+      We've seen this before. Let us explore the hypothesis test results.
+    </p>
+
+    <table xml:id="tbl-hyp9">
+      <title>Hypothesis tests output for the one-way ANOVA on the <c>clinicaltrial.csv</c>
+      data.</title>
+      <tabular>
+        <row>
+          <cell>Testing if the means are the same.</cell>
+        </row>
+        <row>
+          <cell>One grouping variable. More than two groups. Interval variable. &gt;&gt; Choosing one-way ANOVA or Kruskal-Wallis test depending on the assumptions.</cell>
+        </row>
+        <row>
+          <cell>Checking for normality.</cell>
+        </row>
+        <row>
+          <cell>Shapiro-Wilk normality test in variable mood_gain (drug: anxifree): <m>W</m> = 0.96, <m>p</m> = .790</cell>
+        </row>
+        <row>
+          <cell>Shapiro-Wilk normality test in variable mood_gain (drug: joyzepam): <m>W</m> = 0.82, <m>p</m> = .096</cell>
+        </row>
+        <row>
+          <cell>Shapiro-Wilk normality test in variable mood_gain (drug: placebo): <m>W</m> = 0.96, <m>p</m> = .830</cell>
+        </row>
+        <row>
+          <cell>Checking for homogeneity of variance across groups.</cell>
+        </row>
+        <row>
+          <cell>Levene test: <m>W</m> = 1.47, <m>p</m> = .262</cell>
+        </row>
+        <row>
+          <cell>Normality and homogeneity of variance are not violated. &gt;&gt; Running one-way ANOVA.</cell>
+        </row>
+        <row>
+          <cell>Sensitivity power analysis. Minimal effect size to reach 95% power with the present sample size for the present hypothesis test. Minimal effect size in eta-square: 0.23.</cell>
+        </row>
+        <row>
+          <cell>Result of one-way ANOVA: <m>F</m>(2, 15) = 18.61, <m>p</m> &lt; .001</cell>
+        </row>
+      </tabular>
+    </table>
+
+    <p>
+      For now, let's stop here. We'll come back to the post hoc tests later. For now, let's just
+      focus on the hypothesis test results. We can see that the Shapiro-Wilk normality test was
+      run on each of the groups. Testing the normality assumption is relatively straightforward. We
+      covered the theory behind it in <xref ref="sec-shapiro"/>. The Levene test was run to check
+      for homogeneity of variance across groups. The one-way ANOVA was run, and the result was
+      that the <m>F</m>-value was 18.61, and the <m>p</m>-value was less than 0.001.
+    </p>
+
+    <p>
+      At this point, we're basically done. (If you ran the test with us, you've seen something
+      about post hoc tests. We will discuss them later.) Having completed our calculations, it's
+      traditional to organise all these numbers into an ANOVA table like the one in
+      <xref ref="tbl-anovatableresults"/>. For our clinical trial data, the ANOVA table would look
+      like this:
+    </p>
+
+    <table xml:id="tbl-anovatableresults">
+      <title>ANOVA table for the <c>mood_gain</c> by <c>drug</c> variable.</title>
+      <tabular>
+        <row header="yes">
+          <cell></cell>
+          <cell>df</cell>
+          <cell>Sum of squares</cell>
+          <cell>Mean squares</cell>
+          <cell><m>F</m>-statistic</cell>
+          <cell><m>p</m>-value</cell>
+        </row>
+        <row>
+          <cell>between groups</cell>
+          <cell>2</cell>
+          <cell>3.4533</cell>
+          <cell>1.7267</cell>
+          <cell>18.61</cell>
+          <cell>&lt; .001</cell>
+        </row>
+        <row>
+          <cell>within groups</cell>
+          <cell>15</cell>
+          <cell>1.3917</cell>
+          <cell>0.0928</cell>
+          <cell>--</cell>
+          <cell>--</cell>
+        </row>
+      </tabular>
+    </table>
+
+    <p>
+      CogStat doesn't produce this table for you or give the sums of squares or mean squares. But
+      actually, you don't need it to understand what the statistic tells you. There's almost never
+      a good reason to include the whole table in your write-up, but you might see it in other
+      statistical software.
+    </p>
+
+    <p>
+      A pretty standard way of reporting this result would be to write something like this:
+    </p>
+
+    <blockquote>
+      <p>One-way ANOVA showed a significant effect of drug on mood gain (<em>F</em>(2,15) = 18.61,
+      <em>p</em> &lt; .001).</p>
+    </blockquote>
+
+    <p>
+      Sigh. So much work for one short sentence (if you do it manually).
+    </p>
+
+  </section>
 
 </chapter>
