@@ -1113,10 +1113,14 @@
         \mu - \left( 1.96 \times \text{SEM} \right) \ \leq \ \bar{X}\ \leq \ \mu + \left( 1.96 \times \text{SEM} \right)
       </me>
       where the SEM is equal to <m>\sigma / \sqrt{N}</m>, and we can be 95% confident that this is
-      true.
+      true. However, that's not answering the question that we're actually interested in.
     </p>
 
     <p>
+      The equation above tells us what we should expect about the sample mean, given that we know
+      the population parameters. What we <em>want</em> is to have this work the other way around:
+      we want to know what we should believe about the population parameters, given that we have
+      observed a particular sample. However, it's not too difficult to do this.
       Using a little high school algebra, a sneaky way to rewrite our equation is like this:
       <me>
         \bar{X} - \left( 1.96 \times \text{SEM} \right) \ \leq \ \mu \ \leq \ \bar{X} + \left( 1.96 \times \text{SEM}\right)
@@ -1126,11 +1130,22 @@
     <p>
       What this is telling is that the range of values has a 95% probability of containing the
       population mean <m>\mu</m>. We refer to this range as a <term>95% confidence interval</term>,
-      denoted <m>\text{CI}_{95}</m>. In short, as long as <m>N</m> is sufficiently large, then we
+      denoted <m>\text{CI}_{95}</m>. In short, as long as <m>N</m> is sufficiently large
+      <mdash/> large enough for us to believe that the sampling distribution of the mean is
+      normal <mdash/> then we
       can write this as our formula for the 95% confidence interval:
       <me>
         \text{CI}_{95} = \bar{X} \pm \left( 1.96 \times \frac{\sigma}{\sqrt{N}} \right)
       </me>
+    </p>
+
+    <p>
+      Of course, there's nothing special about the number 1.96: it just happens to be the
+      multiplier you need to use if you want a 95% confidence interval. If I'd wanted a 70%
+      confidence interval, you have to calculate the 15th and 85th quantiles of the normal
+      distribution, which are <m>-1.036433</m> and <m>1.036433</m>. So the formula for
+      <m>\text{CI}_{70}</m> would be the same as the formula for <m>\text{CI}_{95}</m> except
+      that we'd use 1.04 as our magic number rather than 1.96.
     </p>
 
     <subsection xml:id="subsec-ci-correction">
@@ -1303,6 +1318,12 @@
       As always, there are a lot of topics related to sampling and estimation that aren't covered in
       this book, but for an introductory psychology class, this is fairly comprehensive. For most
       applied researchers, you won't need much more theory than this.
+    </p>
+
+    <p>
+      One big question we haven't discussed in this chapter is what you do when you don't have a
+      simple random sample. There is a lot of statistical theory you can draw on to handle this
+      situation, but it's well beyond the scope of this book.
     </p>
 
   </section>
