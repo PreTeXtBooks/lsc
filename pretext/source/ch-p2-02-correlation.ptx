@@ -5,8 +5,463 @@
 
   <introduction>
     <p>
-      Content to be added.
+      Up to this point, we have focused entirely on how to construct descriptive statistics for a single variable. What we have not done is talk about how to describe the relationships <em>between</em> variables in the data. To do that, we want to talk mainly about the <term>correlation</term> between variables. But first, we need some data.
     </p>
+    <p>
+      After watching the AFL data, let's turn to a topic close to every parent's heart: sleep. The following data set (<c>parenthood.csv</c>) is fictitious but based on real events. Suppose we're curious to determine how much a baby's sleeping habits affect the parent's mood. Let's say we can rate parent grumpiness very precisely on a scale from 0 (not at all grumpy) to 100 (very, very grumpy). And let's also assume that we've been measuring parent grumpiness, parent sleeping patterns, and the baby's sleeping patterns for 100 days.
+    </p>
+    <figure xml:id="fig-cogstatparenthoodload">
+      <caption>This is what you would see after loading the parenthood.csv dataset.</caption>
+      <image source="cogstatparenthoodload.png"/>
+    </figure>
+    <p>
+      As described in <xref ref="ch-descriptive"/>, we can get all the necessary descriptive statistics for all the variables: <c>parentsleep</c>, <c>babysleep</c> and <c>grumpiness</c>. Let's summarise all these into a neat little table.
+    </p>
+    <table xml:id="tab-parenthoodtab">
+      <title>Descriptive statistics for the parenthood data.</title>
+      <tabular halign="center">
+        <row header="yes">
+          <cell/>
+          <cell>Parent grumpiness</cell>
+          <cell>Parent's hours slept</cell>
+          <cell>Baby's hours slept</cell>
+        </row>
+        <row header="yes">
+          <cell/>
+          <cell><c>parentgrump</c></cell>
+          <cell><c>parentsleep</c></cell>
+          <cell><c>babysleep</c></cell>
+        </row>
+        <row>
+          <cell halign="left">Mean</cell>
+          <cell>63.7</cell>
+          <cell>6.965</cell>
+          <cell>8.049</cell>
+        </row>
+        <row>
+          <cell halign="left">Standard deviation</cell>
+          <cell>10.0</cell>
+          <cell>1.011</cell>
+          <cell>2.064</cell>
+        </row>
+        <row>
+          <cell halign="left">Skewness</cell>
+          <cell>0.4</cell>
+          <cell>-0.296</cell>
+          <cell>-0.024</cell>
+        </row>
+        <row>
+          <cell halign="left">Kurtosis</cell>
+          <cell>-0.0</cell>
+          <cell>-0.649</cell>
+          <cell>-0.613</cell>
+        </row>
+        <row>
+          <cell halign="left">Range</cell>
+          <cell>50.0</cell>
+          <cell>4.160</cell>
+          <cell>8.820</cell>
+        </row>
+        <row>
+          <cell halign="left">Maximum</cell>
+          <cell>91.0</cell>
+          <cell>9.000</cell>
+          <cell>12.070</cell>
+        </row>
+        <row>
+          <cell halign="left">Upper quartile</cell>
+          <cell>71.0</cell>
+          <cell>7.740</cell>
+          <cell>9.635</cell>
+        </row>
+        <row>
+          <cell halign="left">Median</cell>
+          <cell>62.0</cell>
+          <cell>7.030</cell>
+          <cell>7.950</cell>
+        </row>
+        <row>
+          <cell halign="left">Lower quartile</cell>
+          <cell>57.0</cell>
+          <cell>6.292</cell>
+          <cell>6.425</cell>
+        </row>
+        <row>
+          <cell halign="left">Minimum</cell>
+          <cell>41.0</cell>
+          <cell>4.840</cell>
+          <cell>3.250</cell>
+        </row>
+      </tabular>
+    </table>
+    <p>
+      To start understanding the relationship between a pair of variables, select <c>Explore relation of variable pair</c> so a pop-up appears. Move the name of the two variables you wish to analyse from <c>Available variables</c> to <c>Selected variables</c>, then click <c>OK</c>. In CogStat, we can run analysis on multiple variables at once by selecting them in the variable list. This will display all analysis results after each other sequentially. We'll be looking at sections called <em>Sample properties</em> from the result sets.
+    </p>
+    <figure xml:id="fig-cogstatexplorevariablepair">
+      <caption>The <c>Explore relation of variable pair</c> dialogue in CogStat.</caption>
+      <image source="cogstatexplorevariablepair.png"/>
+    </figure>
   </introduction>
+
+  <section xml:id="sec-strength-direction">
+    <title>The Strength and Direction of a Relationship</title>
+    <p>
+      We can draw scatterplots to give us a general sense of how closely related two variables are. Ideally, though, we might want to say a bit more about it than that. For instance, let's compare the relationship between <c>parentsleep</c> and <c>parentgrump</c> with that between <c>babysleep</c> and <c>parentgrump</c> (see figures below).
+    </p>
+    <sidebyside>
+      <figure xml:id="fig-parentsleepgrumpplot">
+        <caption>Scatterplot drawn by CogStat showing the relationship between <c>parentsleep</c> and <c>parentgrump</c>.</caption>
+        <image source="parentsleepgrumpplot.png"/>
+      </figure>
+      <figure xml:id="fig-babysleepgrumpplot">
+        <caption>Scatterplot drawn by CogStat showing the relationship between <c>babysleep</c> and <c>parentgrump</c>.</caption>
+        <image source="babysleepgrumpplot.png"/>
+      </figure>
+    </sidebyside>
+    <p>
+      When looking at these two plots side by side, it's clear that the relationship is <em>qualitatively</em> the same in both cases: more sleep equals less grump! However, it's also obvious that the relationship between <c>parentsleep</c> and <c>parentgrump</c> is <em>stronger</em> than between <c>babysleep</c> and <c>parentgrump</c>. The plot on the left is <q>neater</q> than on the right. It feels like if you want to predict the parent's mood, it will help you a little bit to know how many hours the baby slept, but it'd be <em>more</em> helpful to know how many hours the parent slept.
+    </p>
+
+    <remark xml:id="rem-scatterplots">
+      <title>Scatterplots</title>
+      <p>
+        On a scatterplot graph, each observation is represented by one dot in a coordinate system. The horizontal location of the dot plots the value of the observation on one variable, and the vertical location displays its value on the other variable.
+      </p>
+      <p>
+        Scatterplots are used often:
+      </p>
+      <ul>
+        <li><p>to visualise the relationship between two variables,</p></li>
+        <li><p>to identify trends, which can be further explored with regression analysis (see <xref ref="ch-regression"/>),</p></li>
+        <li><p>and to detect outliers.</p></li>
+      </ul>
+      <p>
+        Scatterplots can only be used with <em>continuous variables</em>. If you have a <em>discrete variable</em>, you can use a boxplot instead.
+      </p>
+    </remark>
+
+    <figure xml:id="fig-parentsleepbabysleepplot">
+      <caption>Scatterplot drawn by CogStat showing the relationship between <c>babysleep</c> and <c>parentsleep</c>.</caption>
+      <image source="parentsleepbabysleepplot.png"/>
+    </figure>
+    <p>
+      In contrast, let's consider the scatterplot of <q><c>babysleep</c> v <c>parentgrump</c></q> compared to the scatterplot of <q><c>babysleep</c> v <c>parentsleep</c></q>. The overall strength of the relationship is the same, but the direction is different. If the baby sleeps more, the parent gets <em>more</em> sleep (positive relationship), but if the baby sleeps more, then the parent gets <em>less</em> grumpy (negative relationship).
+    </p>
+  </section>
+
+  <section xml:id="sec-pearson">
+    <title>The Correlation Coefficient</title>
+    <p>
+      We can make these ideas a bit more explicit by introducing the idea of a <term>correlation coefficient</term> (or, more specifically, <term>Pearson's correlation coefficient</term>), which is traditionally denoted by <m>r</m>. The correlation coefficient between two variables <m>X</m> and <m>Y</m> (sometimes denoted <m>r_{XY}</m>), which we'll define more precisely shortly, is a measure that varies from <m>-1</m> to <m>1</m>. When <m>r = -1</m>, it means that we have a perfect negative relationship, and when <m>r = 1</m>, it means we have a perfect positive relationship. When <m>r = 0</m>, there's no relationship at all.
+    </p>
+    <p>
+      The Pearson's correlation coefficient formula can be written in several ways. The simplest way to write down the formula is to break it into two steps. Firstly, let's introduce the idea of a <term>covariance</term>. The covariance between two variables <m>X</m> and <m>Y</m> is a generalisation of the notion of the variance. It is a mathematically simple way of describing the relationship between two variables that isn't terribly informative to humans:
+    </p>
+    <me>
+      \text{Cov}(X,Y) = \frac{1}{N-1} \sum_{i=1}^N \left( X_i - \bar{X} \right) \left( Y_i - \bar{Y} \right)
+    </me>
+    <p>
+      Because we're multiplying (i.e., taking the <q>product</q> of) a quantity that depends on <m>X</m> by a quantity that depends on <m>Y</m> and then averaging<fn>Just like we saw with the variance and the standard deviation, in practice, we divide by <m>N-1</m> rather than <m>N</m>.</fn>, you can think of the formula for the covariance as an <q>average cross product</q> between <m>X</m> and <m>Y</m>. The covariance has the nice property that, if <m>X</m> and <m>Y</m> are entirely unrelated, the covariance is exactly zero. If the relationship between them is positive, then the covariance is also positive. If the relationship is negative, then the covariance is also negative. In other words, the covariance captures the basic qualitative idea of correlation. Unfortunately, the raw magnitude of the covariance isn't easy to interpret: it depends on the units in which <m>X</m> and <m>Y</m> are expressed, and worse yet, the actual units in which the covariance is expressed are really weird. For instance, if <m>X</m> refers to the <c>parentsleep</c> variable (units: hours) and <m>Y</m> refers to the <c>parentgrump</c> variable (units: grumps), then the units for their covariance are <q>hours <m>\times</m> grumps</q>. And I have no freaking idea what that would even mean.
+    </p>
+    <p>
+      The Pearson correlation coefficient <m>r</m> fixes this interpretation problem by standardising the covariance in the same way that the <m>z</m>-score standardises a raw score: dividing by the standard deviation. However, because we have two variables that contribute to the covariance, the standardisation only works if we divide by both standard deviations.<fn>This is an oversimplification.</fn> In other words, the correlation between <m>X</m> and <m>Y</m> can be written as follows:
+    </p>
+    <me>
+      r_{XY} = \frac{\text{Cov}(X,Y)}{ \hat{\sigma}_X \ \hat{\sigma}_Y}
+    </me>
+    <p>
+      By doing this standardisation, we keep all of the nice properties of the covariance discussed earlier, and the actual values of <m>r</m> are on a meaningful scale: <m>r= 1</m> implies a perfect positive relationship, and <m>r = -1</m> implies a perfect negative relationship.
+    </p>
+  </section>
+
+  <section xml:id="sec-interpretingcorrelations">
+    <title>Interpreting a Correlation</title>
+    <p>
+      Naturally, in real life, you don't see many correlations of 1. So how should you interpret a correlation of, say <m>r= .4</m>? The honest answer is that it really depends on what you want to use the data for, and on how strong the correlations in your field tend to be. A friend of Danielle's in engineering once argued that any correlation less than <m>.95</m> is completely useless (he may have been exaggerating, even for engineering). On the other hand, there are real cases <mdash/> even in psychology <mdash/> where you should expect strong correlations. For instance, one of the benchmark data sets used to test theories of how people judge similarities is so clean that any theory that can't achieve a correlation of at least <m>.9</m> isn't deemed successful. However, when looking for (say) elementary intelligence correlates (e.g., inspection time, response time), if you get a correlation above <m>.3</m> you're doing very well. In short, the interpretation of a correlation depends a lot on the context. That said, the rough guide in the table below is fairly typical.
+    </p>
+    <table xml:id="tab-interpretingcorrelations">
+      <title>Rough guide to interpreting correlations</title>
+      <tabular halign="center">
+        <row header="yes">
+          <cell halign="left">Correlation</cell>
+          <cell>Strength</cell>
+          <cell>Direction</cell>
+        </row>
+        <row>
+          <cell halign="left">-1.0 to -0.9</cell>
+          <cell>Very strong</cell>
+          <cell>Negative</cell>
+        </row>
+        <row>
+          <cell halign="left">-0.9 to -0.7</cell>
+          <cell>Strong</cell>
+          <cell>Negative</cell>
+        </row>
+        <row>
+          <cell halign="left">-0.7 to -0.4</cell>
+          <cell>Moderate</cell>
+          <cell>Negative</cell>
+        </row>
+        <row>
+          <cell halign="left">-0.4 to -0.2</cell>
+          <cell>Weak</cell>
+          <cell>Negative</cell>
+        </row>
+        <row>
+          <cell halign="left">-0.2 to 0</cell>
+          <cell>Negligible</cell>
+          <cell>Negative</cell>
+        </row>
+        <row>
+          <cell halign="left">0 to 0.2</cell>
+          <cell>Negligible</cell>
+          <cell>Positive</cell>
+        </row>
+        <row>
+          <cell halign="left">0.2 to 0.4</cell>
+          <cell>Weak</cell>
+          <cell>Positive</cell>
+        </row>
+        <row>
+          <cell halign="left">0.4 to 0.7</cell>
+          <cell>Moderate</cell>
+          <cell>Positive</cell>
+        </row>
+        <row>
+          <cell halign="left">0.7 to 0.9</cell>
+          <cell>Strong</cell>
+          <cell>Positive</cell>
+        </row>
+        <row>
+          <cell halign="left">0.9 to 1.0</cell>
+          <cell>Very strong</cell>
+          <cell>Positive</cell>
+        </row>
+      </tabular>
+    </table>
+    <p>
+      However, something that can never be stressed enough is that you should <em>always</em> look at the scatterplot before attaching any interpretation to the data. A correlation might not mean what you think it means. The classic illustration of this is <q>Anscombe's Quartet</q>, which is a collection of four data sets. Each data set has two variables, an <m>X</m> and a <m>Y</m>. For all four data sets, the mean value for <m>X</m> is 9, and the mean for <m>Y</m> is 7.5. The standard deviations for all <m>X</m> variables are almost identical, as are the standard deviations for the <m>Y</m> variables. And in each case the correlation between <m>X</m> and <m>Y</m> is <m>r = 0.816</m>.
+    </p>
+    <p>
+      You'd think that these four data sets would look pretty similar to one another. They do not. If we draw scatterplots of <m>X</m> against <m>Y</m> for all four variables, we see that all four of these are <em>spectacularly</em> different to each other.
+    </p>
+    <p>
+      The lesson here, which so very many people seem to forget in real life, is <q><em>always graph your raw data</em></q>.
+    </p>
+  </section>
+
+  <section xml:id="sec-spearman">
+    <title>Spearman's Rank Correlations</title>
+    <p>
+      The Pearson correlation coefficient is useful for many things, but it has shortcomings. One particular issue stands out: what it actually measures is the strength of the <em>linear</em> relationship between two variables. In other words, it gives you a measure of the extent to which the data all tend to fall on a single, perfectly straight line. Often, this is a pretty good approximation to what we mean when we say <q>relationship</q>, and so the Pearson correlation is a good thing to calculate. Sometimes, it isn't.
+    </p>
+    <p>
+      One very common situation where the Pearson correlation isn't quite the right thing to use arises when an increase in one variable <m>X</m> really is reflected in an increase in another variable <m>Y</m>. However, the nature of the relationship isn't necessarily linear. An example of this might be the relationship between effort and reward when studying for an exam. If you put zero effort (<m>X</m>) into learning a subject, you should expect a grade of 0% (<m>Y</m>). However, a little bit of effort will cause a <em>massive</em> improvement: just turning up to lectures means that you learn a fair bit and if you just turn up to classes and scribble a few things down so your grade might rise to 35%, all without a lot of effort. However, you just don't get the same effect at the other end of the scale. As everyone knows, it takes <em>a lot</em> more effort to get a grade of 90% than it takes to get a grade of 55%. This means that if I've got data looking at study effort and grades, there's a good chance that Pearson correlations will be misleading.
+    </p>
+    <p>
+      To illustrate, consider the data showing the relationship between hours worked and grade received for 10 students taking some classes. The curious thing about this <mdash/> highly fictitious <mdash/> data set is that increasing your effort <em>always</em> increases your grade. It might be by a lot or by a little, but increasing the effort will never decrease your grade.
+    </p>
+    <p>
+      The data are stored in <c>effort.csv</c>. CogStat will calculate a standard Pearson correlation first<fn>Unless, of course, you set your measurement level in the second row of the CSV as <c>"ord"</c> (<em>ordinal</em>), because then you already tell the software that Pearson's <m>r</m> does not make sense to look at.</fn>. It shows a strong relationship between hours worked and grade received: <m>r = 0.909</m>. But this doesn't actually capture the observation that increasing hours worked <em>always</em> increases the grade. There's a sense here in which we want to say that the correlation is <em>perfect</em> but for a somewhat different notion of a <q>relationship</q>. What we're looking for is something that captures the fact that there is a perfect <term>ordinal relationship</term> here. That is, if student 1 works more hours than student 2, then we can guarantee that student 1 will get a better grade. That's not what a correlation of <m>r = 0.91</m> says at all.
+    </p>
+    <p>
+      How should we address this? Actually, it's really easy: if we're looking for ordinal relationships, all we have to do is treat the data as if it were an ordinal scale! So, instead of measuring effort in terms of <q>hours worked</q>, let us rank all 10 of our students in order of hours worked. That is, student 1 did the least work out of anyone (2 hours), so they got the lowest rank (rank = 1). Student 4 was the next laziest, putting in only 6 hours of work over the whole semester, so they got the next lowest rank (rank = 2). Notice that we're using <q>rank = 1</q> to mean <q>low rank</q>. Sometimes in everyday language, we talk about <q>rank = 1</q> to mean <q>top rank</q> rather than <q>bottom rank</q>. So be careful: you can rank <q>from smallest value to largest value</q> (i.e., small equals rank 1), or you can rank <q>from largest value to smallest value</q> (i.e., large equals rank 1). In this case, we're ranking from smallest to largest. But in real life, it's really easy to forget which way you set things up, so you have to put a bit of effort into remembering!
+    </p>
+    <p>
+      Okay, so let's have a look at our students when we rank them from worst to best in terms of effort and reward:
+    </p>
+    <table xml:id="tab-studenteffort">
+      <title>Student rankings by effort and grade</title>
+      <tabular halign="center">
+        <row header="yes">
+          <cell halign="left">Student</cell>
+          <cell>Rank (hours worked)</cell>
+          <cell>Rank (grade received)</cell>
+        </row>
+        <row>
+          <cell halign="left">student 1</cell>
+          <cell>1</cell>
+          <cell>1</cell>
+        </row>
+        <row>
+          <cell halign="left">student 2</cell>
+          <cell>10</cell>
+          <cell>10</cell>
+        </row>
+        <row>
+          <cell halign="left">student 3</cell>
+          <cell>6</cell>
+          <cell>6</cell>
+        </row>
+        <row>
+          <cell halign="left">student 4</cell>
+          <cell>2</cell>
+          <cell>2</cell>
+        </row>
+        <row>
+          <cell halign="left">student 5</cell>
+          <cell>3</cell>
+          <cell>3</cell>
+        </row>
+        <row>
+          <cell halign="left">student 6</cell>
+          <cell>5</cell>
+          <cell>5</cell>
+        </row>
+        <row>
+          <cell halign="left">student 7</cell>
+          <cell>4</cell>
+          <cell>4</cell>
+        </row>
+        <row>
+          <cell halign="left">student 8</cell>
+          <cell>8</cell>
+          <cell>8</cell>
+        </row>
+        <row>
+          <cell halign="left">student 9</cell>
+          <cell>7</cell>
+          <cell>7</cell>
+        </row>
+        <row>
+          <cell halign="left">student 10</cell>
+          <cell>9</cell>
+          <cell>9</cell>
+        </row>
+      </tabular>
+    </table>
+    <p>
+      These are <em>identical</em>. The student who put in the most effort got the best grade, the student with the least effort got the worst grade, etc. We can rank students by hours worked, then rank students by grade received, and these two rankings would be identical. So if we now correlate them, we get a perfect relationship: <m>1</m>.
+    </p>
+    <p>
+      We've just re-invented the <term>Spearman's rank order correlation</term>, usually denoted <m>\rho</m> (pronounced: rho) to distinguish it from the Pearson correlation <m>r</m>. CogStat will use <m>r_{S}</m> to denote rank order correlation.
+    </p>
+    <p>
+      CogStat will automatically calculate both Pearson's correlation and Spearman's rank order correlation for you if your measurement is not set in your source data (see the figure below). If you set the measurement type to <q>ordinal</q> in your source file, it will omit to calculate Pearson's correlation due to the above reasons.
+    </p>
+    <figure xml:id="fig-cogstatcorrelationresult">
+      <caption>This is what you would see in CogStat after loading the <c>effort.csv</c> dataset.</caption>
+      <image source="cogstatcorrelationresult.png"/>
+    </figure>
+  </section>
+
+  <section xml:id="sec-missingvaluespair">
+    <title>Missing Values in Pairwise Calculations</title>
+    <p>
+      To illustrate the issues, let's open up a data set with missing values, <c>parenthood_missing.csv</c>. This file contains the same data as the original parenthood data but with some values deleted. While the original source could contain an empty value or <c>NA</c>, CogStat will display <c>NaN</c> for these missing values (see the figure below).
+    </p>
+    <figure xml:id="fig-parenthoodmissing">
+      <caption>This is what you would see in CogStat after loading the adjusted dataset.</caption>
+      <image source="cogstatparenthood_missing.png"/>
+    </figure>
+    <p>
+      Let's calculate descriptive statistics using the <c>Explore variable</c> function (see <xref ref="ch-descriptive"/>):
+    </p>
+    <table xml:id="tab-parenthoodmissingtab">
+      <title>Descriptive statistics for the parenthood data with missing values. We can observe the slight difference in our statistics when we have missing values.</title>
+      <tabular halign="center">
+        <row header="yes">
+          <cell/>
+          <cell>Parent grumpiness</cell>
+          <cell>Parent's hours slept</cell>
+          <cell>Baby's hours slept</cell>
+        </row>
+        <row header="yes">
+          <cell/>
+          <cell><c>parentgrump</c></cell>
+          <cell><c>parentsleep</c></cell>
+          <cell><c>babysleep</c></cell>
+        </row>
+        <row>
+          <cell halign="left">Mean</cell>
+          <cell>63.2</cell>
+          <cell>6.977</cell>
+          <cell>8.114</cell>
+        </row>
+        <row>
+          <cell halign="left">Standard deviation</cell>
+          <cell>9.8</cell>
+          <cell>1.015</cell>
+          <cell>2.035</cell>
+        </row>
+        <row>
+          <cell halign="left">Skewness</cell>
+          <cell>0.4</cell>
+          <cell>-0.346</cell>
+          <cell>-0.096</cell>
+        </row>
+        <row>
+          <cell halign="left">Kurtosis</cell>
+          <cell>-0.2</cell>
+          <cell>-0.647</cell>
+          <cell>-0.500</cell>
+        </row>
+        <row>
+          <cell halign="left">Range</cell>
+          <cell>48.0</cell>
+          <cell>4.160</cell>
+          <cell>8.820</cell>
+        </row>
+        <row>
+          <cell halign="left">Maximum</cell>
+          <cell>89.0</cell>
+          <cell>9.000</cell>
+          <cell>12.070</cell>
+        </row>
+        <row>
+          <cell halign="left">Upper quartile</cell>
+          <cell>70.2</cell>
+          <cell>7.785</cell>
+          <cell>9.610</cell>
+        </row>
+        <row>
+          <cell halign="left">Median</cell>
+          <cell>61.0</cell>
+          <cell>7.030</cell>
+          <cell>8.200</cell>
+        </row>
+        <row>
+          <cell halign="left">Lower quartile</cell>
+          <cell>56.0</cell>
+          <cell>6.285</cell>
+          <cell>6.460</cell>
+        </row>
+        <row>
+          <cell halign="left">Minimum</cell>
+          <cell>41.0</cell>
+          <cell>4.840</cell>
+          <cell>3.250</cell>
+        </row>
+      </tabular>
+    </table>
+    <p>
+      We can see that there are 9 missing values for <c>parentsleep</c> (<c>N of missing cases: 9</c>), 11 missing values for <c>babysleep</c> (<c>N of missing cases: 11</c>), and 8 missing values for <c>parentgrump</c> (<c>N of missing cases: 8</c>).
+    </p>
+    <p>
+      Whichever pair you'd like to run (e.g., <c>parentsleep</c> vs. <c>parentgrump</c>), CogStat will automatically exclude the missing values from the calculation:
+    </p>
+    <figure xml:id="fig-parenthoodmissingcog1">
+      <caption>17 missing pairs when comparing <c>parentsleep</c> and <c>parentgrump</c>.</caption>
+      <image source="cogstatparentsleepparentgrumpmissing.png"/>
+    </figure>
+    <figure xml:id="fig-parenthoodmissingcog2">
+      <caption>18 missing pairs when comparing <c>babysleep</c> and <c>parentgrump</c>.</caption>
+      <image source="cogstatbabysleepparentgrumpmissing.png"/>
+    </figure>
+    <figure xml:id="fig-parenthoodmissingcog3">
+      <caption>20 missing pairs when comparing <c>babysleep</c> and <c>parentsleep</c>.</caption>
+      <image source="cogstatparentsleepbabysleepmissing.png"/>
+    </figure>
+  </section>
+
+  <conclusion xml:id="sec-correlation-summary">
+    <title>Summary</title>
+    <p>
+      In this chapter, we discussed how to measure the strength of the relationship between two variables. We introduced the concept of correlation and how to calculate it using CogStat. We also discussed the difference between <term>Pearson's correlation</term> (<xref ref="sec-pearson"/>) and <term>Spearman's rank order correlation</term> (<xref ref="sec-spearman"/>), and how CogStat will calculate it for you. Finally, we discussed how CogStat handles missing values (<xref ref="sec-missingvaluespair"/>) in pairwise calculations.
+    </p>
+    <p>
+      You might have been tempted to look at the regression coefficient, the linear regression formula etc. when exploring the results from CogStat. Don't worry, you'll have a chance to learn about these in <xref ref="ch-regression"/>.
+    </p>
+  </conclusion>
 
 </chapter>
