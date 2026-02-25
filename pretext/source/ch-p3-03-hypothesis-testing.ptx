@@ -1027,7 +1027,26 @@
       </p>
 
       <p>
-        For this reason, it is becoming more standard (slowly but surely) to report some kind of
+        On the other hand, suppose we've successfully rejected the null hypothesis, but it looks
+        like the true value of <m>\theta</m> is only .51 (this would only be possible with a large
+        study). Sure, the null hypothesis is wrong, but it's not at all clear that we actually
+        <em>care</em>, because the effect size is so small.
+      </p>
+
+      <p>
+        In the context of the ESP study, we might still care, since any demonstration of real
+        psychic powers would actually be pretty cool, but in other contexts, a 1% difference isn't
+        very interesting, even if it is a real difference.
+      </p>
+
+      <p>
+        For instance, suppose we're looking at differences in high school exam scores between males
+        and females, and it turns out that the female scores are 1% higher on average than the
+        males. If I've got data from thousands of students, then this difference will almost
+        certainly be <em>statistically significant</em>, but regardless of how small the <m>p</m>
+        value is, it's just not very interesting. You'd hardly want to go around proclaiming a
+        crisis in boys' education based on such a tiny difference, would you? For this reason, it
+        is becoming more standard (slowly but surely) to report some kind of
         standard measure of effect size along with the results of the hypothesis test. The hypothesis
         test itself tells you whether you should believe that the effect you have observed is real
         (i.e., not just due to chance); the effect size tells you whether or not you should care.
@@ -1061,6 +1080,16 @@
         available, the more likely you can discriminate between two hypotheses.
       </p>
 
+      <p>
+        If we had 10 participants, and 7 of them correctly guessed the colour of the hidden card,
+        you wouldn't be terribly impressed. But if we had 10,000 participants and 7,000 of them got
+        the answer right, you would likely think we had discovered something. In other words, power
+        increases with the sample size. This is illustrated in <xref ref="fig-powerfunctionsample"/>,
+        which shows the power of the test for a true parameter of <m>\theta = 0.7</m>, for all
+        sample sizes <m>N</m> from 1 to 100, where I'm assuming that the null hypothesis predicts
+        that <m>\theta_0 = 0.5</m>.
+      </p>
+
       <figure xml:id="fig-powerfunctionsample">
         <caption>The power of our test, plotted as a function of the sample size <m>N</m>. In this
         case, the true value of <m>\theta</m> is 0.7, but the null hypothesis is that
@@ -1073,7 +1102,11 @@
         to have when you're contemplating running an experiment. It's never possible to know for
         sure since you can't possibly know what your effect size is. However, it's sometimes
         possible to guess how big it should be. If so, you can guess what sample size you need! This
-        idea is called <term>power analysis</term>.
+        idea is called <term>power analysis</term>. If it's feasible to do it, it's very helpful
+        since it can tell you whether you have enough time or money to run the experiment
+        successfully. It's increasingly common to see people arguing that power analysis should be
+        a required part of experimental design, so it's worth knowing about, but we won't be
+        discussing it in this book in detail.
       </p>
 
     </subsection>
@@ -1114,7 +1147,7 @@
         the null hypothesis provided a very poor account of the data, you could safely reject it.
         But, since you don't have any other hypotheses to compare it to, there's no way of
         <q>accepting the alternative</q> because you don't necessarily have an explicitly stated
-        alternative.
+        alternative. That's more or less all that there was to it.
       </p>
 
       <p>
@@ -1122,7 +1155,13 @@
         and his approach was somewhat more formal than Fisher's. His view was that there are multiple
         things you could <em>do</em> (accept the null or accept the alternative), and the point of
         the test was to tell you which one the data support. From this perspective, it is critical
-        to specify your alternative hypothesis properly.
+        to specify your alternative hypothesis properly. If you don't know the alternative
+        hypothesis, then you don't know how powerful the test is or which action makes sense. His
+        framework genuinely requires competition between different hypotheses. For Neyman, the
+        <m>p</m> value didn't directly measure the probability of the data (or data more extreme)
+        under the null; it was more of an abstract description about which <q>possible tests</q>
+        were telling you to accept the null and which <q>possible tests</q> were telling you to
+        accept the alternative.
       </p>
 
       <p>
@@ -1146,7 +1185,11 @@
         probabilities to hypotheses: the null hypothesis is either true or not. The Bayesian
         approach to statistics interprets probability as a degree of belief, so it's totally okay to
         say that there is a 10% chance that the null hypothesis is true: that's just a reflection of
-        your degree of confidence in this hypothesis.
+        your degree of confidence in this hypothesis. You aren't allowed to do this within the
+        frequentist approach. Remember, if you're a frequentist, a probability can only be defined
+        in terms of what happens after a large number of independent replications (i.e. a long-run
+        frequency). If this is your interpretation of probability, talking about the
+        <q>probability</q> that the null hypothesis is true is complete gibberish.
       </p>
 
       <p>
@@ -1154,7 +1197,9 @@
         are a Bayesian and are okay with making probability statements about hypotheses, you
         <em>must</em> follow the Bayesian rules for calculating those probabilities. We'll talk more
         about this in <xref ref="ch-bayes"/>, but for now, understand that <m>p</m> value is a
-        <em>terrible</em> approximation to the probability that <m>H_0</m> is true.
+        <em>terrible</em> approximation to the probability that <m>H_0</m> is true. If what you
+        want to know is the probability of the null, then the <m>p</m> value is not what you're
+        looking for!
       </p>
 
     </subsection>
@@ -1168,14 +1213,12 @@
         statisticians are not our real concern here. Our real concern is practical data analysis.
         And while the <q>orthodox</q> approach to null hypothesis significance testing has many
         drawbacks, even an unrepentant Bayesian would agree that they can be useful if used
-        responsibly.
-      </p>
-
-      <p>
-        The biggest danger in all of statistics is <em>thoughtlessness</em>. Not stupidity but
-        thoughtlessness. The rush to interpret a result without thinking through what each test says
-        about the data and checking whether that's consistent with how you've interpreted it. That's
-        where the biggest trap lies.
+        responsibly. They usually give sensible answers, and you can use them to learn interesting
+        things. Setting aside the various ideologies and historical confusions that we've discussed,
+        the fact remains that the biggest danger in all of statistics is <em>thoughtlessness</em>.
+        Not stupidity but thoughtlessness. The rush to interpret a result without thinking through
+        what each test says about the data and checking whether that's consistent with how you've
+        interpreted it. That's where the biggest trap lies.
       </p>
 
       <p>
@@ -1192,8 +1235,12 @@
         real difference between the males and the females, we should probably run a test of the null
         hypothesis that there is no difference! We can do that using a different hypothesis test,
         but when we do that, it turns out that we have no evidence that males and females are
-        significantly different (<m>p = .54</m>). This mistake is so common that you should always
-        be wary of it: the difference between significant and not-significant is <em>not</em>
+        significantly different (<m>p = .54</m>). <em>Now</em> do you think that there's anything
+        fundamentally different between the two groups? Of course not. What's happened here is that
+        the data from both groups (male and female) are pretty borderline: by pure chance, one of
+        them happened to end up on the magic side of the <m>p = .05</m> line, and the other one
+        didn't. That doesn't imply that males and females are different. This mistake is so common
+        that you should always be wary of it: the difference between significant and not-significant is <em>not</em>
         evidence of a real difference <mdash/> if you want to say that there's a difference between
         two groups, then you have to test for that difference!
       </p>
