@@ -7,6 +7,26 @@
   <references xml:id="references">
     <title>References</title>
 
+    <biblio type="raw" xml:id="Fisher1925">
+      Fisher, R. A. (1925). <em>Statistical Methods for Research Workers</em>.
+      Edinburgh, UK: Oliver and Boyd.
+    </biblio>
+
+    <biblio type="raw" xml:id="Jeffreys1961">
+      Jeffreys, H. (1961). <em>The Theory of Probability</em> (3rd ed.).
+      Oxford: Oxford University Press.
+    </biblio>
+
+    <biblio type="raw" xml:id="Johnson2013">
+      Johnson, V. E. (2013). Revised standards for statistical evidence.
+      <em>Proceedings of the National Academy of Sciences</em>, 110(48), 19313<ndash/>19317.
+    </biblio>
+
+    <biblio type="raw" xml:id="Kass1995">
+      Kass, R. E., and Raftery, A. E. (1995). Bayes factors.
+      <em>Journal of the American Statistical Association</em>, 90, 773<ndash/>795.
+    </biblio>
+    
     <biblio xml:id="americaneducationalresearchassociationStandardsEducationalPsychological2014" type="raw">
       American Educational Research Association, American Psychological Association, and National
       Council on Measurement in Education. (2014).
