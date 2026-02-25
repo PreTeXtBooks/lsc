@@ -5,7 +5,44 @@
 
   <introduction>
     <p>
-      Content to be added.
+      CogStat is a statistical analysis program designed for psychology research, particularly in cognitive science. It is user-friendly and automatic, yet powerful enough to handle a variety of statistical analyses. CogStat is free to download from the <url href="http://cogstat.org">CogStat website</url> and runs on Windows, macOS, and Linux.
+    </p>
+
+    <p>
+      The main feature of CogStat is its automatic analysis of source data and automatic selection of hypothesis tests, which can be very useful after learning about statistical theory and hypothesis testing. The program will automatically choose the most appropriate statistical test for your data, making it a useful tool for researchers who want to save time on test selection or are unsure of the best fit for their purposes.
+    </p>
+
+    <p>
+      CogStat automatically analyzes data based on its scale type, runs necessary pre-checks (such as for normality and heteroscedasticity), and performs the appropriate hypothesis test. The results are presented in a clear format following APA7 guidelines, and the program also generates graphical representations of the results.
+    </p>
+
+    <p>
+      To install CogStat, simply download the latest version from the <url href="http://cogstat.org">CogStat website</url>. The installation is easy and straightforward, and should only take a few minutes. For help with installation, please visit our <url href="https://github.com/cogstat/cogstat/wiki/Installation">GitHub page</url>.
+    </p>
+
+    <p>
+      To quickly test CogStat without using your own data, you can use the demo data provided in the program. From the <c>Data &gt; Open demo data file...</c> menu, choose a folder and data file, then click <c>Open</c>.
+    </p>
+
+    <p>
+      To use your own data with CogStat, prepare it in spreadsheet software like Excel, Google Spreadsheet, or LibreOffice Calc, or in statistical software like jamovi, JASP, SPSS, STATA, or SAS. CogStat does not handle data editing tasks, as there are more efficient solutions available. To import your data into CogStat, you can either copy and paste it from your spreadsheet software, or import it as a saved file (.xlsx, .ods, .csv, .jasp, .omv, .rdata etc.). You can also drag and drop the file into the CogStat window.
+    </p>
+
+    <p>
+      If your data comes from a spreadsheet software or is a text file, like .csv, make sure of the following:
+    </p>
+
+    <ul>
+      <li>
+        <p>The first row of your data should include the variable names without accent characters (áâő...).</p>
+      </li>
+      <li>
+        <p>The second row should include the measurement levels: <c>int</c> for interval and ratio scales, <c>ord</c> for ordinal variables, and <c>nom</c> for nominal variables. More on measurement levels (scales) in <xref ref="ch-basic-concepts"/>. The remaining rows should include the values of the variables.</p>
+      </li>
+    </ul>
+
+    <p>
+      To learn more about using CogStat, including how to prepare and load data, refer to the <url href="https://github.com/cogstat/cogstat/wiki/Documentation-for-users">GitHub Wiki page</url>.
     </p>
   </introduction>
 
