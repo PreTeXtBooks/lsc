@@ -124,6 +124,24 @@
       <url href="https://doi.org/10.1126/science.aac4716">https://doi.org/10.1126/science.aac4716</url>
     </biblio>
 
+    <biblio xml:id="Box1987" type="raw">
+      Box, J. F. (1987).
+      Guinness, Gosset, Fisher, and small samples.
+      <em>Statistical Science</em>, 2, 45<ndash/>52.
+    </biblio>
+
+    <biblio xml:id="Student1908" type="raw">
+      Student, A. (1908).
+      The probable error of a mean.
+      <em>Biometrika</em>, 6, 1<ndash/>2.
+    </biblio>
+
+    <biblio xml:id="Welch1947" type="raw">
+      Welch, B. L. (1947).
+      The generalization of <q>Student's</q> problem when several different population variances are involved.
+      <em>Biometrika</em>, 34, 28<ndash/>35.
+    </biblio>
+
     <biblio xml:id="Stevens1946" type="raw">
       Stevens, S. S. (1946).
       On the theory of scales of measurement.
