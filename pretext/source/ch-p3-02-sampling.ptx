@@ -1087,7 +1087,8 @@
       mean IQ of undergraduate psychology students is, say, 115. We also want to be able to say
       something that expresses the degree of certainty that we have in our guess. For example, it
       would be nice to say that there is a 95% chance that the true mean lies between 109 and 121.
-      The name for this is a <term>confidence interval</term> for the mean.
+      The name for this is a <term>confidence interval</term> for the mean. Armed with an understanding
+      of sampling distributions, constructing a confidence interval for the mean is quite easy.
     </p>
 
     <p>
