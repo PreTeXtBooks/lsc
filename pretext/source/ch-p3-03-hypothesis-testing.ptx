@@ -471,6 +471,8 @@
         learning statistics because they think a <q>significant result</q> must be an important one.
         It doesn't mean that at all. All that <q>statistically significant</q> means is that the
         data allowed us to reject a null hypothesis.
+        Whether or not the result is actually important in the real world is a very different question
+        and depends on all sorts of other things.
       </p>
 
     </subsection>
