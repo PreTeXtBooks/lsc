@@ -596,6 +596,7 @@
         </me>
       </p>
 
+<p>Yeah, yeah. I know what you’re thinking: notation, notation, notation. Really, who cares? Very few readers of this book are here for the notation, so we should probably move on and talk about how to use the binomial distribution. We’ve included the formula for the binomial distribution in Table 7.2, since some readers may want to play with it themselves, but since most people probably don’t care that much and because we don’t need the formula in this book, let’s not talk about it in any detail. Instead, let’s just see what the binomial distribution looks like. </p>
       <p>
         Instead, let's just see what the binomial distribution looks like. <xref ref="fig-binomial"/>
         plots the binomial probabilities for all possible values of <m>X</m> for our dice rolling
