@@ -838,7 +838,7 @@ Okay, so that explains part of the story. We've explained a little bit about how
 <p>For those readers who know a little calculus, let's give a slightly more precise explanation. In the same way that probabilities are non-negative numbers that must sum to 1, probability densities are non-negative numbers that must integrate to 1 (where the integral is taken across all possible values of 
 <m>X</m>). To calculate the probability that <m>X</m> falls between <m>a</m> and <m>b</m>
  we calculate the definite integral of the density function over the corresponding range, 
-<m>\integral^b_a p(x) dx. If you don't remember or never learned calculus, don't worry about
+<m>\integral^b_a p(x) dx</m>. If you don't remember or never learned calculus, don't worry about
 this. It's not needed for this book.</p>
     </subsection>
 
