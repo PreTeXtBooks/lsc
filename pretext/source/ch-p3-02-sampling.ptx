@@ -230,6 +230,72 @@
 
     </subsection>
 
+    <subsection xml:id="subsec-how-much-does-it-matter">
+      <title>How Much Does It Matter If You Don't Have a Simple Random Sample?</title>
+
+      <p>
+        Okay, so real-world data collection tends not to involve nice simple random samples. Does
+        that matter? A little thought should make it clear to you that it <em>can</em> matter if
+        your data are not a simple random sample: think about the difference between
+        <xref ref="fig-srs1"/> and <xref ref="fig-brs"/>. However, it's not quite as bad as it
+        sounds. Some types of biased samples are entirely unproblematic. For instance, when using a
+        stratified sampling technique, you <em>know</em> what the bias is because you created it
+        deliberately, often to <em>increase</em> the effectiveness of your study. So in those
+        situations, it's not a problem. Also, there are statistical techniques that you can use to
+        adjust for the biases you've introduced, but they are not covered in this book.
+      </p>
+
+      <p>
+        More generally, it's important to remember that random sampling is a means to an end, not
+        the end itself. Let's assume you've relied on a convenience sample; as such, you can assume
+        it's biased. A bias in your sampling method is only a problem if it causes you to draw the
+        wrong conclusions. When viewed from that perspective, I'd argue that we don't need the
+        sample to be randomly generated in <em>every</em> respect: we only need it to be random
+        for the psychologically-relevant phenomenon of interest.
+      </p>
+
+      <p>
+        Suppose we're doing a study looking at working memory capacity. In study 1, we can sample
+        randomly from all human beings currently alive, with one exception: we can only sample
+        people born on a Monday. In study 2, we are able to sample randomly from the Australian
+        population. We want to generalise my results to the population of all living humans. Which
+        study is better? The answer, obviously, is study 1. Why? Because we have no reason to think
+        that being <q>born on a Monday</q> has any interesting relationship to working memory
+        capacity. In contrast, we can think of several reasons why <q>being Australian</q> might
+        matter. Australia is a wealthy, industrialised country with a very well-developed education
+        system. People growing up in that system will have had life experiences much more similar to
+        the experiences of the people who designed the tests for working memory capacity. This
+        shared experience might easily translate into similar beliefs about how to <q>take a
+        test</q>, a shared assumption about how psychological experimentation works, and so on.
+        These things might actually matter. For instance, the <q>test-taking</q> style might have
+        taught the Australian participants how to direct their attention exclusively on somewhat
+        abstract test materials relative to people who haven't grown up in a similar environment,
+        leading to a misleading picture of working memory capacity.
+      </p>
+
+      <p>
+        There are two points hidden in this discussion. Firstly, when designing your studies, you
+        must consider what population you care about and try hard to sample in a way appropriate to
+        that population. In practice, you're usually forced to put up with a <q>sample of
+        convenience</q> (e.g., psychology lecturers sample psychology students because that's the
+        least expensive way to collect data, and our coffers aren't exactly overflowing with gold).
+        But you should at least spend some time thinking about the dangers of this practice.
+      </p>
+
+      <p>
+        Secondly, if you're criticising someone else's study because they've used a sample of
+        convenience rather than laboriously sampling randomly from the entire human population, at
+        least have the courtesy to offer a specific theory as to <em>how</em> this might have
+        distorted the results. Remember, everyone in science knows this issue and does what they
+        can to alleviate it. Merely pointing out that <q>the study only included people from group
+        BLAH</q> is entirely unhelpful and borders on insulting the researchers, who are, <em>of
+        course</em>, aware of the issue. They just don't happen to own the infinite supply of time
+        and money required to construct the perfect sample. In short, if you want to offer a
+        responsible critique of the sampling process, then be <em>helpful</em>.
+      </p>
+
+    </subsection>
+
     <subsection xml:id="subsec-population-parameters">
       <title>Population Parameters and Sample Statistics</title>
 
