@@ -792,4 +792,620 @@
 
   </section>
 
+  <section xml:id="sec-anovaeffect">
+    <title>Effect Size</title>
+
+    <p>
+      There's a few different ways you could measure the effect size in an ANOVA.
+    </p>
+
+    <subsection xml:id="subsec-anova-etasquared">
+      <title>Eta-Squared</title>
+
+      <p>
+        One of the most commonly used measures are <m>\eta^2</m> (<term>eta-squared</term>). The
+        definition of <m>\eta^2</m> is actually really simple:
+        <me>
+          \eta^2 = \frac{\mbox{SS}_b}{\mbox{SS}_{tot}}
+        </me>
+      </p>
+
+      <p>
+        That's all it is. So when looking at the ANOVA table above, we see that
+        <m>\mbox{SS}_b = 3.45</m> and <m>\mbox{SS}_{tot} = 3.45 + 1.39 = 4.84</m>. Thus we get
+        an <m>\eta^2</m> value of
+        <me>
+          \eta^2 = \frac{3.45}{4.84} = 0.71
+        </me>
+      </p>
+
+      <p>
+        The interpretation of <m>\eta^2</m> is equally straightforward: it refers to the
+        proportion of the variability in the outcome variable (<c>mood_gain</c>) that can be
+        explained in terms of the predictor (<c>drug</c>). A value of <m>\eta^2 = 0</m> means
+        that there is no relationship at all between the two, whereas a value of <m>\eta^2 = 1</m>
+        means that the relationship is perfect. Better yet, the <m>\eta^2</m> value is very
+        closely related to a squared correlation (i.e. <m>r^2</m>). So, if you're trying to
+        figure out whether a particular value of <m>\eta^2</m> is big or small, it's sometimes
+        useful to remember that
+        <me>
+          \eta= \sqrt{\frac{\mbox{SS}_b}{\mbox{SS}_{tot}}}
+        </me>
+        can be interpreted as if it referred to the <em>magnitude</em> of a Pearson correlation.
+        So in our drugs example, the <m>\eta^2</m> value of 0.71 corresponds to an <m>\eta</m>
+        value of <m>\sqrt{.71} = .84</m>. If we think about this as being equivalent to a
+        correlation of about .84, we'd conclude that the relationship between <c>drug</c> and
+        <c>mood.gain</c> is strong.
+      </p>
+
+    </subsection>
+
+    <subsection xml:id="subsec-anova-omegasquared">
+      <title>Omega-Squared</title>
+
+      <p>
+        There's an interesting blog post by Daniel Lakens suggesting that eta-squared itself is
+        perhaps not the best measure of effect size in real world data analysis, but rather
+        <term>omega-squared</term> (<m>\omega^2</m>) is. CogStat also opts for omega-squared as
+        the default measure of effect size in one-way ANOVA.
+      </p>
+
+      <p>
+        The formula for <m>\omega^2</m> is a little more complicated than for <m>\eta^2</m>,
+        because it takes into account the degrees of freedom of the two sums of squares. The
+        formula is specific for between-subjects, fixed effects designs. The formula is:
+        <me>
+          \omega^2 = \frac{\mbox{SS}_b - \mbox{df}_b \times \mbox{MS}_w}{\mbox{SS}_{tot} + \mbox{MS}_w}
+        </me>
+        where <m>\mbox{df}_b</m> is the degrees of freedom for the between-subjects factor, and
+        <m>\mbox{MS}_w</m> is the mean square for the within-subjects factor, <m>\mbox{SS}_{tot}</m>
+        is the total sum of squares, and <m>\mbox{SS}_b</m> is the between-subjects sum of
+        squares. Filled in, we get:
+        <md>
+          <mrow>
+            \omega^2 \amp = \frac{\mbox{SS}_b - \mbox{df}_b \times \mbox{MS}_w}{\mbox{SS}_{tot} + \mbox{MS}_w}
+          </mrow>
+          <mrow>
+            \amp = \frac{3.4533 - 2 \times 0.0928}{4.845 + 0.0928}
+          </mrow>
+          <mrow>
+            \amp = 0.662
+          </mrow>
+        </md>
+      </p>
+
+      <p>
+        CogStat will give you this exact omega-squared value when running the one-way ANOVA inside
+        the <c>Compare groups</c> function (see result set in <xref ref="fig-cogcompbydrug"/>).
+      </p>
+
+      <p>
+        <m>\omega^2</m> will take on values between <m>0</m> and <m>1</m>, where 0 indicates
+        there is no effect whatsoever. It is wise to quote the effect size when writing up our
+        results in APA-styled psychology research. For example, we could write:
+      </p>
+
+      <blockquote>
+        <p>One-way ANOVA showed a significant effect of drug on mood gain (<em>F</em>(2,15) =
+        18.61, p &lt; .001, <m>\omega^2</m> = 0.662).</p>
+      </blockquote>
+
+    </subsection>
+
+  </section>
+
+  <section xml:id="sec-posthoc">
+    <title>Post Hoc Tests</title>
+
+    <p>
+      Any time you run an ANOVA with more than two groups, and you end up with a significant
+      effect, the first thing you'll probably want to ask is which groups are actually different
+      from one another.
+    </p>
+
+    <p>
+      In our drugs example, our null hypothesis was that all three drugs (placebo, Anxifree and
+      Joyzepam) have the exact same effect on mood. But if you think about it, the null hypothesis
+      is actually claiming <em>three</em> different things all at once here. Specifically, it
+      claims that:
+    </p>
+
+    <ul>
+      <li><p>Your competitor's drug (Anxifree) is no better than a placebo (i.e., <m>\mu_A = \mu_P</m>)</p></li>
+      <li><p>Your drug (Joyzepam) is no better than a placebo (i.e., <m>\mu_J = \mu_P</m>)</p></li>
+      <li><p>Anxifree and Joyzepam are equally effective (i.e., <m>\mu_J = \mu_A</m>)</p></li>
+    </ul>
+
+    <p>
+      If any one of those three claims is false, then the null hypothesis is also false. So, now
+      that we've rejected our null hypothesis, we're thinking that <em>at least</em> one of those
+      things isn't true. But which ones? All three of these propositions are of interest: you
+      certainly want to know if your new drug Joyzepam is better than a placebo, and it would be
+      nice to know how well it stacks up against an existing commercial alternative (i.e.,
+      Anxifree). It would even be useful to check the performance of Anxifree against the placebo:
+      even if Anxifree has already been extensively tested against placebos by other researchers,
+      it can still be very useful to check that your study is producing similar results to earlier
+      work.
+    </p>
+
+    <p>
+      When we characterise the null hypothesis in terms of these three distinct propositions, it
+      becomes clear that there are eight possible "states of the world" that we need to distinguish
+      between:
+    </p>
+
+    <table xml:id="tbl-posthoc-possibilities">
+      <title>Eight possible states of the world for the clinical trial null hypothesis.</title>
+      <tabular>
+        <row header="yes">
+          <cell>possibility:</cell>
+          <cell>is <m>\mu_P = \mu_A</m>?</cell>
+          <cell>is <m>\mu_P = \mu_J</m>?</cell>
+          <cell>is <m>\mu_A = \mu_J</m>?</cell>
+          <cell>which hypothesis?</cell>
+        </row>
+        <row><cell>1</cell><cell>&#x2713;</cell><cell>&#x2713;</cell><cell>&#x2713;</cell><cell>null</cell></row>
+        <row><cell>2</cell><cell>&#x2713;</cell><cell>&#x2713;</cell><cell></cell><cell>alternative</cell></row>
+        <row><cell>3</cell><cell>&#x2713;</cell><cell></cell><cell>&#x2713;</cell><cell>alternative</cell></row>
+        <row><cell>4</cell><cell>&#x2713;</cell><cell></cell><cell></cell><cell>alternative</cell></row>
+        <row><cell>5</cell><cell></cell><cell>&#x2713;</cell><cell>&#x2713;</cell><cell>alternative</cell></row>
+        <row><cell>6</cell><cell></cell><cell>&#x2713;</cell><cell></cell><cell>alternative</cell></row>
+        <row><cell>7</cell><cell></cell><cell></cell><cell>&#x2713;</cell><cell>alternative</cell></row>
+        <row><cell>8</cell><cell></cell><cell></cell><cell></cell><cell>alternative</cell></row>
+      </tabular>
+    </table>
+
+    <p>
+      By rejecting the null hypothesis, we've decided that we <em>don't</em> believe that #1 is
+      the true state of the world. The next question to ask is, which of the other seven
+      possibilities <em>do</em> we think is right? When faced with this situation, it usually
+      helps to look at the data. For instance, if we look at the plots in
+      <xref ref="fig-moodbydrug"/>, it's tempting to conclude that Joyzepam is better than the
+      placebo and better than Anxifree, but there's no real difference between Anxifree and the
+      placebo. However, if we want to get a clearer answer about this, it might help to run some
+      tests.
+    </p>
+
+    <p>
+      There are actually quite a lot of different methods for performing multiple comparisons in
+      the statistics literature <xref ref="Hsu1996"/>, and it would be beyond the scope of an
+      introductory text like this one to discuss all of them in any detail. That being said,
+      there's one tool of importance, namely Tukey's "Honestly Significant Difference", or
+      <term>Tukey's HSD</term> for short. While there is the possibility to run "pairwise"
+      <m>t</m>-tests manually in other statistical software, CogStat opts for Tukey's HSD test as
+      a robust tool for running post hoc tests.
+    </p>
+
+    <p>
+      The basic idea of Tukey's HSD is to examine all relevant pairwise comparisons between
+      groups, and it's only really appropriate to use Tukey's HSD if it is <em>pairwise</em>
+      differences that you're interested in. If, for instance, you actually would find yourself
+      interested to know if Group A is significantly different from the mean of Group B and Group
+      C, then you need to use a different tool (e.g., Scheffe's method, which is more
+      conservative, and beyond the scope this book).
+    </p>
+
+    <p>
+      Tukey's HSD constructs <term>simultaneous confidence intervals</term> for all the
+      comparisons. What we mean by 95% "simultaneous" confidence interval is that there is a 95%
+      probability that <em>all</em> of these confidence intervals contain the relevant true value.
+      Moreover, we can use these confidence intervals to calculate an adjusted <m>p</m> value for
+      any specific comparison.
+    </p>
+
+    <p>
+      Let's look at the post hoc test result coming from CogStat, as seen in
+      <xref ref="fig-cogcompbydrug"/>.
+    </p>
+
+    <table xml:id="tbl-tukeyhsd">
+      <title>Multiple Comparison of Means — Tukey HSD, FWER=0.05.</title>
+      <tabular>
+        <row header="yes">
+          <cell>group1</cell>
+          <cell>group2</cell>
+          <cell>meandiff</cell>
+          <cell>p-adj</cell>
+          <cell>lower</cell>
+          <cell>upper</cell>
+          <cell>reject</cell>
+        </row>
+        <row><cell>anxifree</cell><cell>joyzepam</cell><cell>0.7667</cell><cell>0.0015</cell><cell>0.3099</cell><cell>1.2235</cell><cell>True</cell></row>
+        <row><cell>anxifree</cell><cell>placebo</cell><cell>-0.2667</cell><cell>0.3115</cell><cell>-0.7235</cell><cell>0.1901</cell><cell>False</cell></row>
+        <row><cell>joyzepam</cell><cell>placebo</cell><cell>-1.0333</cell><cell>0.0001</cell><cell>-1.4901</cell><cell>-0.5765</cell><cell>True</cell></row>
+      </tabular>
+    </table>
+
+    <p>
+      The first column shows one of the groups in our comparison, namely the drug. The second
+      column shows which other group we are comparing against in pairs. The third column is our
+      statistic (the mean difference), and the fourth column is the adjusted <m>p</m> value. The
+      fifth and sixth columns show the lower and upper bounds of the 95% confidence interval for
+      the mean difference. The final column shows whether or not we reject the null hypothesis
+      that the mean difference is zero.
+    </p>
+
+    <p>
+      The easiest way to interpret the results is to look at what pairs have rejected the null
+      hypothesis (of not having a significant difference).
+    </p>
+
+    <p>
+      In our case, we see in the first result line that Joyzepam is significantly better than
+      Anxifree, because the mean difference is positive (meaning an improvement from Anxifree to
+      Joyzepam), our <m>p</m>-value is less than 0.05, and the confidence interval does not
+      include zero. The last column indicates we rejected the null hypothesis.
+    </p>
+
+    <p>
+      We also see in the third line that Joyzepam is significantly better than the placebo because
+      the mean difference is negative from Joyzepam to placebo. The <m>p</m>-value is less than
+      0.05, and the confidence interval does not include zero, and the last column indicates we
+      rejected the null hypothesis.
+    </p>
+
+    <p>
+      In the second line, from Anxifree to the placebo, we see a negative mean difference, meaning
+      that while Anxifree looks like it's performing better than the placebo (as we've seen in the
+      boxplot as well), the confidence interval does include zero, and the <m>p</m>-value is
+      greater than 0.05, so we fail to reject the null hypothesis.
+    </p>
+
+    <p>
+      What we would write up next to our ANOVA result is the following:
+    </p>
+
+    <blockquote>
+      <p>Post hoc tests indicated that Joyzepam produced a significantly larger mood change than
+      both Anxifree (<em>p</em> = .002) and the placebo (<em>p</em> &lt; .001). We found no
+      evidence that Anxifree performed better than the placebo (<em>p</em> = .31).</p>
+    </blockquote>
+
+  </section>
+
+  <section xml:id="sec-levene">
+    <title>Checking the Homogeneity of Variance Assumption</title>
+
+    <p>
+      There's more than one way to skin a cat, as the saying goes, and more than one way to test
+      the homogeneity of variance assumption, too. The most commonly used test for this is the
+      <term>Levene test</term> <xref ref="Levene1960"/>, which CogStat uses.<fn>There's the
+      closely related <em>Brown-Forsythe test</em> <xref ref="BrownForsythe1974"/> as well, which
+      is what CogStat uses.</fn>
+    </p>
+
+    <p>
+      Levene's test is shockingly simple. Suppose we have our outcome variable <m>Y_{ik}</m>. All
+      we do is define a new variable, say, <m>Z_{ik}</m>, corresponding to the absolute deviation
+      from the group mean:
+      <me>
+        Z_{ik} = \left| Y_{ik} - \bar{Y}_k \right|
+      </me>
+    </p>
+
+    <p>
+      The value of <m>Z_{ik}</m> is a measure of how the <m>i</m>-th observation in the
+      <m>k</m>-th group deviates from its group mean. And our null hypothesis is that all groups
+      have the same variance; that is, the same overall deviations from the group means. So the
+      null hypothesis in a Levene's test is that the population means of <m>Z</m> are identical
+      for all groups. Isn't that what ANOVA is? Yes. All that the Levene's test does is run an
+      ANOVA on the new variable <m>Z_{ik}</m>.<fn>What about the Brown-Forsythe test? Does that
+      do anything particularly different? Nope. The only change from the Levene's test is that it
+      constructs the transformed variable <m>Z</m> in a slightly different way, using deviations
+      from the group <em>medians</em> rather than deviations from the group <em>means</em>.</fn>
+    </p>
+
+    <p>
+      If we look at the output from CogStat (<xref ref="fig-cogcompbydrug"/>), we see that the
+      test is non-significant <m>W = 1.47, p = .262</m>. So it looks like the homogeneity of
+      variance assumption is fine.
+    </p>
+
+  </section>
+
+  <section xml:id="sec-kruskalwallis">
+    <title>Testing for Non-Normal Data with Kruskal-Wallis Test</title>
+
+    <p>
+      CogStat automatically checked for normality, and we covered the Shapiro-Wilk test in
+      <xref ref="sec-shapiro"/>. However, let's talk about removing the normality assumption. In
+      the context of a one-way ANOVA, the easiest solution is probably to switch to a
+      non-parametric test (i.e. one that doesn't rely on any particular assumption about the kind
+      of distribution involved). We've seen non-parametric tests before, in
+      <xref ref="ch-ttest"/>: when you only have two groups, the Wilcoxon test provides the
+      non-parametric alternative that you need. When you've got three or more groups, though, you
+      can use the <term>Kruskal-Wallis rank sum test</term> <xref ref="KruskalWallis1952"/>.
+    </p>
+
+    <p>
+      The Kruskal-Wallis test is a non-parametric alternative to the one-way ANOVA, and it is
+      surprisingly similar to it in some ways. It is a rank-based test, meaning that it doesn't
+      actually look at the values of the data, but rather at the order of the data.
+    </p>
+
+    <p>
+      In ANOVA, we started with <m>Y_{ik}</m>, the value of the outcome variable for the
+      <m>i</m>th person in the <m>k</m>th group. For the Kruskal-Wallis test, what we'll do is
+      rank order all of these <m>Y_{ik}</m> values and conduct our analysis on the ranked data.
+      So let's let <m>R_{ik}</m> refer to the ranking given to the <m>i</m>th member of the
+      <m>k</m>th group. Now, let's calculate <m>\bar{R}_k</m>, the average rank given to
+      observations in the <m>k</m>th group:
+      <me>
+        \bar{R}_k = \frac{1}{N_K} \sum_{i} R_{ik}
+      </me>
+      and let's also calculate <m>\bar{R}</m>, the grand mean rank:
+      <me>
+        \bar{R} = \frac{1}{N} \sum_{i} \sum_{k} R_{ik}
+      </me>
+    </p>
+
+    <p>
+      Now that we've done this, we can calculate the squared deviations from the grand mean rank
+      <m>\bar{R}</m>. When we do this for the individual scores <mdash/> i.e., if we calculate
+      <m>(R_{ik} - \bar{R})^2</m> <mdash/> what we have is a "non-parametric" measure of how far
+      the <m>ik</m>-th observation deviates from the grand mean rank. When we calculate the
+      squared deviation of the group means from the grand means <mdash/> i.e., if we calculate
+      <m>(\bar{R}_k  - \bar{R} )^2</m> <mdash/> then what we have is a non-parametric measure of
+      how much the <em>group</em> deviates from the grand mean rank. With this in mind, let's
+      follow the same logic that we did with ANOVA, and define our <em>ranked</em> sums of squares
+      measures in much the same way that we did earlier. First, we have our "total ranked sums of
+      squares":
+      <me>
+        \mbox{RSS}_{tot} = \sum_k \sum_i ( R_{ik} - \bar{R} )^2
+      </me>
+      and we can define the "between-groups ranked sums of squares" like this:
+      <md>
+        <mrow>
+          \mbox{RSS}_{b} \amp = \sum_k \sum_i ( \bar{R}_k  - \bar{R} )^2
+        </mrow>
+        <mrow>
+          \amp = \sum_k N_k ( \bar{R}_k  - \bar{R} )^2
+        </mrow>
+      </md>
+    </p>
+
+    <p>
+      So, if the null hypothesis is true and there are no true group differences at all, you'd
+      expect the between group rank sums <m>\mbox{RSS}_{b}</m> to be very small, much smaller
+      than the total rank sums <m>\mbox{RSS}_{tot}</m>. Qualitatively this is very much the same
+      as what we found when we went about constructing the ANOVA <m>F</m>-statistic; but for
+      technical reasons the Kruskal-Wallis test statistic, usually denoted <m>H</m> (but let's
+      not conflate with "hypothesis"!). In CogStat, you'll see <m>\chi^2</m>. The official
+      formula is:
+      <me>
+        H = (N - 1) \times \frac{\mbox{RSS}_b}{\mbox{RSS}_{tot}}
+      </me>
+      and, if the null hypothesis is true, then the sampling distribution of <m>H</m> is
+      <em>approximately</em> chi-square with <m>G-1</m> degrees of freedom (where <m>G</m> is the
+      number of groups). The larger the value of <m>H</m>, the less consistent the data are with
+      null hypothesis, so this is a one-sided test: we reject our null hypothesis when <m>H</m>
+      is sufficiently large.
+    </p>
+
+    <p>
+      At a conceptual level, this is the right way to think about how the test works. However,
+      from a purely mathematical perspective, it's needlessly complicated. The equation for
+      <m>H</m> can be rewritten as
+      <me>
+        H = \frac{12}{N(N-1)} \sum_k N_k {\bar{R}_k}^2  -  3(N+1)
+      </me>
+    </p>
+
+    <p>
+      The story is true when there are no ties in the raw data. That is, if there are no two
+      observations that have exactly the same value. If there <em>are</em> ties, then we have to
+      introduce a correction factor to these calculations. At this point, even the most diligent
+      reader might have stopped caring (or at least formed the opinion that the tie-correction
+      factor is something that doesn't require their immediate attention). So let us omit the
+      tedious details about <em>why</em> it's done this way. We can look at a frequency table for
+      the raw data (under <c>Explore variable</c>), and let <m>f_j</m> be the number of
+      observations that have the <m>j</m>-th unique value.
+    </p>
+
+    <figure xml:id="fig-moodgainfreq">
+      <caption>Frequency table for the raw data (<c>mood_gain</c>).</caption>
+      <image source="cogstatmoodgainfrequency.png"/>
+    </figure>
+
+    <p>
+      Looking at this table, notice that the value of <m>0.3</m> (and <m>0.6</m>, <m>1.3</m>,
+      <m>1.4</m>) has a frequency of 2. This is telling us that two people's mood increased by
+      0.3 (and 0.6...). More to the point, note that we can say <m>f_3 = 2</m>, where 3 is the
+      index of the value (i.e. row number 3). Yay. So, now that we know this, the tie correction
+      factor (TCF) is:
+      <me>
+        \mbox{TCF} = 1 - \frac{\sum_j {f_j}^3 - f_j}{N^3 - N}
+      </me>
+      The tie-corrected value of the Kruskal-Wallis statistic obtained by dividing the value of
+      <m>H</m> by this quantity.
+    </p>
+
+    <p>
+      If the data was non-normal, CogStat would automatically calculate the non-parametric test.
+      However, it's normal, so you'll just have to trust us that the results are
+      <me>
+        H = 12.076
+      </me>
+    </p>
+
+    <p>
+      However, it's good to take a look at how CogStat would display the results for non-normal
+      data, particularly because the post hoc test results are different.
+    </p>
+
+    <p>
+      So, here's some tweaking of our clinical trial data with the placebo results not meeting the
+      normality assumption: <c>clinical_nonnormal.csv</c> (the placebo group's data is more
+      "flat" when plotted). Let's load it in CogStat and explore the <c>Compare groups</c> result
+      set.
+    </p>
+
+    <figure xml:id="fig-kruskalclinical">
+      <caption>CogStat results for the non-normal data.</caption>
+      <image source="cogstatclinicalnonnormal.png"/>
+      <image source="cogstatclinicalnonnormalbox.png"/>
+    </figure>
+
+    <p>
+      The boxplot shows we have a similar setup to our original data, but we see that the placebo
+      group's <c>mood_gain</c> is not normally distributed (because the Shapiro-Wilk test is
+      significant with <m>p &lt; 0.05</m>, and also the mood gain is now flattened on purpose for
+      the sake of the exercise), so CogStat automatically calculates the non-parametric test. The
+      results are:
+    </p>
+
+    <p>
+      <c>Result of the Kruskal-Wallis test:</c>
+      <me>
+        \chi^2(2, N = 18) = 13.31, p = .001
+      </me>
+    </p>
+
+    <p>
+      This is pretty straightforward: the test statistic proves that the null hypothesis is false.
+      Now let's look at the post hoc results:
+    </p>
+
+    <p>
+      We see that CogStat ran the <term>Dunn's Multiple Comparison Test</term> for the non-normal
+      data post hoc analysis. This is a pairwise comparison with 5% <m>\alpha</m> significance
+      level. From the table, you cannot read a specific statistic to show what are the differences
+      between the groups and what is their direction, but you see a <m>p</m>-value of
+      significance.
+    </p>
+
+    <p>
+      So what you can do, is list all the pairs where <m>p</m> is significant, and then you can
+      look at the boxplot to see the direction of the difference (or more scientifically, the
+      descriptive statistics results where you have the means for each group).
+    </p>
+
+    <p>
+      For example, we see two pairs, where the <m>p</m> is significant (<m>p &lt; 0.05</m>):
+    </p>
+
+    <ul>
+      <li>
+        <p>The first pair is Joyzepam and Anxifree, where <m>p = 0.024</m> (regardless if you
+        read it by column or row). This means that the difference between the two groups is
+        significant, but we don't know the direction of the difference. We can look at the boxplot
+        to see that the Joyzepam group has a higher mean than the Anxifree group, and we can
+        quantify it by looking at the means: <m>0.72</m> for Anxifree, and <m>1.48</m> for
+        Joyzepam. So Joyzepam is more effective than Anxifree, and the result is significant.</p>
+      </li>
+      <li>
+        <p>The second (and final) pair is Joyzepam and the placebo, where <m>p = 0.000</m>, or
+        more formally, <m>p &lt; 0.001</m>. This means that the difference between the two groups
+        is significant, and we can see that Joyzepam (<m>1.48</m>) has a higher mean than the
+        placebo (<m>0.28</m>). So Joyzepam is more effective than the placebo, and the result is
+        significant.</p>
+      </li>
+    </ul>
+
+    <p>
+      Our effect size is calculated with omega-squared as before, which, for this altered data set
+      is: <m>0.747</m>.
+    </p>
+
+    <p>
+      Our write-up would be something along the lines of:
+    </p>
+
+    <blockquote>
+      <p>The Kruskal-Wallis test showed a significant effect of drug on mood gain
+      (<em>H</em>(2, N=18) = 13.31, <em>p</em> = .001, <m>\omega^2</m> = .747). Post hoc tests
+      indicated that Joyzepam produced a significantly larger mood change than both Anxifree
+      (<em>p</em> = .024) and the placebo (<em>p</em> &lt; .001). We found no evidence that
+      Anxifree performed better than the placebo (<em>p</em> = .175).</p>
+    </blockquote>
+
+    <p>
+      And we're done.
+    </p>
+
+  </section>
+
+  <section xml:id="sec-anovaandt">
+    <title>On the Relationship Between ANOVA and the Student <m>t</m>-Test</title>
+
+    <p>
+      It's something that a lot of people find kind of surprising but it's worth knowing about:
+      an ANOVA with two groups is identical to the Student <m>t</m>-test. It's not just that they
+      are similar, but they are actually equivalent in every meaningful way. Suppose that, instead
+      of running an ANOVA on our <c>mood_gain ~ drug</c> model, let's instead do it using
+      <c>therapy</c> as the predictor. If we run this in <c>Compare group</c>, CogStat
+      automatically selects the independent sample <m>t</m>-test, as we've seen in
+      <xref ref="ch-ttest"/>. Here's the result when running the <c>therapy</c> model:
+    </p>
+
+    <figure xml:id="fig-ttesttherapy">
+      <caption>CogStat results for the <c>therapy</c> model.</caption>
+      <image source="csmoodgaintherapybox.png"/>
+      <image source="csmoodgaintherapyresult.png"/>
+    </figure>
+
+    <p>
+      Having run a <m>t</m>-test, we get <m>t(16) = 1.31</m> (or more precisely, <m>1.3068</m>
+      <mdash/> you'll see why this is important). The <m>p</m>-value is <m>.210</m>. Should we
+      run a one-way ANOVA <m>F</m>-statistic in another software, we'd see <m>F(1,16) = 1.71</m>,
+      and the <m>p</m>-value, which is <mdash/> not surprisingly <mdash/> <m>.210</m>.
+    </p>
+
+    <p>
+      But hang on, what is the story with the <m>F</m> and <m>t</m> statistics? Actually, there
+      is a fairly straightforward relationship here. If we square the <m>t</m>-statistic:
+      <me>
+        1.3068 ^ 2
+      </me>
+      we get the <m>F</m>-statistic from before:
+      <me>
+        1.71
+      </me>
+    </p>
+
+    <p>
+      Such fun!
+    </p>
+
+  </section>
+
+  <section xml:id="sec-anova-summary">
+    <title>Summary</title>
+
+    <p>
+      Like any statistical test, analysis of variance relies on some assumptions about the data.
+    </p>
+
+    <ul>
+      <li>
+        <p><term>Normality</term>. The residuals are assumed to be normally distributed. As we saw
+        in <xref ref="sec-shapiro"/>, we can assess this by looking at QQ plots or running a
+        Shapiro-Wilk test. If normality fails, we can run a Kruskal-Wallis test instead (see
+        <xref ref="sec-kruskalwallis"/>).</p>
+      </li>
+      <li>
+        <p><term>Homogeneity of variance</term>. Notice that we've only got the one value for the
+        population standard deviation (i.e. <m>\sigma</m>), rather than allowing each group to
+        have its own value (i.e. <m>\sigma_k</m>). This is referred to as the homogeneity of
+        variance or homoscedasticity assumption. ANOVA assumes that the population standard
+        deviation is the same for all groups. See <xref ref="sec-levene"/>. If the homogeneity of
+        variance assumption fails, CogStat runs the Kruskal-Wallis test instead (see
+        <xref ref="sec-kruskalwallis"/>), similarly to when the normality assumption is
+        violated.</p>
+      </li>
+      <li>
+        <p><term>Independence</term>. The independence assumption is a little trickier. What it
+        basically means is that, knowing one residual tells you nothing about any other residual.
+        All of the <m>\epsilon_{ik}</m> values are assumed to have been generated without any
+        "regard for" or "relationship to" any of the other ones. There's not an obvious or simple
+        way to test for this, but there are some situations that are clear violations of this: for
+        instance, if you have a repeated measures design, where each participant in your study
+        appears in more than one condition, then independence doesn't hold. When that happens, you
+        need to use repeated measures ANOVA (accessible in <c>Compare repeated measures
+        variable</c>).</p>
+      </li>
+    </ul>
+
+  </section>
+
 </chapter>

@@ -154,6 +154,31 @@
       Harcourt Brace, Fort Worth, TX.
     </biblio>
 
+    <biblio xml:id="Hsu1996" type="raw">
+      Hsu, J. C. (1996).
+      <em>Multiple Comparisons: Theory and Methods</em>.
+      Chapman and Hall, London, UK.
+    </biblio>
+
+    <biblio xml:id="Levene1960" type="raw">
+      Levene, H. (1960).
+      Robust tests for equality of variances.
+      In I. Olkin et al. (Eds.), <em>Contributions to Probability and Statistics: Essays in Honor
+      of Harold Hotelling</em> (pp. 278<ndash/>292). Stanford University Press, Palo Alto, CA.
+    </biblio>
+
+    <biblio xml:id="BrownForsythe1974" type="raw">
+      Brown, M. B. and Forsythe, A. B. (1974).
+      Robust tests for equality of variances.
+      <em>Journal of the American Statistical Association</em>, 69, 364<ndash/>367.
+    </biblio>
+
+    <biblio xml:id="KruskalWallis1952" type="raw">
+      Kruskal, W. H. and Wallis, W. A. (1952).
+      Use of ranks in one-criterion variance analysis.
+      <em>Journal of the American Statistical Association</em>, 47, 583<ndash/>621.
+    </biblio>
+
     <biblio xml:id="Student1908" type="raw">
       Student, A. (1908).
       The probable error of a mean.
