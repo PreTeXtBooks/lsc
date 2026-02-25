@@ -666,22 +666,22 @@
         distribution looks like!
       </p>
 
-      <sidebyside widths="45% 45%">
-        <figure xml:id="fig-cltdemo">
-          <caption>A demonstration of the central limit theorem. In the top-left panel, we have a
-          non-normal population distribution; and the consecutive panels show the sampling
-          distribution of the mean for samples of size 2, 4 and 8, for data drawn from the
-          distribution in panel a. As you can see, even though the original population distribution
-          is non-normal, the sampling distribution of the mean becomes pretty close to normal by the
-          time you have a sample of even 4 observations.</caption>
+      <figure xml:id="fig-cltdemo">
+        <caption>A demonstration of the central limit theorem. In the top-left panel, we have a
+        non-normal population distribution; and the consecutive panels show the sampling
+        distribution of the mean for samples of size 2, 4 and 8, for data drawn from the
+        distribution in panel a. As you can see, even though the original population distribution
+        is non-normal, the sampling distribution of the mean becomes pretty close to normal by the
+        time you have a sample of even 4 observations.</caption>
+        <sidebyside widths="45% 45%">
           <image source="cltdemo-a.png"/>
-        </figure>
-        <image source="cltdemo-b.png"/>
-      </sidebyside>
-      <sidebyside widths="45% 45%">
-        <image source="cltdemo-c.png"/>
-        <image source="cltdemo-d.png"/>
-      </sidebyside>
+          <image source="cltdemo-b.png"/>
+        </sidebyside>
+        <sidebyside widths="45% 45%">
+          <image source="cltdemo-c.png"/>
+          <image source="cltdemo-d.png"/>
+        </sidebyside>
+      </figure>
 
       <p>
         Based on these figures, it seems like we have evidence for all of the following claims about
@@ -740,6 +740,8 @@
       mean 100. That's not a bad thing of course: it's an important part of designing a
       psychological measurement. However, it's important to keep in mind that this theoretical mean
       of 100 only attaches to the population that the test designers used to design the tests.
+      Good test designers will actually go to some lengths to provide <q>test norms</q> that can
+      apply to lots of different populations (e.g., different age groups, nationalities etc.).
     </p>
 
     <p>
