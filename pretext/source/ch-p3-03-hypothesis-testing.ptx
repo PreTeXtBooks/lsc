@@ -140,6 +140,11 @@
         corresponds to the statistical hypothesis that <m>\theta \neq 0.5</m>.</p></li>
       </ul>
 
+      <p>These are legitimate examples of statistical hypotheses because they are statements about a
+       population parameter and are meaningfully related to my experiment. What this discussion hopefully
+       makes clear is that when attempting to construct a statistical hypothesis test, the researcher has
+       two quite distinct hypotheses to consider. They have a research hypothesis (a claim about psychology)
+       corresponding to a statistical hypothesis (a claim about the data generating population).</p>
       <table xml:id="tbl-esp-hypotheses">
         <title>Research and statistical hypotheses in our ESP research example.</title>
         <tabular halign="center">
@@ -158,7 +163,10 @@
         And the critical thing to recognise is this: <em>a statistical hypothesis test is a test of
         the statistical hypothesis, not the research hypothesis</em>. If your study is poorly
         designed, the link between your research hypothesis and your statistical hypothesis is
-        broken.
+        broken. To give a silly example, suppose that the ESP study was conducted in a situation where
+        the participant can actually see the card reflected in a window; if that happens, we would be able
+        to find robust evidence that <m>\theta \neq 0.5</m>, but this would tell us nothing about whether
+        "ESP exists".
       </p>
 
     </subsection>
@@ -193,6 +201,13 @@
         Just like a criminal trial, there is a presumption of innocence: the null hypothesis is
         <em>deemed</em> to be true unless you, the researcher, can prove beyond a reasonable doubt
         that it is false.
+        You are free to design your experiment however you like (within reason, obviously!), and your
+        goal when doing so is to maximise the chance that the data will yield a conviction for the crime
+        of being false. The catch is that the statistical test sets the rules of the trial, which are
+        designed to protect the null hypothesis – specifically to ensure that if the null hypothesis is
+        true, the chances of a false conviction are guaranteed to be low. This is pretty important:
+        after all, the null hypothesis doesn't get a lawyer. And given that the researcher is trying
+        desperately to prove it to be false, someone has to protect it.
       </p>
 
     </subsection>
