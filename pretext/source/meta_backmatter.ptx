@@ -142,6 +142,12 @@
       <em>Psychological Methods</em>, 11, 386<ndash/>401.
     </biblio>
 
+    <biblio xml:id="Shapiro1965" type="raw">
+      Shapiro, S. S. and Wilk, M. B. (1965).
+      An analysis of variance test for normality (complete samples).
+      <em>Biometrika</em>, 52, 591<ndash/>611.
+    </biblio>
+
     <biblio xml:id="Student1908" type="raw">
       Student, A. (1908).
       The probable error of a mean.

@@ -1448,4 +1448,387 @@
 
   </section>
 
+  <section xml:id="sec-shapiro">
+    <title>Normality of a Sample</title>
+
+    <p>
+      All of the tests that we have discussed so far in this chapter have assumed that the data are
+      normally distributed. This assumption is often quite reasonable because the central limit
+      theorem (<xref ref="subsec-clt"/>) does tend to ensure that many real-world quantities are
+      normally distributed. Any time you suspect your variable is <em>actually</em> an average of
+      lots of different things, there's a good chance that it will be normally distributed; or at
+      least close enough to normal that you can get away with using <m>t</m>-tests.
+    </p>
+
+    <p>
+      However, there are lots of ways in which you can end up with variables that are highly
+      non-normal. For example, any time you think that your variable is actually the minimum of
+      lots of different things, there's a very good chance it will end up quite skewed. In
+      psychology, response time (RT) data is a good example of this. If you suppose that there are
+      lots of things that could trigger a response from a human participant, then the actual
+      response will occur the first time one of these trigger events occurs.<fn>This is a massive
+      oversimplification.</fn> This means that RT data are systematically non-normal.
+    </p>
+
+    <p>
+      How can we check the normality of a sample?
+    </p>
+
+    <p>
+      You might recall seeing this earlier in this chapter, but let's take another look at a
+      histogram and QQ plot without going back to the beginning.
+    </p>
+
+    <figure xml:id="fig-zeppore">
+      <caption>Left: a histogram of the data points (observations) in the <c>zeppo.csv</c> data
+      set with a green dashed line showing the normal distribution curve. Right: a QQ plot of the
+      same.</caption>
+      <image source="zeppohist.png"/>
+    </figure>
+
+    <p>
+      One way to check whether a sample violates the normality assumption is to draw a
+      <term>quantile-quantile plot</term> (QQ plot). This allows you to visually check whether you
+      see any systematic violations. In a QQ plot, each observation is plotted as a single dot.
+      The x coordinate is the <em>theoretical quantile</em> that the observation should fall in if
+      the data were normally distributed (with mean and variance estimated from the sample), and the
+      y coordinate is the actual quantile of the data within the sample (i.e. <em>sample
+      quantile</em>). If the data are normal, the dots should form a straight line, or rather,
+      should fit onto the green line more-or-less seamlessly.
+    </p>
+
+    <p>
+      Now, let's see how the QQ plot would look like, if we had a data set that violates the
+      assumption of normality. You can test for yourself on the <c>aflsmall</c> data set from
+      earlier.
+    </p>
+
+    <figure xml:id="fig-aflsmallqq">
+      <caption>Left: a histogram of the data points (observations) in the <c>aflsmall.csv</c> data
+      set with a green dashed line showing the normal distribution curve. Right: a QQ plot of the
+      same showing how the data points curve and don't form a straight line.</caption>
+      <image source="aflsmallqq.png"/>
+    </figure>
+
+    <p>
+      Although QQ plots provide a simple visual way to check the normality of your data
+      informally, you'll want to do a formal test to prove it. The <term>Shapiro-Wilk test</term>
+      (<xref ref="Shapiro1965"/>) is what you're looking for.<fn>The Kolmogorov-Smirnov test is
+      probably more traditional than the Shapiro-Wilk, though mostly you'll encounter Shapiro-Wilk
+      in psychology research.</fn>
+    </p>
+
+    <p>
+      As you'd expect, the null hypothesis being tested is that a set of <m>N</m> observations is
+      normally distributed. The test statistic it calculates is conventionally denoted as <m>W</m>,
+      calculated as follows. First, we sort the observations in order of increasing size and let
+      <m>X_1</m> be the smallest value in the sample, <m>X_2</m> be the second smallest and so on.
+      Then the value of <m>W</m> is given by
+      <me>
+        W = \frac{ \left( \sum_{i = 1}^N a_i X_i \right)^2 }{ \sum_{i = 1}^N (X_i - \bar{X})^2}
+      </me>
+      where <m>\bar{X}</m> is the mean of the observations, and the <m>a_i</m> values are
+      something complicated beyond the scope of an introductory text.
+    </p>
+
+    <p>
+      Unlike most of the test statistics, if the <m>p</m>-value of a Shapiro-Wilk test is less
+      than <m>0.05</m>, then you can conclude that the data are <em>not</em> normally distributed.
+      If the <m>p</m>-value is greater than <m>0.05</m>, then you can conclude that the data are
+      normally distributed.<fn>This is the opposite of what you'd expect from a <m>p</m>-value,
+      but it's the way it is.</fn>
+    </p>
+
+    <p>
+      The sampling distribution for <m>W</m> <mdash/> which is not one of the standard ones
+      discussed in the probability chapter <mdash/> depends on the sample size <m>N</m>. To give
+      you a feel for what these sampling distributions look like, we've plotted three of them in
+      <xref ref="fig-swdist"/>. Notice that, as the sample size starts to get large, the sampling
+      distribution becomes very tightly clumped up near <m>W=1</m>, and as a consequence, for
+      larger samples, <m>W</m> doesn't have to be much smaller than 1 for the test to be
+      significant.
+    </p>
+
+    <figure xml:id="fig-swdist">
+      <caption>Sampling distribution of the Shapiro-Wilk <m>W</m> statistic, under the null
+      hypothesis that the data are normally distributed, for samples of size 10, 20 and 50. Note
+      that <em>small</em> values of <m>W</m> indicate departure from normality.</caption>
+      <image source="shapirowilkdist.png"/>
+    </figure>
+
+    <p>
+      When reporting the results for a Shapiro-Wilk test, you should make sure to include the test
+      statistic <m>W</m> and the <m>p</m> value, though given that the sampling distribution
+      depends so heavily on <m>N</m> it would probably be a politeness to include <m>N</m> as
+      well.
+    </p>
+
+  </section>
+
+  <section xml:id="sec-wilcox">
+    <title>Testing Non-Normal Data with Wilcoxon Tests</title>
+
+    <p>
+      Suppose your data is non-normal, but you still want to run something like a <m>t</m>-test.
+      Remember our <c>aflsmall</c> data set which violates the assumption of normality. When
+      exploring the variable, CogStat will state that <c>Normality is violated</c>. The statistics
+      are also given: <c>Shapiro<ndash/>Wilk normality test in variable aflmargins: W = 0.94, p &lt; .001</c>.
+    </p>
+
+    <p>
+      This is the situation where you want to use Wilcoxon tests. Unlike the <m>t</m>-test, the
+      Wilcoxon test doesn't assume normality. In fact, they don't make any assumptions about what
+      kind of distribution is involved: in statistical jargon; this makes them <term>nonparametric
+      tests</term>. While avoiding the normality assumption is nice, there's a drawback: the
+      Wilcoxon test is usually less powerful than the <m>t</m>-test (i.e., higher Type II error
+      rate).
+    </p>
+
+    <p>
+      Like the <m>t</m>-test, the Wilcoxon test comes in two forms, one-sample and two-sample, and
+      they're used in more or less the exact same situations as the corresponding <m>t</m>-tests.
+    </p>
+
+    <subsection xml:id="subsec-mannwhitney">
+      <title>Two-Sample Wilcoxon Test (Mann-Whitney Test)</title>
+
+      <p>
+        Let's start with the <term>two-sample Wilcoxon test</term>, also known as the
+        <term>Mann-Whitney test</term>, since it's simpler than the one-sample version.
+      </p>
+
+      <p>
+        Let us recall our AFL example with the data set called <c>afl24.csv</c>. We want to see
+        if there is any statistically significant difference in the <c>attendance</c> if the game
+        is a final or not (boolean variable name: <c>isfinal</c>).
+      </p>
+
+      <figure xml:id="fig-mwafl24">
+        <caption>AFL final and non-final attendance (<c>Compare groups</c> function used).</caption>
+        <image source="mannwhitneyafl24.png"/>
+      </figure>
+
+      <figure xml:id="fig-mwafl24box">
+        <caption>AFL final and non-final attendance boxplot (<c>Compare groups</c> function
+        used).</caption>
+        <image source="mannwhitneyafl24box.png"/>
+      </figure>
+
+      <p>
+        Once we ran the <c>Compare groups</c> function, the results are given.
+      </p>
+
+      <p>
+        Our sample size is <m>N=4096</m> for non-final games, and <m>N=200</m> for the final
+        games. The Mann-Whitney test is a non-parametric test, so we don't need to worry about the
+        normality assumption.
+      </p>
+
+      <table xml:id="tbl-hyp6">
+        <title>Hypothesis tests output for the Mann-Whitney test on the <c>afl24.csv</c> data.</title>
+        <tabular>
+          <row>
+            <cell>Testing if the means are the same.</cell>
+          </row>
+          <row>
+            <cell>One grouping variable. Two groups. Interval variable. &gt;&gt; Choosing two sample t-test, Mann-Whitney test or Welch's t-test depending on assumptions.</cell>
+          </row>
+          <row>
+            <cell>Checking for normality.</cell>
+          </row>
+          <row>
+            <cell>Shapiro-Wilk normality test in variable attendance (isfinal: False): <m>W</m> = 0.94, <m>p</m> &lt; .001</cell>
+          </row>
+          <row>
+            <cell>Shapiro-Wilk normality test in variable attendance (isfinal: True): <m>W</m> = 0.97, <m>p</m> &lt; .001</cell>
+          </row>
+          <row>
+            <cell>Checking for homogeneity of variance across groups.</cell>
+          </row>
+          <row>
+            <cell>Levene test: <m>W</m> = 76.47, <m>p</m> &lt; .001</cell>
+          </row>
+          <row>
+            <cell>Normality is violated in variable attendance, group(s) ('False',), ('True',). &gt;&gt; Running Mann-Whitney test.</cell>
+          </row>
+          <row>
+            <cell>Result of independent samples Mann-Whitney rank test: <m>U</m> = 97189.00, <m>p</m> &lt; .001</cell>
+          </row>
+        </tabular>
+      </table>
+
+      <p>
+        What does this score mean? Suppose we construct a table that compares every observation in
+        group <c>isfinal:True</c> against every observation in group <c>isfinal:False</c>.
+        Whenever the group <c>isfinal:True</c> attendance data is larger, we place a check mark in
+        the table. We then count up the number of checkmarks. This is our test statistic,
+        <m>W</m>.
+      </p>
+
+      <p>
+        But how do we interpret this data? Well, we already see from the chart in
+        <xref ref="fig-mwafl24"/> that the median attendance for the final games is higher than
+        the median attendance for the non-final games. Our <m>W</m> statistic is also a positive
+        number (from <c>isfinal:False</c> &gt; <c>isfinal:True</c>), the <m>p</m> value is below
+        our <m>\alpha</m> level of 0.05. This means that we can reject the null hypothesis that
+        the two groups have the same median attendance. In other words, we can conclude that the
+        final games have a statistically significant higher attendance.
+      </p>
+
+      <p>
+        When quoting the Mann-Whitney test, you should report the <m>U</m> statistic and the
+        <m>p</m> value.
+      </p>
+
+    </subsection>
+
+    <subsection xml:id="subsec-wilcoxon">
+      <title>One-Sample and Paired Samples Wilcoxon Tests</title>
+
+      <p>
+        What about the <term>one-sample Wilcoxon test</term>, or equivalently, the <term>paired
+        samples Wilcoxon test</term>? Suppose we're interested in finding out whether taking a
+        biology class has any effect on the happiness of students. The data is stored in the
+        <c>happiness.csv</c> file.
+      </p>
+
+      <p>
+        What is measured here is the happiness of each student <c>before</c> taking the class and
+        <c>after</c> taking the class. The <c>change</c> score is the difference between the two.
+        There's no fundamental difference between doing a paired-samples test using <c>before</c>
+        and <c>after</c>, versus doing a one-sample test using the <c>change</c> scores.
+      </p>
+
+      <p>
+        Let us run a paired sample Wilcoxon test first in CogStat. Let's use the <c>Compare
+        repeat measures variables</c> function with the <c>before</c> and <c>after</c> variables.
+      </p>
+
+      <figure xml:id="fig-mwbeforeafter">
+        <caption>Happiness before and after statistics class (<c>Compare repeat measures
+        variables</c> function used).</caption>
+        <image source="cogstathappinessdescr.png"/>
+      </figure>
+
+      <figure xml:id="fig-mwbeforeafterbox">
+        <caption>Happiness before and after statistics class boxplot (<c>Compare repeat measures
+        variables</c> function used).</caption>
+        <image source="cogstathappinessbox.png"/>
+      </figure>
+
+      <p>
+        Let's see the results:
+      </p>
+
+      <table xml:id="tbl-hyp7">
+        <title>Hypothesis tests output for the paired Wilcoxon test on the <c>happiness.csv</c>
+        data.</title>
+        <tabular>
+          <row>
+            <cell>Testing if the means are the same.</cell>
+          </row>
+          <row>
+            <cell>Two variables. Interval variables. &gt;&gt; Choosing paired t-test or paired Wilcoxon test depending on the assumptions.</cell>
+          </row>
+          <row>
+            <cell>Checking for normality.</cell>
+          </row>
+          <row>
+            <cell>Shapiro-Wilk normality test in variable Difference of before and after: <m>W</m> = 0.80, <m>p</m> = .002</cell>
+          </row>
+          <row>
+            <cell>Normality is violated in variable(s) Difference of before and after. &gt;&gt; Running paired Wilcoxon test.</cell>
+          </row>
+          <row>
+            <cell>Result of Wilcoxon signed-rank test: <m>T</m> = 31.00, <m>p</m> = .031</cell>
+          </row>
+        </tabular>
+      </table>
+
+      <p>
+        The <m>p</m> value is 0.031, which is below our <m>\alpha</m> level of 0.05. This means
+        that we can reject the null hypothesis that the two groups have the same median happiness.
+        In other words, we can conclude that taking the biology class has a statistically
+        significant negative effect on the happiness of students. Why negative? While the T value
+        is positive, remember the rule, you have to plot your raw data and look at the descriptives
+        as well, if something doesn't look right. And as you've seen, the median happiness score
+        for the <c>before</c> group is higher than the median happiness score for the <c>after</c>
+        group.
+      </p>
+
+      <p>
+        Now, you can make sure by running a one-sample Wilcoxon test in CogStat. Let's use the
+        <c>Explore variable</c> function with the <c>change</c> variable. This will serve two
+        purposes. You'll see how the one-sample Wilcoxon test works, and you'll also see how the
+        one-sample and two-sample tests relate to each other.
+      </p>
+
+      <p>
+        You'll quickly see in the descriptives, that the Mean change is negative (<m>-9.6</m>)
+        with a 95% confidence interval of <m>-18.7</m> to <m>-0.4</m> being both in the negative.
+      </p>
+
+      <table xml:id="tbl-hyp8">
+        <title>Hypothesis tests output for the one-sample Wilcoxon test on the <c>change</c>
+        variable.</title>
+        <tabular>
+          <row>
+            <cell>Testing if mean deviates from the value 0.</cell>
+          </row>
+          <row>
+            <cell>Interval variable. &gt;&gt; Choosing one-sample t-test or Wilcoxon signed-rank test depending on the assumption.</cell>
+          </row>
+          <row>
+            <cell>Checking for normality.</cell>
+          </row>
+          <row>
+            <cell>Shapiro-Wilk normality test in variable change: <m>W</m> = 0.81, <m>p</m> = .002</cell>
+          </row>
+          <row>
+            <cell>Normality is violated. &gt;&gt; Running Wilcoxon signed-rank test.</cell>
+          </row>
+          <row>
+            <cell>Median: -5.5</cell>
+          </row>
+          <row>
+            <cell>Result of Wilcoxon signed-rank test: <m>T</m> = 31.50, <m>p</m> = .035</cell>
+          </row>
+        </tabular>
+      </table>
+
+      <p>
+        As this shows, we have a significant effect, and of the same size as the paired samples
+        test. (Don't mind the rounding difference in the T value.)
+      </p>
+
+    </subsection>
+
+  </section>
+
+  <section xml:id="sec-ttest-summary">
+    <title>Summary</title>
+
+    <ul>
+      <li><p>A one-sample <m>t</m>-test is used to compare a single sample mean against a
+        hypothesised value for the population mean.
+        (<xref ref="sec-onesamplettest"/>)</p></li>
+      <li><p>An independent samples <m>t</m>-test is used to compare the means of two groups, and
+        tests the null hypothesis that they have the same mean. It comes in two forms: the Student
+        test (<xref ref="sec-studentttest"/>) assumes that the groups have the same standard
+        deviation, the Welch test (<xref ref="sec-welchttest"/>) does not.</p></li>
+      <li><p>A paired samples <m>t</m>-test is used when you have two scores from each person, and
+        you want to test the null hypothesis that the two scores have the same mean. It is
+        equivalent to taking the difference between the two scores for each person, and then
+        running a one-sample <m>t</m>-test on the difference scores.
+        (<xref ref="sec-pairedsamplesttest"/>)</p></li>
+      <li><p>Effect size calculations for the difference between means can be calculated via the
+        Cohen's <m>d</m> statistic. (<xref ref="sec-cohensd"/>)</p></li>
+      <li><p>You can check the normality of a sample using QQ plots and the Shapiro-Wilk test.
+        (<xref ref="sec-shapiro"/>)</p></li>
+      <li><p>If your data are non-normal, you can use Wilcoxon and Mann-Whitney tests instead of
+        <m>t</m>-tests. (<xref ref="sec-wilcox"/>)</p></li>
+    </ul>
+
+  </section>
+
 </chapter>
