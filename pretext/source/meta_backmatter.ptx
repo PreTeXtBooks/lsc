@@ -4,9 +4,21 @@
 <backmatter xmlns:xi="http://www.w3.org/2001/XInclude" xml:id="meta_backmatter">
   <title>Backmatter</title>
 
-  <references>
+  <references xml:id="references">
     <title>References</title>
-    <p>References will be added here.</p>
+
+    <biblio xml:id="Bickel1975" type="raw">
+      Bickel, P. J., Hammel, E. A., and O'Connell, J. W. (1975).
+      Sex bias in graduate admissions: Data from Berkeley.
+      <em>Science</em>, 187, 398&#x2013;404.
+    </biblio>
+
+    <biblio xml:id="Evans1983" type="raw">
+      Evans, J. St. B. T., Barston, J. L., and Pollard, P. (1983).
+      On the conflict between logic and belief in syllogistic reasoning.
+      <em>Memory and Cognition</em>, 11, 295&#x2013;306.
+    </biblio>
+
   </references>
 
   <index>
