@@ -5,8 +5,1138 @@
 
   <introduction>
     <p>
-      Content to be added.
+      Now that we've got the basic theory behind hypothesis testing, it's time to start looking at specific
+      tests commonly used in psychology. We'll start with <q><m>\chi^2</m> tests</q> (pronounced as
+      <sq>chi square</sq>) in this chapter and <q><m>t</m>-tests</q>
+      (<xref ref="ch-ttest" text="type-global"/>) in the next one. Both of these tools are very
+      frequently used in scientific practice for comparing groups. While they're not as powerful as
+      <q>analysis of variance</q> (<xref ref="ch-anova" text="type-global"/>) and
+      <q>regression</q> (<xref ref="ch-regression" text="type-global"/>), they're much easier to understand.
+    </p>
+    <p>
+      The term <q>categorical data</q> is the term preferred by data analysis people, but it's just another
+      name for <q>nominal scale data</q>. To refresh your memory on data types, please revisit our
+      introductory chapter on scales of measurement and types of variables
+      (see <xref ref="ch-basic-concepts" text="type-global"/>).
+    </p>
+    <p>
+      In any case, <alert>categorical data analysis</alert> refers to a collection of tools that you can use
+      when your data are nominal scale. We can use many tools for categorical data analysis, but this chapter
+      covers the ones used by CogStat along some more common ones.
     </p>
   </introduction>
+
+  <!-- ============================================================ -->
+  <!-- Section 1: Chi-square goodness-of-fit test                   -->
+  <!-- ============================================================ -->
+  <section xml:id="sec-goftest">
+    <title>The <m>\chi^2</m> Goodness-of-Fit Test</title>
+
+    <p>
+      The <m>\chi^2</m> goodness-of-fit test is one of the oldest hypothesis tests around: it was invented
+      by Karl Pearson around the turn of the century <xref provisional="Pearson1900"/>, with some
+      corrections made later by Sir Ronald Fisher <xref provisional="Fisher1922"/>. Let's start with some
+      psychology to introduce the statistical problem it addresses.
+    </p>
+    <p>
+      Over the years, there have been a lot of studies showing that humans have a lot of difficulties in
+      simulating randomness. Try as we might to <q>act</q> random, we <em>think</em> in terms of patterns
+      and structure, and so when asked to <q>do something at random</q>, what people do is anything but
+      random. Consequently, the study of human randomness (or non-randomness, as the case may be) opens up
+      a lot of deep psychological questions about how we think about the world. With this in mind, let's
+      consider a very simple study. Suppose we asked people to imagine a shuffled deck of cards and mentally
+      pick one card from this imaginary deck <q>at random</q>. After they've chosen one card, we ask them
+      to select a second one mentally. For both choices, we're going to look at the suit (hearts, clubs,
+      spades or diamonds) that people chose. After asking, say, <m>N=200</m> people to do this, we'd like
+      to look at the data and figure out whether or not the cards that people pretended to select were
+      random. The data are contained in the <c>cards.csv</c> file, which we will load into CogStat. For
+      the moment, let's just focus on the first choice that people made (<c>choice_1</c>).
+    </p>
+
+    <figure xml:id="fig-cogstatloadcards">
+      <caption>Loading the <c>cards.csv</c> data and running <c>Explore variable</c> command on
+        <c>choice_1</c></caption>
+      <sidebyside widths="48% 48%">
+        <image source="cogstatloadcards.png">
+          <description>CogStat interface showing the cards.csv data loaded</description>
+        </image>
+        <image source="cogstatcardsdescrhisto.png">
+          <description>CogStat descriptive statistics and histogram for choice_1</description>
+        </image>
+      </sidebyside>
+    </figure>
+
+    <note>
+      <title>Important Note</title>
+      <p>
+        CogStat currently doesn't support single-variable hypothesis testing for nominal scale data.
+        However, this chapter will still be useful for you to understand the tools used in hypothesis
+        testing, and you can use them as described here in other software packages.
+      </p>
+    </note>
+
+    <p>
+      We can see that the data are nominal scale, so we'll use the <m>\chi^2</m> goodness-of-fit test to
+      analyze them. We'll also use the <q>Fisher's exact test</q> option, which is a more powerful version
+      of the <m>\chi^2</m> test that is appropriate when the sample size is small (less than 40). We'll
+      also use the <q>Bonferroni correction</q> option, which is a way of correcting for multiple
+      comparisons. For now, let's just run the analysis.
+    </p>
+    <p>
+      That little frequency table in <xref ref="fig-cogstatloadcards"/> is quite helpful. Looking at it,
+      there's a bit of a hint that people <em>might</em> be more likely to select hearts than clubs, but
+      it's not completely obvious just from looking at it whether that's really true, or if this is just
+      due to chance. So we'll probably have to do some kind of statistical analysis to find out, which is
+      what we're going to talk about in the next section.
+    </p>
+    <p>
+      A quick side-note here: the mathematical notation of observations (i.e. an element in the data set)
+      is <m>O_i</m>, where <m>O</m> stands for observation (but could very well be the traditional
+      <m>X</m> or <m>Y</m> etc.) and <m>i</m> is the index of the observation. So <m>O_1</m> is the
+      first observation, <m>O_2</m> is the second observation, and so on.
+    </p>
+
+    <!-- 1.1 Null and alternative hypotheses -->
+    <subsection xml:id="subsec-goftest-hypotheses">
+      <title>The Null Hypothesis and the Alternative Hypothesis</title>
+
+      <p>
+        Our research hypothesis is that <q>people don't choose cards randomly</q>. What we're going to
+        want to do now is translate this into some statistical hypotheses, and construct a statistical test
+        of those hypotheses. The test is <alert>Pearson's <m>\chi^2</m> goodness of fit test</alert>.
+      </p>
+      <p>
+        As is so often the case, we have to begin by carefully constructing our null hypothesis. In this
+        case, it's pretty easy. First, let's state the null hypothesis in words.
+      </p>
+      <blockquote>
+        <p>
+          <alert>Null hypothesis</alert> (<m>H_0</m>): All four suits are chosen with equal probability.
+        </p>
+      </blockquote>
+      <p>
+        Now, because this is statistics, we have to be able to say the same thing mathematically. Let's
+        use the notation <m>P_j</m> to refer to the true <em>probability</em> that the <m>j</m>-th suit
+        is chosen. If the null hypothesis is true, then each of the four suits has a 25% chance of being
+        selected: in other words, our null hypothesis claims that <m>P_1 = 0.25</m>,
+        <m>P_2 = 0.25</m>, <m>P_3 = 0.25</m> and finally that <m>P_4 = 0.25</m>. We can use <m>P</m>
+        to refer to the probabilities corresponding to our null hypothesis. So if we let the vector
+        <m>P = (P_1, P_2, P_3, P_4)</m> refer to the collection of probabilities that describe our null
+        hypothesis, then we have
+        <me>H_0: {P} = (0.25, 0.25, 0.25, 0.25)</me>
+        If the experimental task were for people to imagine they were drawing from a deck that had twice as
+        many clubs as any other suit, then the null hypothesis would correspond to something like
+        <m>P = (0.4, 0.2, 0.2, 0.2)</m>. As long as the probabilities are all positive numbers, and they
+        all sum to 1, then it's a perfectly legitimate choice for the null hypothesis. However, the most
+        common use of the goodness of fit test is to test a null hypothesis that all categories are equally
+        likely, so we'll stick to that for our example.
+      </p>
+      <p>
+        What about our alternative hypothesis, <m>H_1</m>? We're interested in demonstrating that the
+        probabilities involved aren't all identical (that is, people's choices weren't entirely random). As
+        a consequence, the <q>human-friendly</q> versions of our hypotheses look like this:
+      </p>
+      <blockquote>
+        <p>
+          <alert>Null hypothesis</alert> (<m>H_0</m>): All four suits are chosen with equal probability.
+        </p>
+        <p>
+          <alert>Alternative hypothesis</alert> (<m>H_1</m>): At least one of the suit-choice
+          probabilities <em>isn't</em> 0.25.
+        </p>
+      </blockquote>
+      <p>and the <q>mathematician friendly</q> version is</p>
+
+      <table xml:id="table-goftest-hypotheses">
+        <title>Null and alternative hypotheses for the cards goodness-of-fit test</title>
+        <tabular halign="center">
+          <row header="yes">
+            <cell><m>H_0</m></cell>
+            <cell><m>H_1</m></cell>
+          </row>
+          <row>
+            <cell><m>P = (0.25, 0.25, 0.25, 0.25)</m></cell>
+            <cell><m>P \neq (0.25, 0.25, 0.25, 0.25)</m></cell>
+          </row>
+        </tabular>
+      </table>
+
+    </subsection>
+
+    <!-- 1.2 The test statistic -->
+    <subsection xml:id="subsec-goftest-statistic">
+      <title>The <q>Goodness of Fit</q> Test Statistic</title>
+
+      <p>
+        What we now want to do is construct a test of the null hypothesis. As always, if we want to test
+        <m>H_0</m> against <m>H_1</m>, we will need a test statistic. The basic trick that a goodness of
+        fit test uses is to construct a test statistic that measures how <q>close</q> the data are to the
+        null hypothesis. If the data don't resemble what you'd <q>expect</q> to see if the null hypothesis
+        were true, then it probably isn't true.
+      </p>
+      <p>
+        So, what would we expect to see if the null hypothesis were true? Or, to use the correct
+        terminology, what are the <alert>expected frequencies</alert>?
+      </p>
+      <p>
+        There are <m>N=200</m> observations, and (if the null is true) the probability of any one of them
+        choosing a heart is <m>P_3 = 0.25</m>, so we're expecting <m>200 \times 0.25 = 50</m> hearts,
+        right? Or, more specifically, if we let <m>E_i</m> refer to <q>the number of category <m>i</m>
+        responses that we're expecting if the null is true</q>, then
+        <me>E_i = N \times P_i</me>
+        Clearly, what we want to do is compare the <em>expected</em> number of observations in each
+        category (<m>E_i</m>) with the <em>observed</em> number of observations in that category
+        (<m>O_i</m>). And on the basis of this comparison, we ought to be able to come up with a good test
+        statistic. To start with, let's calculate the difference between what the null hypothesis expected
+        us to find and what we actually did find. That is, we calculate the <q>observed minus expected</q>
+        difference score, <m>O_i - E_i</m>. This is illustrated in the following table.
+      </p>
+
+      <table xml:id="table-goftest-differences">
+        <title>Observed and expected frequencies and difference scores for the cards data</title>
+        <tabular halign="center">
+          <row header="yes">
+            <cell></cell>
+            <cell></cell>
+            <cell><m>\clubsuit</m></cell>
+            <cell><m>\diamondsuit</m></cell>
+            <cell><m>\heartsuit</m></cell>
+            <cell><m>\spadesuit</m></cell>
+          </row>
+          <row>
+            <cell>Expected frequency</cell>
+            <cell><m>E_i</m></cell>
+            <cell>50</cell>
+            <cell>50</cell>
+            <cell>50</cell>
+            <cell>50</cell>
+          </row>
+          <row>
+            <cell>Observed frequency</cell>
+            <cell><m>O_i</m></cell>
+            <cell>35</cell>
+            <cell>51</cell>
+            <cell>64</cell>
+            <cell>50</cell>
+          </row>
+          <row>
+            <cell>Difference score</cell>
+            <cell><m>O_i - E_i</m></cell>
+            <cell><m>-15</m></cell>
+            <cell>1</cell>
+            <cell>14</cell>
+            <cell>0</cell>
+          </row>
+        </tabular>
+      </table>
+
+      <p>
+        It's clear that people chose more hearts and fewer clubs than the null hypothesis predicted.
+        However, a moment's thought suggests that these raw differences aren't quite what we're looking
+        for. Intuitively, it feels like it's just as bad when the null hypothesis predicts too few
+        observations (which is what happened with hearts) as it is when it predicts too many (which is
+        what happened with clubs). So it's a bit weird that we have a negative number for clubs and a
+        positive number for hearts.
+      </p>
+      <p>
+        One easy way to fix this is to square everything so that we now calculate the squared differences,
+        <m>(E_i - O_i)^2</m>.
+      </p>
+
+      <table xml:id="table-goftest-squared">
+        <title>Squared difference scores for the cards data</title>
+        <tabular halign="center">
+          <row header="yes">
+            <cell></cell>
+            <cell></cell>
+            <cell><m>\clubsuit</m></cell>
+            <cell><m>\diamondsuit</m></cell>
+            <cell><m>\heartsuit</m></cell>
+            <cell><m>\spadesuit</m></cell>
+          </row>
+          <row>
+            <cell>Expected frequency</cell>
+            <cell><m>E_i</m></cell>
+            <cell>50</cell>
+            <cell>50</cell>
+            <cell>50</cell>
+            <cell>50</cell>
+          </row>
+          <row>
+            <cell>Observed frequency</cell>
+            <cell><m>O_i</m></cell>
+            <cell>35</cell>
+            <cell>51</cell>
+            <cell>64</cell>
+            <cell>50</cell>
+          </row>
+          <row>
+            <cell>Difference score</cell>
+            <cell><m>O_i - E_i</m></cell>
+            <cell><m>-15</m></cell>
+            <cell>1</cell>
+            <cell>14</cell>
+            <cell>0</cell>
+          </row>
+          <row>
+            <cell>Squared differences</cell>
+            <cell><m>\left(O_i - E_i\right)^2</m></cell>
+            <cell>225</cell>
+            <cell>1</cell>
+            <cell>196</cell>
+            <cell>0</cell>
+          </row>
+        </tabular>
+      </table>
+
+      <p>
+        Now we're making progress. Now, we've got a collection of numbers that are big whenever the null
+        hypothesis makes a lousy prediction (clubs and hearts) but small whenever it makes a good one
+        (diamonds and spades).
+      </p>
+      <p>
+        Next, let's also divide all these numbers by the expected frequency <m>E_i</m>, so we're
+        calculating <m>\frac{(E_i-O_i)^2}{E_i}</m>. Since <m>E_i = 50</m> for all categories in our
+        example, it's not a very interesting calculation, but let's do it anyway.
+      </p>
+
+      <table xml:id="table-goftest-divided">
+        <title>Squared differences divided by expected frequency for the cards data</title>
+        <tabular halign="center">
+          <row header="yes">
+            <cell></cell>
+            <cell></cell>
+            <cell><m>\clubsuit</m></cell>
+            <cell><m>\diamondsuit</m></cell>
+            <cell><m>\heartsuit</m></cell>
+            <cell><m>\spadesuit</m></cell>
+          </row>
+          <row>
+            <cell>Expected frequency</cell>
+            <cell><m>E_i</m></cell>
+            <cell>50</cell>
+            <cell>50</cell>
+            <cell>50</cell>
+            <cell>50</cell>
+          </row>
+          <row>
+            <cell>Observed frequency</cell>
+            <cell><m>O_i</m></cell>
+            <cell>35</cell>
+            <cell>51</cell>
+            <cell>64</cell>
+            <cell>50</cell>
+          </row>
+          <row>
+            <cell>Difference score</cell>
+            <cell><m>O_i - E_i</m></cell>
+            <cell><m>-15</m></cell>
+            <cell>1</cell>
+            <cell>14</cell>
+            <cell>0</cell>
+          </row>
+          <row>
+            <cell>Squared differences</cell>
+            <cell><m>\left(O_i - E_i\right)^2</m></cell>
+            <cell>225</cell>
+            <cell>1</cell>
+            <cell>196</cell>
+            <cell>0</cell>
+          </row>
+          <row>
+            <cell>Squared differences divided by expected frequency</cell>
+            <cell><m>\dfrac{\left(O_i - E_i\right)^2}{E_i}</m></cell>
+            <cell>4.5</cell>
+            <cell>0.02</cell>
+            <cell>3.92</cell>
+            <cell>0</cell>
+          </row>
+        </tabular>
+      </table>
+
+      <p>
+        In effect, what we've got here are four different <q>error</q> scores, each one telling us how big
+        a <q>mistake</q> the null hypothesis made when we tried to use it to predict our observed
+        frequencies. So, in order to convert this into a useful test statistic, one thing we could do is
+        just add these numbers up. We get
+        <me>X^2 = 8.42</me>
+        The result is called the <alert>goodness of fit</alert> statistic, conventionally referred to
+        either as <m>X^2</m> or GOF. If we let <m>k</m> refer to the total number of categories (i.e.
+        <m>k=4</m> for our cards data), then the <m>X^2</m> statistic is given by the following formula:
+        <me>X^2 = \sum_{i=1}^k \frac{(O_i - E_i)^2}{E_i}</me>
+        Intuitively, it's clear that if <m>X^2</m> is small, then the observed data <m>O_i</m> are very
+        close to what the null hypothesis predicted <m>E_i</m>, so we're going to need a large <m>X^2</m>
+        statistic in order to reject the null. As we've seen from our calculations, we've got a value of
+        <m>X^2 = 8.44</m> in our cards data set. So now the question becomes, is this a big enough value
+        to reject the null?
+      </p>
+    </subsection>
+
+    <!-- 1.3 Sampling distribution (advanced) -->
+    <subsection xml:id="subsec-goftest-sampling">
+      <title>The Sampling Distribution of the GOF Statistic (Advanced)</title>
+
+      <p>
+        To determine whether or not a particular value of <m>X^2</m> is large enough to justify rejecting
+        the null hypothesis, we will need to figure out what the sampling distribution for <m>X^2</m>
+        would be if the null hypothesis were true. If you want to cut to the chase and are willing to take
+        it on faith that the sampling distribution is a <alert>chi-squared (<m>\chi^2</m>) distribution</alert>
+        with <m>k-1</m> degrees of freedom, you can skip the rest of this section. However, if you want
+        to understand <em>why</em> the goodness of fit test works the way it does, read on.
+      </p>
+      <p>
+        Let's suppose that the null hypothesis is true. If so, then the true probability that an
+        observation falls in the <m>i</m>-th category is <m>P_i</m>. After all, that's the definition of
+        our null hypothesis. If you think about it, this is kind of like saying that <q>nature</q>
+        decides whether or not the observation ends up in category <m>i</m> by flipping a weighted coin
+        (i.e. one where the probability of getting a head is <m>P_j</m>). And therefore, we can think of
+        our observed frequency <m>O_i</m> by imagining that nature flipped <m>N</m> of these coins (one
+        for each observation in the data set). And exactly <m>O_i</m> of them came up heads. Obviously,
+        this is a pretty weird way to think about the experiment. But it reminds you that we've seen this
+        scenario before. It's exactly the same set-up that gave rise to the binomial distribution in
+        <xref ref="ch-probability" text="type-global"/>. In other words, if the null hypothesis is true,
+        then it follows that our observed frequencies were generated by sampling from a binomial
+        distribution:
+        <me>O_i \sim \mbox{Binomial}(P_i, N)</me>
+        Now, if you remember from our discussion of the central limit theorem, the binomial distribution
+        starts to look pretty much identical to the normal distribution, especially when <m>N</m> is large
+        and when <m>P_i</m> isn't <em>too</em> close to 0 or 1.
+      </p>
+      <p>
+        In other words, as long as <m>N \times P_i</m> is large enough — or, to put it another way, when
+        the expected frequency <m>E_i</m> is large enough — the theoretical distribution of <m>O_i</m> is
+        approximately normal. Better yet, if <m>O_i</m> is normally distributed, then so is
+        <m>(O_i - E_i)/\sqrt{E_i}</m> <ellipsis/> since <m>E_i</m> is a fixed value, subtracting off
+        <m>E_i</m> and dividing by <m>\sqrt{E_i}</m> changes the mean and standard deviation of the
+        normal distribution.
+      </p>
+      <p>
+        Okay, so now let's have a look at what our goodness of fit statistic actually <em>is</em>. What
+        we're doing is taking a bunch of things that are normally distributed, squaring them, and adding
+        them up. As we discussed in a previous chapter, when you take a bunch of things that have a
+        standard normal distribution (i.e. mean 0 and standard deviation 1), square them, then add them
+        up, then the resulting quantity has a chi-square distribution. So now we know that the null
+        hypothesis predicts that the sampling distribution of the goodness of fit statistic is a
+        chi-square distribution.
+      </p>
+      <p>
+        There's one last detail to talk about, namely the degrees of freedom. If the number of things
+        you're adding up is <m>k</m>, then the degrees of freedom for the resulting chi-square
+        distribution is <m>k</m>. Yet, at the start of this section, we said that the actual degrees of
+        freedom for the chi-square goodness of fit test is <m>k-1</m>. What's up with that? The answer
+        here is that what we're supposed to be looking at is the number of genuinely <em>independent</em>
+        things that are getting added together. And, even though there are <m>k</m> things that we're
+        adding, only <m>k-1</m> of them are truly independent; and so the degrees of freedom are actually
+        only <m>k-1</m>.
+      </p>
+    </subsection>
+
+    <!-- 1.4 Degrees of freedom -->
+    <subsection xml:id="subsec-goftest-df">
+      <title>Degrees of Freedom</title>
+
+      <figure xml:id="fig-manychi">
+        <caption>Chi-square distributions with different values for the <q>degrees of freedom</q>.</caption>
+        <image source="manychi.svg" width="80%">
+          <description>Plot showing chi-square distributions for degrees of freedom 3, 4, 5, 6, and 7</description>
+        </image>
+      </figure>
+
+      <p>
+        When discussing the chi-square distribution in an earlier chapter, we didn't elaborate on what
+        <q><alert>degrees of freedom</alert></q> actually <em>mean</em>. Looking at
+        <xref ref="fig-manychi"/>, you can see that if we change the degrees of freedom, then the
+        chi-square distribution changes shape substantially. But what exactly <em>is</em> it? It's the
+        number of <q>normally distributed variables</q> that we are squaring and adding together. But, for
+        most people, that's kind of abstract and not entirely helpful. What we really need to do is try to
+        understand degrees of freedom in terms of our data. So here goes.
+      </p>
+      <p>
+        The basic idea behind degrees of freedom is quite simple: you calculate it by counting up the
+        number of distinct <q>quantities</q> that are used to describe your data; and then subtracting off
+        all of the <q>constraints</q> that those data must satisfy.<fn>This, again, is an
+        over-simplification. It works nicely for quite a few situations, but every now and then, we'll
+        come across degrees of freedom values that aren't whole numbers. Don't let this worry you too much
+        — when you come across this, just remind yourself that <q>degrees of freedom</q> is actually a
+        bit of a messy concept. For an introductory class, it's usually best to stick to the simple
+        story.</fn> This is a bit vague, so let's use our <c>cards.csv</c> data as a concrete example.
+      </p>
+      <p>
+        We describe our data using four numbers, <m>O_1</m>, <m>O_2</m>, <m>O_3</m> and <m>O_4</m>
+        corresponding to the observed frequencies of the four different categories (hearts, clubs,
+        diamonds, spades). These four numbers are the <em>random outcomes</em> of our experiment. But,
+        the experiment has a fixed constraint built into it: the sample size <m>N</m>.<fn>In practice, the
+        sample size isn't always fixed<ellipsis/> e.g. we might run the experiment over a fixed period of
+        time, and the number of people participating depends on how many people show up. That doesn't
+        matter for the current purposes.</fn> That is, if we know how many people chose hearts, how many
+        chose diamonds and how many chose clubs, then we'd be able to figure out exactly how many chose
+        spades. In other words, although our data are described using four numbers, they only actually
+        correspond to <m>4-1 = 3</m> degrees of freedom. A slightly different way of thinking about it is
+        to notice that there are four <em>probabilities</em> that we're interested in (again,
+        corresponding to the four different categories), but these probabilities must sum to one, which
+        imposes a constraint. Therefore, the degrees of freedom is <m>4-1 = 3</m>. Regardless of whether
+        you want to think about it in terms of the observed frequencies or in terms of the probabilities,
+        the answer is the same. In general, when running the chi-square goodness of fit test for an
+        experiment involving <m>k</m> groups, then the degrees of freedom will be <m>k-1</m>.
+      </p>
+    </subsection>
+
+    <!-- 1.5 Testing the null hypothesis -->
+    <subsection xml:id="subsec-goftest-testing">
+      <title>Testing the Null Hypothesis</title>
+
+      <figure xml:id="fig-goftest">
+        <caption>Illustration of how the hypothesis testing works for the chi-square goodness of fit
+          test.</caption>
+        <image source="goftest.svg" width="80%">
+          <description>Chi-square distribution with the critical value at 7.81 and the observed GOF value
+            of 8.44 marked</description>
+        </image>
+      </figure>
+
+      <p>
+        The final step in constructing our hypothesis test is to figure out what the rejection region is.
+        That is, what values of <m>X^2</m> would lead us to reject the null hypothesis? As we saw
+        earlier, large values of <m>X^2</m> imply that the null hypothesis has done a poor job of
+        predicting the data from our experiment, whereas small values of <m>X^2</m> imply that it's
+        actually done pretty well. Therefore, a pretty sensible strategy would be to say there is some
+        critical value, such that if <m>X^2</m> is bigger than the critical value, we reject the null;
+        but if <m>X^2</m> is smaller than this value, we retain the null.
+      </p>
+      <p>
+        In other words, to use the language we introduced in
+        <xref ref="ch-hypothesis-testing" text="type-global"/>, the chi-squared goodness of fit test is
+        always a <alert>one-sided test</alert>. If we want our test to have a significance level of
+        <m>\alpha = .05</m> (that is, we are willing to tolerate a Type I error rate of 5%), then we have
+        to choose our critical value so that there is only a 5% chance that <m>X^2</m> could get to be
+        that big if the null hypothesis is true. Meaning that we want the 95th percentile of the sampling
+        distribution. This is illustrated in <xref ref="fig-goftest"/>. So if our <m>X^2</m> statistic is
+        bigger than 7.814728, then we can reject the null hypothesis. Since we calculated that before
+        (i.e. <m>X^2 = 8.44</m>), we can reject the null.
+      </p>
+      <p>
+        The corresponding <m>p</m>-value is 0.03774185. This is the probability of getting a value of
+        <m>X^2</m> as big as 8.44, or bigger, if the null hypothesis is true. Since this is less than our
+        significance level of <m>\alpha = .05</m>, we can reject the null hypothesis.
+      </p>
+      <p>
+        And that's it, basically. You now know <alert>Pearson's <m>\chi^2</m> test for the goodness of
+        fit</alert>.
+      </p>
+    </subsection>
+
+    <!-- 1.6 How to report results -->
+    <subsection xml:id="sec-chisqreport">
+      <title>How to Report the Results of the Test</title>
+
+      <p>
+        If we wanted to write this result up for a paper or something, the conventional way to report this
+        would be to write something like this:
+      </p>
+      <blockquote>
+        <p>
+          Of the 200 participants in the experiment, 64 selected hearts for their first choice, 51
+          selected diamonds, 50 selected spades, and 35 selected clubs. A chi-square goodness of fit test
+          was conducted to test whether the choice probabilities were identical for all four suits. The
+          results were significant (<m>\chi^2(3) = 8.44, p\lt.05</m>), suggesting that people did not
+          select suits purely at random.
+        </p>
+      </blockquote>
+      <p>
+        This is pretty straightforward, and hopefully it seems pretty unremarkable. There are a few things
+        that you should note about this description:
+      </p>
+      <ul>
+        <li>
+          <p>
+            <em>The statistical test is preceded by descriptive statistics.</em> That is, we told the
+            reader something about what the data looked like before going on to do the test. In general,
+            this is good practice: remember that your reader doesn't know your data anywhere near as well
+            as you do. So unless you describe it to them adequately, the statistical tests won't make
+            sense to them.
+          </p>
+        </li>
+        <li>
+          <p>
+            <em>The description tells you what the null hypothesis being tested is.</em> Writers don't
+            always do this, but it's often a good idea in those situations where some ambiguity exists; or
+            when you can't rely on your readership being intimately familiar with the statistical tools
+            you're using. Quite often, the reader might not know (or remember) all the details of the test
+            that your using, so it's a kind of politeness to <q>remind</q> them! As far as the goodness of
+            fit test goes, you can usually rely on a scientific audience knowing how it works (since it's
+            covered in most intro stats classes). However, it's still a good idea to explicitly state the
+            null hypothesis (briefly!) because the null hypothesis can differ depending on your test. For
+            instance, in the cards example our null hypothesis was that all the four suit probabilities
+            were identical (i.e. <m>P_1 = P_2 = P_3 = P_4 = 0.25</m>), but there's nothing special about
+            that hypothesis. We could just as easily have tested the null hypothesis that <m>P_1 = 0.7</m>
+            and <m>P_2 = P_3 = P_4 = 0.1</m> using a goodness of fit test. So it's helpful to the reader
+            to explain your null hypothesis to them. Also, we described the null hypothesis in words, not
+            in maths. That's perfectly acceptable. You can describe it in maths if you like, but since
+            most readers find words easier to read than symbols, most writers tend to describe the null
+            using words if they can.
+          </p>
+        </li>
+        <li>
+          <p>
+            <em>A <q>stat block</q> is included.</em> When reporting the results of the test itself, we
+            didn't just say that the result was significant; we included a <q>stat block</q> (i.e. the
+            dense mathematical-looking part in the parentheses), which reports all the <q>raw</q>
+            statistical data. For the chi-square goodness of fit test, the information that gets reported
+            is the test statistic (that the goodness of fit statistic was 8.44), the information about the
+            distribution used in the test (<m>\chi^2</m> with 3 degrees of freedom, which is usually
+            shortened to <m>\chi^2(3)</m>), and then the information about whether the result was
+            significant (in this case <m>p\lt.05</m>). The particular information that needs to go into
+            the stat block is different for every test, and so each time we introduce a new test, we'll
+            show you what the stat block should look like.
+          </p>
+        </li>
+        <li>
+          <p>
+            <em>The results are interpreted.</em> In addition to indicating that the result was
+            significant, we provided an interpretation of the result (i.e. that people didn't choose
+            randomly). This is also a kindness to the reader because it tells them what they should
+            believe about your data. If you don't include something like this, it's tough for your reader
+            to understand what's going on.<fn>To some people, this advice might sound odd or at least in
+            conflict with the <q>usual</q> advice on how to write a technical report. Students are
+            typically told that the <q>results</q> section of a report is for describing the data and
+            reporting statistical analysis, and the <q>discussion</q> section provides interpretation.
+            That's true as far as it goes, but people often interpret it way too literally. Provide a
+            quick and simple interpretation of the data in the results section so that the reader
+            understands what the data are telling us. Then, in the discussion, try to tell a bigger story;
+            about how my results fit the rest of the scientific literature. In short, don't let the
+            <q>interpretation goes in the discussion</q> advice turn your results section into
+            incomprehensible garbage. Being understood by your reader is <em>much</em> more
+            important.</fn>
+          </p>
+        </li>
+      </ul>
+      <p>
+        As with everything else, your overriding concern should be that you <em>explain</em> things to
+        your reader.
+      </p>
+    </subsection>
+
+    <!-- 1.7 A comment on notation (advanced) -->
+    <subsection xml:id="subsec-goftest-notation">
+      <title>A Comment on Statistical Notation (Advanced)</title>
+
+      <p>
+        If you've been reading very closely, there is one thing about how we wrote up the chi-square test
+        in the last section that might be bugging you a little bit. There's something that feels a bit
+        wrong with writing <q><m>\chi^2(3) = 8.44</m></q>, you might be thinking. After all, it's the
+        goodness of fit statistic that is equal to 8.44, so shouldn't I have written <m>X^2 = 8.44</m> or
+        maybe <m>\text{GOF}=8.44</m>? This seems to be conflating the <em>sampling distribution</em>
+        (i.e. <m>\chi^2</m> with <m>df = 3</m>) with the <em>test statistic</em> (i.e. <m>X^2</m>). You
+        figured it was a typo since <m>\chi</m> and <m>X</m> look pretty similar. Oddly, it's not.
+        Writing <m>\chi^2(3) = 8.44</m> is essentially a highly condensed way of writing <q>the sampling
+        distribution of the test statistic is <m>\chi^2(3)</m>, and the value of the test statistic is
+        8.44</q>.
+      </p>
+      <p>
+        In one sense, this is kind of stupid. There are <em>lots</em> of different test statistics out
+        there that have a chi-square sampling distribution: the <m>X^2</m> statistic that we've used for
+        our goodness of fit test is only one of many (albeit one of the most commonly encountered ones).
+        In a sensible, perfectly organised world, we'd <em>always</em> have a separate name for the test
+        statistic and the sampling distribution: that way, the stat block itself would tell you precisely
+        what it was that the researcher had calculated. Sometimes this happens.
+      </p>
+      <p>
+        For instance, the test statistic used in the Pearson goodness of fit test is written <m>X^2</m>;
+        but there's a closely related test known as the <m>G</m>-test<fn>Complicating matters, the
+        <m>G</m>-test is a special case of a whole class of tests that are known as <em>likelihood ratio
+        tests</em>.</fn> <xref provisional="Sokal1994"/>, in which the test statistic is written as
+        <m>G</m>. As it happens, the Pearson goodness of fit test and the <m>G</m>-test both test the
+        same null hypothesis; and the sampling distribution is exactly the same (i.e. chi-square with
+        <m>k-1</m> degrees of freedom). If we'd done a <m>G</m>-test for the cards data rather than a
+        goodness of fit test, then we'd have ended up with a test statistic of <m>G = 8.65</m>, which is
+        slightly different from the <m>X^2 = 8.44</m>; and produces a slightly smaller <m>p</m>-value of
+        <m>p = .034</m>. Suppose that the convention was to report the test statistic, then the sampling
+        distribution, and then the <m>p</m>-value. If that were true, then these two situations would
+        produce different stat blocks: the original result would be written
+        <m>X^2 = 8.44, \chi^2(3), p = .038</m>, whereas the new version using the <m>G</m>-test would be
+        written as <m>G = 8.65, \chi^2(3), p = .034</m>. However, using the condensed reporting
+        standard, the original result is written <m>\chi^2(3) = 8.44, p = .038</m>, and the new one is
+        written <m>\chi^2(3) = 8.65, p = .034</m>, and so it's actually unclear which test was actually
+        run.
+      </p>
+      <p>
+        So why don't we live in a world where the stat block's contents uniquely specify what tests were
+        run? Any test statistic that follows a <m>\chi^2</m> distribution is commonly called a
+        <q>chi-square statistic</q>; anything that follows a <m>t</m>-distribution is called a
+        <q><m>t</m>-statistic</q> and so on. But, as the <m>X^2</m> versus <m>G</m> example illustrates,
+        two different things with the same sampling distribution are still, well, different. Consequently,
+        it's sometimes a good idea to be clear about what the actual test was that you ran, especially if
+        you're doing something unusual. If you just say <q>chi-square test</q>, it's unclear what test
+        you're talking about. Although, since the two most common chi-square tests are the goodness of fit
+        test and the independence test (<xref ref="sec-chisqindependence"/>), most readers with stats
+        training can probably guess. Nevertheless, it's something to be aware of.
+      </p>
+    </subsection>
+
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- Section 2: Chi-square test of independence                   -->
+  <!-- ============================================================ -->
+  <section xml:id="sec-chisqindependence">
+    <title>The <m>\chi^2</m> Test of Independence (or Association)</title>
+
+    <p>
+      The other day Danielle was watching an animated documentary examining the quaint customs of the
+      natives of the planet <em>Chapek 9</em>. Apparently, in order to gain access to their capital city,
+      a visitor must prove that they're a robot, not a human. In order to determine whether or not the
+      visitor is human, they ask whether the visitor prefers puppies, flowers or large, properly formatted
+      data files. But what if humans and robots have the same preferences? That probably wouldn't be a
+      very good test then, would it? In order to determine whether or not a visitor is human, the natives
+      of <em>Chapek 9</em> need to know whether or not the visitor's preferences are independent of their
+      species. In other words, they need to know whether or not the visitor's preferences are associated
+      with their species.
+    </p>
+
+    <figure xml:id="fig-cogstatloadchapek9">
+      <caption>Loading the <c>chapek9.csv</c> data set into CogStat.</caption>
+      <image source="cogstatloadchapek9.png" width="80%">
+        <description>CogStat interface showing the chapek9.csv data loaded</description>
+      </image>
+    </figure>
+
+    <p>
+      In total, there are 180 entries in the data frame, one for each person (counting both robots and
+      humans as <q>people</q>) who was asked to make a choice. Specifically, there are 93 humans and 87
+      robots.
+    </p>
+    <p>
+      What we want to do is look at the <c>choices</c> broken down <em>by</em> <c>species</c>. That is,
+      we need to cross-tabulate the data. We cannot use the <c>Pivot table</c> option in CogStat for
+      strings, but we can use the <c>Compare groups</c> option instead. We'll use the <c>species</c>
+      variable as the grouping variable and the <c>choices</c> variable as the variable to compare.
+    </p>
+
+    <figure xml:id="fig-cogstatchapek9">
+      <caption>Using the <c>Compare groups</c> dialogue to get some information about <c>choices</c> by
+        <c>species</c>.</caption>
+      <image source="cogstatcomparegroupschapek9.png" width="80%">
+        <description>CogStat Compare groups results for chapek9 data</description>
+      </image>
+    </figure>
+
+    <p>
+      The overwhelmingly preferred choice is the <c>data file</c>. You can see a visual representation
+      of this in <xref ref="fig-cogstatchapek9mosaic"/>.
+    </p>
+
+    <figure xml:id="fig-cogstatchapek9mosaic">
+      <caption>The mosaic plot of <c>choices</c> by <c>species</c>.</caption>
+      <image source="cogstatchapek9mosaic.png" width="80%">
+        <description>Mosaic plot showing the distribution of choices by species in the chapek9 data</description>
+      </image>
+    </figure>
+
+    <p>
+      Scrolling down, you can see the descriptives for the groups in the <c>Sample properties</c> section:
+    </p>
+
+    <figure xml:id="fig-cogstatchapek9descriptives">
+      <caption>The <c>Sample properties</c> section of the <c>Compare groups</c> results showing the
+        contingency table we'll discuss later in this chapter.</caption>
+      <image source="cogstatchapek9descriptives.png" width="80%">
+        <description>CogStat Sample properties section showing the contingency table for chapek9 data</description>
+      </image>
+    </figure>
+
+    <p>
+      Let's put these results in a table for our discussion on the <m>\chi^2</m> test of independence.
+    </p>
+
+    <table xml:id="table-chapek9-crosstab">
+      <title>Cross-tabulation of <c>choices</c> by <c>species</c></title>
+      <tabular halign="center">
+        <row header="yes">
+          <cell></cell>
+          <cell>Robot</cell>
+          <cell>Human</cell>
+          <cell>Total</cell>
+        </row>
+        <row>
+          <cell>Puppy</cell>
+          <cell>13</cell>
+          <cell>15</cell>
+          <cell>28</cell>
+        </row>
+        <row>
+          <cell>Flower</cell>
+          <cell>30</cell>
+          <cell>13</cell>
+          <cell>43</cell>
+        </row>
+        <row>
+          <cell>Data file</cell>
+          <cell>44</cell>
+          <cell>65</cell>
+          <cell>109</cell>
+        </row>
+        <row>
+          <cell>Total</cell>
+          <cell>87</cell>
+          <cell>93</cell>
+          <cell>180</cell>
+        </row>
+      </tabular>
+    </table>
+
+    <p>
+      It's quite clear that most humans chose the data file, whereas the robots tended to be a lot more
+      even in their preferences. Leaving aside the question of <em>why</em> humans might be more likely
+      to choose the data file for the moment, first, we must determine if the discrepancy between human
+      choices and robot choices in the data set is statistically significant.
+    </p>
+
+    <!-- 2.1 Constructing the hypothesis test -->
+    <subsection xml:id="subsec-independence-hypothesis">
+      <title>Constructing Our Hypothesis Test</title>
+
+      <p>
+        How do we analyse this data manually? Specifically, since our <em>research</em> hypothesis is that
+        <q>humans and robots answer the question in different ways</q>, how can we construct a test of the
+        <em>null</em> hypothesis that <q>humans and robots answer the question the same way</q>? As
+        before, we begin by establishing some notation to describe the data:
+      </p>
+
+      <table xml:id="table-chapek9-notation">
+        <title>Notation for the chapek9 contingency table</title>
+        <tabular halign="center">
+          <row header="yes">
+            <cell></cell>
+            <cell>Robot</cell>
+            <cell>Human</cell>
+            <cell>Total</cell>
+          </row>
+          <row>
+            <cell>Puppy</cell>
+            <cell><m>O_{11}</m></cell>
+            <cell><m>O_{12}</m></cell>
+            <cell><m>R_{1}</m></cell>
+          </row>
+          <row>
+            <cell>Flower</cell>
+            <cell><m>O_{21}</m></cell>
+            <cell><m>O_{22}</m></cell>
+            <cell><m>R_{2}</m></cell>
+          </row>
+          <row>
+            <cell>Data file</cell>
+            <cell><m>O_{31}</m></cell>
+            <cell><m>O_{32}</m></cell>
+            <cell><m>R_{3}</m></cell>
+          </row>
+          <row>
+            <cell>Total</cell>
+            <cell><m>C_{1}</m></cell>
+            <cell><m>C_{2}</m></cell>
+            <cell><m>N</m></cell>
+          </row>
+        </tabular>
+      </table>
+
+      <p>
+        In this notation, we say that <m>O_{ij}</m> is a count (observed frequency) of the number of
+        respondents that are of species <m>j</m> (<c>robot</c> or <c>human</c>) who answered <m>i</m>
+        (<c>puppy</c>, <c>flower</c> or <c>data</c>) when asked to make a choice. The total number of
+        observations is written <m>N</m>, as usual. Finally, <m>R_i</m> denotes the row totals (e.g.
+        <m>R_1</m> is the total number of people who chose the flower), and <m>C_j</m> denotes the column
+        totals (e.g., <m>C_1</m> is the total number of robots). To use the terminology from another
+        mathematical statistics textbook <xref provisional="Hogg2005"/>, we should technically refer to
+        this situation as a <alert>chi-square test of homogeneity</alert>; and reserve the term
+        <alert>chi-square test of independence</alert> for the situation where both the row and column
+        totals are random outcomes of the experiment.
+      </p>
+      <p>
+        So now, let's think about what the null hypothesis says. If robots and humans are responding in
+        the same way to the question, it means that the probability that <q>a robot says puppy</q> is the
+        same as the probability that <q>a human says puppy</q>, and so on for the other two possibilities.
+        So, if we use <m>P_{ij}</m> to denote <q>the probability that a member of species <m>j</m> gives
+        response <m>i</m></q>, then our null hypothesis is that:
+      </p>
+
+      <table xml:id="table-chapeknullhypo">
+        <title>The null hypothesis for the <m>\chi^2</m> test of independence of the <c>chapek9</c> data
+          set.</title>
+        <tabular halign="left">
+          <row header="yes">
+            <cell><m>H_0</m>:</cell>
+            <cell>All of the following are true:</cell>
+            <cell></cell>
+          </row>
+          <row>
+            <cell></cell>
+            <cell><m>P_{11} = P_{12}</m></cell>
+            <cell>same probability of saying <c>puppy</c></cell>
+          </row>
+          <row>
+            <cell></cell>
+            <cell><m>P_{21} = P_{22}</m></cell>
+            <cell>same probability of saying <c>flower</c></cell>
+          </row>
+          <row>
+            <cell></cell>
+            <cell><m>P_{31} = P_{32}</m></cell>
+            <cell>same probability of saying <c>data file</c></cell>
+          </row>
+        </tabular>
+      </table>
+
+      <p>
+        Since the null hypothesis claims that the true choice probabilities don't depend on the species of
+        the person making the choice, we can let <m>P_i</m> refer to this probability: e.g. <m>P_1</m> is
+        the true probability of choosing the puppy.
+      </p>
+      <p>
+        Next, in much the same way we did with the goodness of fit test, we need to calculate the expected
+        frequencies. For each of the observed counts <m>O_{ij}</m>, we need to figure out what the null
+        hypothesis would tell us to expect. Let's denote this expected frequency by <m>E_{ij}</m>. This
+        time, it's a little bit trickier. If there are a total of <m>C_j</m> people that belong to species
+        <m>j</m>, and the true probability of anyone (regardless of species) choosing option <m>i</m> is
+        <m>P_i</m>, then the expected frequency is just:
+        <me>E_{ij} = C_j \times P_i</me>
+        This is all very well and good, but we have a problem. Unlike the situation we had with the
+        goodness of fit test, the null hypothesis doesn't specify a particular value for <m>P_i</m>. It's
+        something we have to estimate from the data! Fortunately, this is pretty easy to do. If 28 out of
+        180 people selected the flowers, then a natural estimate for the probability of choosing flowers
+        is <m>28/180</m>, which is approximately <m>.16</m>. If we phrase this in mathematical terms, what
+        we're saying is that our estimate for the probability of choosing option <m>i</m> is just the row
+        total divided by the total sample size:
+        <me>\hat{P}_i = \frac{R_i}{N}</me>
+        Therefore, our expected frequency can be written as the product (i.e. multiplication) of the row
+        total and the column total, divided by the total number of observations:<fn>Technically,
+        <m>E_{ij}</m> here is an estimate, so we should probably write it <m>\hat{E}_{ij}</m>.</fn>
+        <me>E_{ij} = \frac{R_i \times C_j}{N}</me>
+      </p>
+      <p>
+        Now that we've figured out how to calculate the expected frequencies, it's straightforward to
+        define a test statistic following the same strategy we used in the goodness of fit test. It's
+        pretty much the <em>same</em> statistic. For a contingency table with <m>r</m> rows and <m>c</m>
+        columns, the equation that defines our <m>X^2</m> statistic is
+        <me>X^2 = \sum_{i=1}^r \sum_{j=1}^c \frac{({E}_{ij} - O_{ij})^2}{{E}_{ij}}</me>
+        The only difference is that we have to include two summation signs (i.e. <m>\sum</m>) to indicate
+        that we're summing over both rows and columns. As before, large values of <m>X^2</m> suggest that
+        the null hypothesis provides a poor description of the data, whereas small values of <m>X^2</m>
+        indicate that it does a good job of accounting for the data. Therefore, just like last time, we
+        want to reject the null hypothesis if <m>X^2</m> is too large.
+      </p>
+      <p>
+        Not surprisingly, this statistic is <m>\chi^2</m> distributed. All we need to do is figure out
+        how many degrees of freedom are involved, which actually isn't too hard. You can think of the
+        degrees of freedom as equal to the number of data points you're analysing minus the number of
+        constraints. A contingency table with <m>r</m> rows and <m>c</m> columns contains a total of
+        <m>r \times c</m> observed frequencies, so that's the total number of observations.
+      </p>
+      <p>
+        What about the constraints? Here, it's slightly trickier. The answer is always the same:
+        <me>df = (r-1)(c-1)</me>
+        But the explanation for <em>why</em> the degrees of freedom take this value is different depending
+        on the experimental design. For the sake of argument, let's suppose that we had honestly intended
+        to survey exactly 87 robots and 93 humans (column totals fixed by the experimenter) but left the
+        row totals free to vary (row totals are random variables). Let's think about the constraints that
+        apply here. Well, since we deliberately fixed the column totals, we have <m>c</m> constraints
+        right there. There's more to it than that. Remember how our null hypothesis had some free
+        parameters (i.e. we had to estimate the <m>P_i</m> values)? Those matter too.
+      </p>
+      <p>
+        Every free parameter in the null hypothesis is rather like an additional constraint. So, how many
+        of those are there? Well, since these probabilities have to sum to 1, there's only <m>r-1</m> of
+        these. So our total degree of freedom is:
+        <md>
+          <mrow>df \amp= \text{(number of observations)} - \text{(number of constraints)}</mrow>
+          <mrow>\amp= (rc) - (c + (r-1))</mrow>
+          <mrow>\amp= rc - c - r + 1</mrow>
+          <mrow>\amp= (r - 1)(c - 1)</mrow>
+        </md>
+        Alternatively, suppose that the only thing that the experimenter fixed was the total sample size
+        <m>N</m>. That is, we quizzed the first 180 people that we saw, and it just turned out that 87
+        were robots and 93 were humans. This time around, our reasoning would be slightly different but
+        would still lead us to the same answer. Our null hypothesis still has <m>r-1</m> free parameters
+        corresponding to the choice probabilities. Still, it now <em>also</em> has <m>c-1</m> free
+        parameters corresponding to the species probabilities because we'd also have to estimate the
+        probability that a randomly sampled person turns out to be a robot.<fn>A problem many of us worry
+        about in real life.</fn> Finally, since we did fix the total number of observations <m>N</m>,
+        that's one more constraint. So now we have, <m>rc</m> observations, and
+        <m>(c-1) + (r-1) + 1</m> constraints. What does that give?
+        <md>
+          <mrow>df \amp= \text{(number of observations)} - \text{(number of constraints)}</mrow>
+          <mrow>\amp= rc - ( (c-1) + (r-1) + 1)</mrow>
+          <mrow>\amp= rc - c - r + 1</mrow>
+          <mrow>\amp= (r - 1)(c - 1)</mrow>
+        </md>
+        Amazing.
+      </p>
+    </subsection>
+
+    <!-- 2.2 Test results in CogStat -->
+    <subsection xml:id="sec-AssocTestInCogStat">
+      <title>The Test Results in CogStat</title>
+
+      <p>
+        The test is automatically done in CogStat using the <c>Compare groups</c> feature. The result set
+        will contain information about the sample and its properties, as seen in
+        <xref ref="fig-cogstatchapek9descriptives"/>. Further scrolling down, you'll see the effect size
+        (which we will cover in a short while in <xref ref="sec-chisqeffectsize"/>). The last part of the
+        result set is the hypothesis test itself (see <xref ref="fig-cogstatchapek9hypo"/>).
+      </p>
+
+      <figure xml:id="fig-cogstatchapek9hypo">
+        <caption>Population properties and Hypothesis tests for the <c>chapek9.csv</c> data set.</caption>
+        <image source="cogstatchapek9hypo.png" width="80%">
+          <description>CogStat hypothesis test results for the chapek9 data set</description>
+        </image>
+      </figure>
+
+      <p>Let us go through the <c>Hypothesis tests</c> section line by line.</p>
+
+      <remark xml:id="cogstat-hyp1">
+        <title>CogStat Output: Hypothesis Tests</title>
+        <p>
+          <alert>Hypothesis tests</alert>
+        </p>
+        <p>
+          Testing if the distributions are the same.
+        </p>
+        <p>
+          One grouping variable. Two groups. Nominal variable. <m>\gg</m> Running chi-squared test.
+        </p>
+        <p>
+          Sensitivity power analysis. Minimal effect size to reach 95% power with the present sample size
+          for the present hypothesis test. Minimal effect size in <m>\omega</m>: 0.29.
+        </p>
+        <p>
+          Result of the Pearson's chi-squared test: <m>\chi^2(2, N = 180) = 10.72, p = .005</m>
+        </p>
+      </remark>
+
+      <ul>
+        <li>
+          <p>
+            <c>Testing if the distributions are the same.</c>: This, in plain English, tells us that we
+            are testing for a null hypothesis where all distributions of all group, or probabilities, are
+            the same. It does not differ in essence from the <m>H_0</m> we described more eloquently in
+            <xref ref="table-chapeknullhypo"/>.
+          </p>
+        </li>
+        <li>
+          <p>
+            <c>One grouping variable.</c>: This says we are looking at only one variable by which we have
+            dissected our data: <c>species</c>.
+          </p>
+        </li>
+        <li>
+          <p>
+            <c>Two groups</c>: This tells us that we have two groups, <c>robot</c> and <c>human</c>.
+          </p>
+        </li>
+        <li>
+          <p>
+            <c>Nominal variable.</c>: This tells us that the variable we are looking at is categorical.
+          </p>
+        </li>
+        <li>
+          <p>
+            <c>Running chi-squared test.</c>: Based on all the above, CogStat has decided to run a
+            <m>\chi^2</m> test.
+          </p>
+        </li>
+      </ul>
+
+      <p>
+        Let us ignore the details about the 95% confidence interval, minimal effect size w, and Cramér's V
+        (<xref ref="fig-cogstatchapek9hypo"/>) for now. We will come back to them in
+        <xref ref="sec-chisqeffectsize"/>.
+      </p>
+      <p>
+        <c>Result of the Pearson's chi-squared test:</c>
+        <me>\chi^2(2, N = 180) = 10.72, p = 0.005</me>
+        The test result is 10.72, the degree of freedom is 2 with 180 observations, and the p-value is
+        0.005. This means that the null hypothesis is rejected at the 0.005 level of significance.
+      </p>
+      <p>
+        This output gives us enough information to write up the result:
+      </p>
+      <blockquote>
+        <p>
+          Pearson's <m>\chi^2</m> revealed a significant association between species and choice
+          (<m>\chi^2(2, N = 180) = 10.72, p \lt .01</m>): robots appeared to be more likely to say that
+          they prefer flowers, but the humans were more likely to say they prefer data.
+        </p>
+      </blockquote>
+      <p>
+        Notice that, once again, we provided a little bit of interpretation to help the human reader
+        understand what's going on with the data. This is a good habit to get into. It's also a good idea
+        to report the effect size, which we will do in the next section.
+      </p>
+    </subsection>
+
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- Section 3: Yates correction                                  -->
+  <!-- ============================================================ -->
+  <section xml:id="sec-yates">
+    <title>Yates Correction for 1 Degree of Freedom</title>
+
+    <p>
+      Time for a little bit of a digression. You need to make a tiny change to your calculations whenever
+      you only have 1 degree of freedom. It's called the <alert>continuity correction</alert>, or
+      sometimes the <alert>Yates correction</alert>.
+    </p>
+    <p>
+      The <m>\chi^2</m> test is based on an approximation, specifically on the assumption that binomial
+      distribution starts to look like a normal distribution for large <m>N</m>. One problem with this is
+      that it often doesn't quite work, especially when you've only got 1 degree of freedom (e.g. when
+      you're doing a test of independence on a <m>2 \times 2</m> contingency table). The main reason for
+      this is that the true sampling distribution for the <m>X^2</m> statistic is actually discrete
+      (because you're dealing with categorical data!), but the <m>\chi^2</m> distribution is continuous.
+      This can introduce systematic problems. Specifically, when <m>N</m> is small and when <m>df=1</m>,
+      the goodness of fit statistic tends to be <q>too big</q>, meaning that you actually have a bigger
+      <m>\alpha</m> value than you think (or, equivalently, the <m>p</m> values are a bit too small).
+      <xref provisional="Yates1934"/> suggested a simple fix, in which you redefine the goodness of fit
+      statistic as:
+      <me>X^2 = \sum_{i} \frac{(|E_i - O_i| - 0.5)^2}{E_i}</me>
+      Basically, he subtracts off 0.5 everywhere. The correction is basically a hack. It's not derived
+      from any principled theory: rather, it's based on an examination of the behaviour of the test and
+      observing that the corrected version seems to work better.
+    </p>
+    <p>
+      CogStat (and many other software, for that matter) introduces this correction, so it's useful to
+      know what it is about. You won't know when it happens because the CogStat output doesn't explicitly
+      say that it has used a <q>continuity correction</q> or <q>Yates' correction</q>.<fn>Technically,
+      CogStat uses <c>chi2_contingency</c> function from <c>scipy</c> without specifying the
+      <c>correction</c> parameter which defaults to <c>true</c>.</fn>
+    </p>
+    <p>
+      Let us overwrite all the <c>puppy</c> answers in our <c>chapek9</c> data frame to look at 1 degree
+      of freedom (<xref ref="fig-chapek9two"/>). Let's use the <c>chapek9two.csv</c> data set for this.
+    </p>
+
+    <figure xml:id="fig-chapek9two">
+      <caption>CogStat results for <c>chapek9two.csv</c> with 1 degree of freedom</caption>
+      <sidebyside widths="48% 48%">
+        <image source="cogstatchapek9twomatrix.png">
+          <description>CogStat contingency matrix for chapek9two data</description>
+        </image>
+        <image source="cogstatchapek9tworesult.png">
+          <description>CogStat hypothesis test result for chapek9two data with Yates correction</description>
+        </image>
+      </sidebyside>
+    </figure>
+
+    <p>
+      The result as calculated by default with the Yates correction is:
+      <me>\chi^2(1, N = 180) = 6.24, p = 0.013</me>
+      However, had we not applied the Yates correction, the results would have been
+      <m>\chi^2(2, N = 180) = 7.02, p = 0.008</m>, which is a bit different. The difference is not huge,
+      but it is there. The Yates correction is a good thing to know about, but it's not something you need
+      to worry about too much. It's just a little bit of a hack that makes the test work better in this
+      specific case.
+    </p>
+
+  </section>
 
 </chapter>
