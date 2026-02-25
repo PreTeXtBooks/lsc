@@ -5,57 +5,132 @@
 
   <introduction>
     <p>
-      One of the most significant advantages of the Bayesian approach is that it answers the right questions. Within the Bayesian framework, it is sensible and allowable to refer to "the probability that a hypothesis is true". You can even try to calculate this probability. Ultimately, isn't that what you <em>want</em> your statistical tests to tell you? To an actual human being, this would seem to be the whole <em>point</em> of doing statistics: determining what is true and what isn't. Any time you aren't exactly sure about the truth, you should use the language of probability theory to say things like "there is an 80% chance that Theory A is true, but a 20% chance that Theory B is true instead".
+      One of the most significant advantages of the Bayesian approach is that it answers the right
+      questions. Within the Bayesian framework, it is sensible and allowable to refer to <q>the
+      probability that a hypothesis is true</q>. You can even try to calculate this probability.
+      Ultimately, isn't that what you <em>want</em> your statistical tests to tell you? To an actual
+      human being, this would seem to be the whole <em>point</em> of doing statistics: determining
+      what is true and what isn't. Any time you aren't exactly sure about the truth, you should use
+      the language of probability theory to say things like <q>there is an 80% chance that Theory A
+      is true, but a 20% chance that Theory B is true instead</q>.
     </p>
 
     <p>
-      This seems so obvious to a human, yet it is explicitly forbidden within the orthodox framework. To a frequentist, such statements are nonsense because "the theory is true" is not a repeatable event. A theory is true, or it is not, and no probabilistic statements are allowed, no matter how much you might want to make them. There's a reason why you <em>must not</em> interpret the <m>p</m>-value as the probability that the null hypothesis is true. There's a reason why almost every textbook on statistics is forced to repeat that warning. It's because people desperately <em>want</em> that to be the correct interpretation. However, it's such an appealing idea that even trained statisticians fall prey to the mistake of trying to interpret a <m>p</m>-value this way. For example, here is a quote from an official Newspoll report in 2013 explaining how to interpret their (frequentist) data analysis:<fn><url href="http://about.abc.net.au/reports-publications/appreciation-survey-summary-report-2013/"/></fn>
+      This seems so obvious to a human, yet it is explicitly forbidden within the orthodox framework.
+      To a frequentist, such statements are nonsense because <q>the theory is true</q> is not a
+      repeatable event. A theory is true, or it is not, and no probabilistic statements are allowed,
+      no matter how much you might want to make them. There's a reason why you <em>must not</em>
+      interpret the <m>p</m>-value as the probability that the null hypothesis is true. There's a
+      reason why almost every textbook on statistics is forced to repeat that warning. It's because
+      people desperately <em>want</em> that to be the correct interpretation. However, it's such an
+      appealing idea that even trained statisticians fall prey to the mistake of trying to interpret
+      a <m>p</m>-value this way. For example, here is a quote from an official Newspoll report in
+      2013 explaining how to interpret their (frequentist) data analysis:<fn><url href="http://about.abc.net.au/reports-publications/appreciation-survey-summary-report-2013/" visual="about.abc.net.au/reports-publications/appreciation-survey-summary-report-2013/"/></fn>
     </p>
 
     <blockquote>
-      <p>Throughout the report, where relevant, statistically significant changes have been noted. All significance tests have been based on the 95 percent level of confidence. <em>This means that if a change is noted as being statistically significant, there is a 95 percent probability that a real change has occurred</em>, and is not simply due to chance variation. (emphasis added)</p>
+      <p>
+        Throughout the report, where relevant, statistically significant changes have been noted.
+        All significance tests have been based on the 95 percent level of confidence.
+        <alert>This means that if a change is noted as being statistically significant, there is a
+        95 percent probability that a real change has occurred</alert>, and is not simply due to
+        chance variation. (emphasis added)
+      </p>
     </blockquote>
 
     <p>
-      Nope! That's <em>not</em> what <m>p \lt .05</m> means. That's <em>not</em> what 95% confidence means to a frequentist statistician. The bolded section is just plain wrong. Orthodox methods cannot tell you that "there is a 95% chance that a real change has occurred" because this is not the kind of event to which frequentist probabilities may be assigned. To an ideological frequentist, this sentence should be meaningless. Even if you're a more pragmatic frequentist, it's still the wrong definition of a <m>p</m>-value. It is simply not an allowed or correct thing to say if you want to rely on orthodox statistical tools.
+      Nope! That's <em>not</em> what <m>p \lt .05</m> means. That's <em>not</em> what 95%
+      confidence means to a frequentist statistician. The bolded section is just plain wrong.
+      Orthodox methods cannot tell you that <q>there is a 95% chance that a real change has
+      occurred</q> because this is not the kind of event to which frequentist probabilities may be
+      assigned. To an ideological frequentist, this sentence should be meaningless. Even if you're a
+      more pragmatic frequentist, it's still the wrong definition of a <m>p</m>-value. It is simply
+      not an allowed or correct thing to say if you want to rely on orthodox statistical tools.
     </p>
 
     <p>
-      On the other hand, let's suppose you are a Bayesian. Although the bolded passage is the wrong definition of a <m>p</m>-value, it's pretty much exactly what a Bayesian means when they say that the posterior probability of the alternative hypothesis is greater than 95%. And here's the thing. If the Bayesian posterior is the thing you <em>want</em> to report, why are you even trying to use orthodox methods? If you wish to make Bayesian claims, all you have to do is be a Bayesian and use Bayesian tools.
+      On the other hand, let's suppose you are a Bayesian. Although the bolded passage is the wrong
+      definition of a <m>p</m>-value, it's pretty much exactly what a Bayesian means when they say
+      that the posterior probability of the alternative hypothesis is greater than 95%. And here's
+      the thing. If the Bayesian posterior is the thing you <em>want</em> to report, why are you
+      even trying to use orthodox methods? If you wish to make Bayesian claims, all you have to do
+      is be a Bayesian and use Bayesian tools.
     </p>
 
     <p>
-      Once you've made the jump, you no longer have to wrap your head around counterintuitive definitions of <m>p</m>-values. You don't have to bother remembering why you can't say that you're 95% confident that the true mean lies within some interval. You have to be honest about what you believed before running the study and then report what you learned from doing it. Sounds nice, doesn't it? To me, this is the big promise of the Bayesian approach: you do the analysis you want to do and express what you believe the data are telling you.
+      Once you've made the jump, you no longer have to wrap your head around counterintuitive
+      definitions of <m>p</m>-values. You don't have to bother remembering why you can't say that
+      you're 95% confident that the true mean lies within some interval. You have to be honest about
+      what you believed before running the study and then report what you learned from doing it.
+      Sounds nice, doesn't it? To me, this is the big promise of the Bayesian approach: you do the
+      analysis you want to do and express what you believe the data are telling you.
     </p>
   </introduction>
 
   <section xml:id="sec-evidentiary-standards">
-    <title>Evidentiary standards you can believe</title>
+    <title>Evidentiary Standards You Can Believe</title>
 
     <epigraph>
-      <p><em>If <m>p</m> is below .02 it is strongly indicated that the null hypothesis fails to account for the whole of the facts. We shall not often be astray if we draw a conventional line at .05 and consider that smaller values of <m>p</m> indicate a real discrepancy.</em></p>
+      <p>
+        <em>If <m>p</m> is below .02 it is strongly indicated that the null hypothesis fails to
+        account for the whole of the facts. We shall not often be astray if we draw a conventional
+        line at .05 and consider that smaller values of <m>p</m> indicate a real discrepancy.</em>
+      </p>
       <attribution>Sir Ronald Fisher (1925)</attribution>
     </epigraph>
 
     <p>
-      Consider the quote above by Sir Ronald Fisher, one of the founders of what has become the orthodox approach to statistics. If anyone has ever been entitled to express an opinion about the intended function of <m>p</m>-values, it's Fisher. In this passage, taken from his classic guide <em>Statistical Methods for Research Workers</em>, he's pretty clear about what it means to reject a null hypothesis at <m>p \lt .05</m>. In his opinion, if we take <m>p \lt .05</m> to mean there is "a real effect", then "we shall not often be astray". This view is hardly unusual: most practitioners express views very similar to Fisher's. In essence, the <m>p \lt .05</m> convention is assumed to represent a fairly stringent evidentiary standard.
+      Consider the quote above by Sir Ronald Fisher, one of the founders of what has become the
+      orthodox approach to statistics. If anyone has ever been entitled to express an opinion about
+      the intended function of <m>p</m>-values, it's Fisher. In this passage, taken from his classic
+      guide <em>Statistical Methods for Research Workers</em>, he's pretty clear about what it means
+      to reject a null hypothesis at <m>p \lt .05</m>. In his opinion, if we take <m>p \lt .05</m>
+      to mean there is <q>a real effect</q>, then <q>we shall not often be astray</q>. This view is
+      hardly unusual: most practitioners express views very similar to Fisher's. In essence, the
+      <m>p \lt .05</m> convention is assumed to represent a fairly stringent evidentiary standard.
     </p>
 
     <p>
-      Well, how true is that? One way to approach this question is to try to convert <m>p</m>-values to Bayes factors and see how the two compare. It's not an easy thing to do because a <m>p</m>-value is a fundamentally different kind of calculation to a Bayes factor, and they don't measure the same thing. However, there have been some attempts to work out the relationship between the two, and it's somewhat surprising. For example, Johnson (2013) presents a pretty compelling case that (for <m>t</m>-tests at least) the <m>p \lt .05</m> threshold corresponds roughly to a Bayes factor of somewhere between 3:1 and 5:1 in favour of the alternative. If that's right, then Fisher's claim is a bit of a stretch. Let's suppose that the null hypothesis is true about half the time (i.e., the prior probability of <m>H_0</m> is 0.5), and we use those numbers to work out the posterior probability of the null hypothesis, given that it has been rejected at <m>p \lt .05</m>. Using the data from Johnson (2013), we see that if you reject the null at <m>p \lt .05</m>, you'll be correct about 80% of the time. An evidentiary standard that ensures you'll be wrong on 20% of your decisions isn't good enough. The fact remains that, quite contrary to Fisher's claim, if you reject at <m>p \lt .05</m> you shall quite often go astray. It's not a very stringent evidentiary threshold at all.
+      Well, how true is that? One way to approach this question is to try to convert <m>p</m>-values
+      to Bayes factors and see how the two compare. It's not an easy thing to do because a
+      <m>p</m>-value is a fundamentally different kind of calculation to a Bayes factor, and they
+      don't measure the same thing. However, there have been some attempts to work out the
+      relationship between the two, and it's somewhat surprising. For example, Johnson (2013)
+      presents a pretty compelling case that (for <m>t</m>-tests at least) the <m>p \lt .05</m>
+      threshold corresponds roughly to a Bayes factor of somewhere between 3:1 and 5:1 in favour of
+      the alternative. If that's right, then Fisher's claim is a bit of a stretch. Let's suppose
+      that the null hypothesis is true about half the time (i.e., the prior probability of
+      <m>H_0</m> is 0.5), and we use those numbers to work out the posterior probability of the null
+      hypothesis, given that it has been rejected at <m>p \lt .05</m>. Using the data from Johnson
+      (2013), we see that if you reject the null at <m>p \lt .05</m>, you'll be correct about 80%
+      of the time. An evidentiary standard that ensures you'll be wrong on 20% of your decisions
+      isn't good enough. The fact remains that, quite contrary to Fisher's claim, if you reject at
+      <m>p \lt .05</m> you shall quite often go astray. It's not a very stringent evidentiary
+      threshold at all.
     </p>
 
   </section>
 
-  <section xml:id="sec-pvalue-is-a-lie">
-    <title>The <m>p</m>-value is a lie.</title>
+  <section xml:id="sec-pvalue-lie">
+    <title>The <m>p</m>-Value Is a Lie</title>
 
     <p>
-      Okay, at this point, you might be thinking that the real problem is not with orthodox statistics, just the <m>p \lt .05</m> standard. In one sense, that's true. The recommendation that Johnson (2013) gives is not that "everyone must be a Bayesian now". Instead, the suggestion is that it would be wiser to shift the conventional standard to something like a <m>p \lt .01</m> level. That's not an unreasonable view to take. Nonetheless, there's a fairly big problem built into the way most (but not all) orthodox hypothesis tests are constructed. They are grossly naive about how humans actually do research, and because of this, most <m>p</m>-values are wrong.
+      Okay, at this point, you might be thinking that the real problem is not with orthodox
+      statistics, just the <m>p \lt .05</m> standard. In one sense, that's true. The recommendation
+      that Johnson (2013) gives is not that <q>everyone must be a Bayesian now</q>. Instead, the
+      suggestion is that it would be wiser to shift the conventional standard to something like a
+      <m>p \lt .01</m> level. That's not an unreasonable view to take. Nonetheless, there's a fairly
+      big problem built into the way most (but not all) orthodox hypothesis tests are constructed.
+      They are grossly naive about how humans actually do research, and because of this, most
+      <m>p</m>-values are wrong.
     </p>
 
     <p>
-      That sounds like an absurd claim, right? Well, consider the following scenario. You've come up with a really exciting research hypothesis, and you design a study to test it. You're very diligent, so you run a power analysis to work out what your sample size should be, and you run the study. You run your hypothesis test, and out pops a <m>p</m>-value of 0.072. Really bloody annoying, right?
+      That sounds like an absurd claim, right? Well, consider the following scenario. You've come up
+      with a really exciting research hypothesis, and you design a study to test it. You're very
+      diligent, so you run a power analysis to work out what your sample size should be, and you run
+      the study. You run your hypothesis test, and out pops a <m>p</m>-value of 0.072. Really bloody
+      annoying, right?
     </p>
 
     <p>
@@ -64,34 +139,86 @@
 
     <ol>
       <li><p>You conclude that there is no effect and try to publish it as a null result</p></li>
-      <li><p>You guess that there might be an effect and try to publish it as a "borderline significant" result</p></li>
+      <li><p>You guess that there might be an effect and try to publish it as a <q>borderline significant</q> result</p></li>
       <li><p>You give up and try a new study</p></li>
-      <li><p>You collect some more data to see if the <m>p</m> value goes up or (preferably!) drops below the "magic" criterion of <m>p \lt .05</m></p></li>
+      <li><p>You collect some more data to see if the <m>p</m> value goes up or (preferably!) drops below the <q>magic</q> criterion of <m>p \lt .05</m></p></li>
     </ol>
 
     <p>
-      Which would <em>you</em> choose? Before reading any further, take some time to think about it. Be honest with yourself. But don't stress about it too much because it actually doesn't matter what you choose. Danielle has some insights to share based on her own experiences as an author, reviewer and editor. Here's what might easily happen in each case:
+      Which would <em>you</em> choose? Before reading any further, take some time to think about it.
+      Be honest with yourself. But don't stress about it too much because it actually doesn't matter
+      what you choose. Danielle has some insights to share based on her own experiences as an author,
+      reviewer and editor. Here's what might easily happen in each case:
     </p>
 
     <ul>
-      <li><p>Let's start with option 1. If you try to publish it as a null result, the paper will struggle to be published. Some reviewers will think that <m>p=.072</m> is not a null result. They'll argue it's borderline significant. Other reviewers will agree it's a null result but will claim that even though some null results <em>are</em> publishable, yours isn't. One or two reviewers might even be on your side, but you'll be fighting an uphill battle to get it through.</p></li>
-      <li><p>Okay, let's think about option number 2. Suppose you try to publish it as a borderline significant result. Some reviewers will claim that it's a null result and should not be published. Others will claim that the evidence is ambiguous and that you should collect more data until you get a clear significant result. Again, the publication process does not favour you.</p></li>
-      <li><p>Given the difficulties in publishing an "ambiguous" result like <m>p=.072</m>, option number 3 might seem tempting: give up and do something else. But that's a recipe for career suicide. If you give up and try a new project every time you face ambiguity, your work will never be published. And if you're in academia without a publication record, you can lose your job. So that option is out.</p></li>
-      <li><p>It looks like you're stuck with option 4. You don't have conclusive results, so you decide to collect some more data and re-run the analysis. It seems sensible, but unfortunately for you, if you do this, all of your <m>p</m>-values are now incorrect. <em>All</em> of them. Not just the <m>p</m>-values that you calculated for <em>this</em> study. All of them. All the <m>p</m>-values you calculated in the past and all the <m>p</m>-values you will calculate in the future. Fortunately, no one will notice. You'll get published, and you'll have lied.</p></li>
+      <li>
+        <p>
+          Let's start with option 1. If you try to publish it as a null result, the paper will
+          struggle to be published. Some reviewers will think that <m>p=.072</m> is not a null
+          result. They'll argue it's borderline significant. Other reviewers will agree it's a null
+          result but will claim that even though some null results <em>are</em> publishable, yours
+          isn't. One or two reviewers might even be on your side, but you'll be fighting an uphill
+          battle to get it through.
+        </p>
+      </li>
+      <li>
+        <p>
+          Okay, let's think about option number 2. Suppose you try to publish it as a borderline
+          significant result. Some reviewers will claim that it's a null result and should not be
+          published. Others will claim that the evidence is ambiguous and that you should collect
+          more data until you get a clear significant result. Again, the publication process does
+          not favour you.
+        </p>
+      </li>
+      <li>
+        <p>
+          Given the difficulties in publishing an <q>ambiguous</q> result like <m>p=.072</m>, option
+          number 3 might seem tempting: give up and do something else. But that's a recipe for career
+          suicide. If you give up and try a new project every time you face ambiguity, your work will
+          never be published. And if you're in academia without a publication record, you can lose
+          your job. So that option is out.
+        </p>
+      </li>
+      <li>
+        <p>
+          It looks like you're stuck with option 4. You don't have conclusive results, so you decide
+          to collect some more data and re-run the analysis. It seems sensible, but unfortunately for
+          you, if you do this, all of your <m>p</m>-values are now incorrect. <em>All</em> of them.
+          Not just the <m>p</m>-values that you calculated for <em>this</em> study. All of them. All
+          the <m>p</m>-values you calculated in the past and all the <m>p</m>-values you will
+          calculate in the future. Fortunately, no one will notice. You'll get published, and you'll
+          have lied.
+        </p>
+      </li>
     </ul>
 
     <p>
-      What does that mean? It sounded like a perfectly reasonable strategy, didn't it? You collected some data, but the results weren't conclusive, so now what you want to do is collect more data until the results <em>are</em> conclusive. What's wrong with that?
+      What does that mean? It sounded like a perfectly reasonable strategy, didn't it? You collected
+      some data, but the results weren't conclusive, so now what you want to do is collect more data
+      until the results <em>are</em> conclusive. What's wrong with that?
     </p>
 
     <p>
-      In real life, this is exactly what every researcher does. Unfortunately, the theory of null hypothesis testing, as described in <xref ref="ch-hypothesis-testing"/>, <em>forbids</em> you from doing this.<fn>In the interests of being completely honest, not all orthodox statistical tests that rely on this silly assumption. There are several <em>sequential analysis</em> tools that are sometimes used in clinical trials and the like. These methods are built on the premise that data are analysed as they arrive, and these tests aren't horribly broken. However, sequential analysis methods are constructed in a very different fashion from the "standard" version of null hypothesis testing. They don't make it into any introductory textbooks, and they're not very widely used in psychological literature. The concern raised here is valid for every single orthodox test presented so far.</fn> The reason is that the theory assumes that the experiment is finished and all the data are in. And because it assumes the experiment is over, it only considers <em>two</em> possible decisions. If you're using the conventional <m>p \lt .05</m> threshold, those decisions are:
+      In real life, this is exactly what every researcher does. Unfortunately, the theory of null
+      hypothesis testing, as described in <xref ref="ch-hypothesis-testing"/>, <em>forbids</em> you
+      from doing this.<fn>In the interests of being completely honest, not all orthodox statistical
+      tests that rely on this silly assumption. There are several <em>sequential analysis</em> tools
+      that are sometimes used in clinical trials and the like. These methods are built on the premise
+      that data are analysed as they arrive, and these tests aren't horribly broken. However,
+      sequential analysis methods are constructed in a very different fashion from the
+      <q>standard</q> version of null hypothesis testing. They don't make it into any introductory
+      textbooks, and they're not very widely used in psychological literature. The concern raised
+      here is valid for every single orthodox test presented so far.</fn> The reason is that the
+      theory assumes that the experiment is finished and all the data are in. And because it assumes
+      the experiment is over, it only considers <em>two</em> possible decisions. If you're using the
+      conventional <m>p \lt .05</m> threshold, those decisions are:
     </p>
 
-    <table>
-      <title/>
+    <table xml:id="tbl-two-decisions">
+      <title>Decision table for orthodox hypothesis testing</title>
       <tabular halign="left">
-        <row header="yes" bottom="medium">
+        <row header="yes" bottom="minor">
           <cell><m>p</m>-value</cell>
           <cell>Decision</cell>
         </row>
@@ -107,13 +234,16 @@
     </table>
 
     <p>
-      What <em>you're</em> doing is adding a third possible action to the decision-making problem. Specifically, what you're doing is using the <m>p</m>-value itself as a reason to justify continuing the experiment. And as a consequence, you've transformed the decision-making procedure into one that looks more like this:
+      What <em>you're</em> doing is adding a third possible action to the decision-making problem.
+      Specifically, what you're doing is using the <m>p</m>-value itself as a reason to justify
+      continuing the experiment. And as a consequence, you've transformed the decision-making
+      procedure into one that looks more like this:
     </p>
 
-    <table>
-      <title/>
+    <table xml:id="tbl-three-decisions">
+      <title>Decision table with data peeking</title>
       <tabular halign="left">
-        <row header="yes" bottom="medium">
+        <row header="yes" bottom="minor">
           <cell><m>p</m>-value</cell>
           <cell>Decision</cell>
         </row>
@@ -133,72 +263,162 @@
     </table>
 
     <p>
-      The "basic" theory of null hypothesis testing isn't built to handle this sort of thing, not in the form described in <xref ref="ch-hypothesis-testing"/>. If you're the kind of person who would choose to "collect more data" in real life, it implies that you are <em>not</em> making decisions in accordance with the rules of null hypothesis testing. Even if you arrive at the same decision as the hypothesis test, you aren't following the decision <em>process</em> it implies, and it's this failure to follow the process causing the problem.<fn>A related problem: <url href="http://xkcd.com/1478/"/></fn> Your <m>p</m>-values are a lie. Worse yet, they're a lie in a dangerous way because they're all <em>too small</em>. To give you a sense of just how bad it can be, consider the following (worst case) scenario.
+      The <q>basic</q> theory of null hypothesis testing isn't built to handle this sort of thing,
+      not in the form described in <xref ref="ch-hypothesis-testing"/>. If you're the kind of person
+      who would choose to <q>collect more data</q> in real life, it implies that you are <em>not</em>
+      making decisions in accordance with the rules of null hypothesis testing. Even if you arrive at
+      the same decision as the hypothesis test, you aren't following the decision <em>process</em>
+      it implies, and it's this failure to follow the process causing the problem.<fn>A related
+      problem: <url href="http://xkcd.com/1478/" visual="xkcd.com/1478/"/></fn> Your
+      <m>p</m>-values are a lie. Worse yet, they're a lie in a dangerous way because they're all
+      <em>too small</em>. To give you a sense of just how bad it can be, consider the following
+      (worst case) scenario.
     </p>
 
     <p>
-      Imagine you're a really super-enthusiastic researcher on a tight budget who didn't pay any attention to the warnings above. You design a study comparing two groups. You desperately want to see a significant result at the <m>p \lt .05</m> level, but you really don't want to collect any more data than you have to (because it's expensive). In order to cut costs, you start collecting data, but every time a new observation arrives, you run a <m>t</m>-test on your data. If the <m>t</m>-tests says <m>p \lt .05</m> then you stop the experiment and report a significant result. If not, you keep collecting data. You keep doing this until you reach your pre-defined spending limit for this experiment. Let's say that limit kicks in at <m>N=1000</m> observations. As it turns out, the truth of the matter is that there is no real effect to be found: the null hypothesis is true. So, what's the chance that you'll make it to the end of the experiment and (correctly) conclude that there is no effect? In an ideal world, the answer here should be 95%. After all, the whole <em>point</em> of the <m>p \lt .05</m> criterion is to control the Type I error rate at 5%, so what we'd hope is that there's only a 5% chance of falsely rejecting the null hypothesis in this situation. However, there's no guarantee that will be true. You're breaking the rules: you're running tests repeatedly, "peeking" at your data to see if you've gotten a significant result, and all bets are off.
+      Imagine you're a really super-enthusiastic researcher on a tight budget who didn't pay any
+      attention to the warnings above. You design a study comparing two groups. You desperately want
+      to see a significant result at the <m>p \lt .05</m> level, but you really don't want to
+      collect any more data than you have to (because it's expensive). In order to cut costs, you
+      start collecting data, but every time a new observation arrives, you run a <m>t</m>-test on
+      your data. If the <m>t</m>-tests says <m>p \lt .05</m> then you stop the experiment and
+      report a significant result. If not, you keep collecting data. You keep doing this until you
+      reach your pre-defined spending limit for this experiment. Let's say that limit kicks in at
+      <m>N=1000</m> observations. As it turns out, the truth of the matter is that there is no real
+      effect to be found: the null hypothesis is true. So, what's the chance that you'll make it to
+      the end of the experiment and (correctly) conclude that there is no effect? In an ideal world,
+      the answer here should be 95%. After all, the whole <em>point</em> of the <m>p \lt .05</m>
+      criterion is to control the Type I error rate at 5%, so what we'd hope is that there's only a
+      5% chance of falsely rejecting the null hypothesis in this situation. However, there's no
+      guarantee that will be true. You're breaking the rules: you're running tests repeatedly,
+      <q>peeking</q> at your data to see if you've gotten a significant result, and all bets are off.
     </p>
 
     <figure xml:id="fig-type1">
-      <caption>How badly can things go wrong if you re-run your tests every time new data arrive? If you are a frequentist, the answer is "very wrong".</caption>
-      <image source="adapt.png">
-        <description>A graph showing the Type I error rate as a function of sample size for a frequentist who peeks at the data after every observation versus a Bayesian approach. The frequentist error rate climbs to nearly 49% while the Bayesian approach stays much lower.</description>
-      </image>
+      <caption>How badly can things go wrong if you re-run your tests every time new data arrive? If
+      you are a frequentist, the answer is <q>very wrong</q>.</caption>
+      <image source="adapt.png" width="80%"/>
     </figure>
 
     <p>
-      So, how bad is it? The answer is shown as the solid black line in <xref ref="fig-type1"/>, and it's <em>astoundingly</em> bad. If you peek at your data after every single observation, there is a 49% chance that you will make a Type I error. That's, um, quite a bit bigger than the 5% that it's supposed to be.
+      So, how bad is it? The answer is shown as the solid black line in <xref ref="fig-type1"/>, and
+      it's <em>astoundingly</em> bad. If you peek at your data after every single observation, there
+      is a 49% chance that you will make a Type I error. That's, um, quite a bit bigger than the 5%
+      that it's supposed to be.
     </p>
 
     <p>
-      By way of comparison, imagine that you had used the following strategy. Start collecting data. Every single time an observation arrives, run a <em>Bayesian</em> <m>t</m>-test and look at the Bayes factor. Assume that Johnson (2013) is right, and let's treat a Bayes factor of 3:1 as roughly equivalent to a <m>p</m>-value of .05.<fn>Some readers might wonder why 3:1 rather than 5:1, given that Johnson (2013) suggests that <m>p=.05</m> lies somewhere in that range. Let's be charitable to the <m>p</m>-value. Should we choose a 5:1 Bayes factor instead, the results would look even better for the Bayesian approach.</fn> This time around, our trigger-happy researcher uses the following procedure: if the Bayes factor is 3:1 or more in favour of the null, stop the experiment and retain the null. If it is 3:1 or more in favour of the alternative, stop the experiment and reject the null. Otherwise, continue testing. Now, just like last time, let's assume that the null hypothesis is true. What happens? The simulation results for this scenario are shown as the dashed line in <xref ref="fig-type1"/>. It turns out that the Type I error rate is much much lower than the 49% rate that we were getting by using the orthodox <m>t</m>-test.
+      By way of comparison, imagine that you had used the following strategy. Start collecting data.
+      Every single time an observation arrives, run a <em>Bayesian</em> <m>t</m>-test and look at
+      the Bayes factor. Assume that Johnson (2013) is right, and let's treat a Bayes factor of 3:1
+      as roughly equivalent to a <m>p</m>-value of .05.<fn>Some readers might wonder why 3:1 rather
+      than 5:1, given that Johnson (2013) suggests that <m>p=.05</m> lies somewhere in that range.
+      Let's be charitable to the <m>p</m>-value. Should we choose a 5:1 Bayes factor instead, the
+      results would look even better for the Bayesian approach.</fn> This time around, our
+      trigger-happy researcher uses the following procedure: if the Bayes factor is 3:1 or more in
+      favour of the null, stop the experiment and retain the null. If it is 3:1 or more in favour of
+      the alternative, stop the experiment and reject the null. Otherwise, continue testing. Now,
+      just like last time, let's assume that the null hypothesis is true. What happens? The simulation
+      results for this scenario are shown as the dashed line in <xref ref="fig-type1"/>. It turns out
+      that the Type I error rate is much much lower than the 49% rate that we were getting by using
+      the orthodox <m>t</m>-test.
     </p>
 
     <p>
-      In some ways, this is remarkable. The entire <em>point</em> of orthodox null hypothesis testing is to control the Type I error rate. Bayesian methods aren't actually designed to do this at all. Yet, the Bayesian approach is much more effective when faced with a "trigger-happy" researcher who keeps running hypothesis tests as the data come in. Even the 3:1 standard, which most Bayesians would consider unacceptably lax, is much safer than the <m>p \lt .05</m> rule.
+      In some ways, this is remarkable. The entire <em>point</em> of orthodox null hypothesis testing
+      is to control the Type I error rate. Bayesian methods aren't actually designed to do this at
+      all. Yet, the Bayesian approach is much more effective when faced with a <q>trigger-happy</q>
+      researcher who keeps running hypothesis tests as the data come in. Even the 3:1 standard, which
+      most Bayesians would consider unacceptably lax, is much safer than the <m>p \lt .05</m> rule.
     </p>
 
   </section>
 
-  <section xml:id="sec-is-it-really-this-bad">
-    <title>Is it really this bad?</title>
+  <section xml:id="sec-is-it-really-bad">
+    <title>Is It Really This Bad?</title>
 
     <p>
-      The example in the previous section is a pretty extreme situation. In real life, people don't run hypothesis tests every time a new observation arrives. So it's not fair to say that the <m>p \lt .05</m> threshold "really" corresponds to a 49% Type I error rate (i.e., <m>p=.49</m>). But the fact remains that if you want your <m>p</m>-values to be honest, then you either have to switch to a completely different way of doing hypothesis tests, or you must enforce a strict rule: <em>no peeking</em>.
+      The example in the previous section is a pretty extreme situation. In real life, people don't
+      run hypothesis tests every time a new observation arrives. So it's not fair to say that the
+      <m>p \lt .05</m> threshold <q>really</q> corresponds to a 49% Type I error rate (i.e.,
+      <m>p=.49</m>). But the fact remains that if you want your <m>p</m>-values to be honest, then
+      you either have to switch to a completely different way of doing hypothesis tests, or you must
+      enforce a strict rule: <em>no peeking</em>.
     </p>
 
     <p>
-      You are <em>not</em> allowed to use the data to decide when to terminate the experiment. You are <em>not</em> allowed to look at a "borderline" <m>p</m>-value and decide to collect more data. You aren't even allowed to change your data analysis strategy after looking at the data. You are strictly required to follow these rules. Otherwise, the <m>p</m>-values you calculate will be nonsense. And yes, these rules are surprisingly strict.
+      You are <em>not</em> allowed to use the data to decide when to terminate the experiment. You
+      are <em>not</em> allowed to look at a <q>borderline</q> <m>p</m>-value and decide to collect
+      more data. You aren't even allowed to change your data analysis strategy after looking at the
+      data. You are strictly required to follow these rules. Otherwise, the <m>p</m>-values you
+      calculate will be nonsense. And yes, these rules are surprisingly strict.
     </p>
 
     <p>
-      Suppose you started running your study with the intention of collecting <m>N=80</m> people. When the study starts out, you follow the rules, refusing to look at the data or run any tests. But when you reach <m>N=50</m>, your willpower gives in, and you take a peek. Guess what? You've got a significant result! Now, sure, you know you <em>said</em> that you'd keep running the study out to a sample size of <m>N=80</m>, but it seems pointless now, right? The result is significant with a sample size of <m>N=50</m>, so wouldn't it be wasteful and inefficient to keep collecting data? Aren't you tempted to stop? Just a little? Well, keep in mind that if you do, your Type I error rate at <m>p \lt .05</m> just ballooned out to 8%. When you report <m>p \lt .05</m> in your paper, what you're <em>really</em> saying is <m>p \lt .08</m>. That's how bad the consequences of "just one peek" can be.
+      Suppose you started running your study with the intention of collecting <m>N=80</m> people.
+      When the study starts out, you follow the rules, refusing to look at the data or run any tests.
+      But when you reach <m>N=50</m>, your willpower gives in, and you take a peek. Guess what?
+      You've got a significant result! Now, sure, you know you <em>said</em> that you'd keep running
+      the study out to a sample size of <m>N=80</m>, but it seems pointless now, right? The result
+      is significant with a sample size of <m>N=50</m>, so wouldn't it be wasteful and inefficient
+      to keep collecting data? Aren't you tempted to stop? Just a little? Well, keep in mind that if
+      you do, your Type I error rate at <m>p \lt .05</m> just ballooned out to 8%. When you report
+      <m>p \lt .05</m> in your paper, what you're <em>really</em> saying is <m>p \lt .08</m>.
+      That's how bad the consequences of <q>just one peek</q> can be.
     </p>
 
     <p>
-      Now consider this: the scientific literature is filled with <m>t</m>-tests, ANOVAs, regressions and chi-square tests. The tests in this book and the ones baked into CogStat aren't picked arbitrarily. The reason why these four tools appear in most introductory statistics texts is that these are the bread and butter tools of science. None of these tools includes a correction to deal with "data peeking": they all assume that you're not doing it. But how realistic is that assumption? In real life, how many people do you think have "peeked" at their data before the experiment was finished and adapted their subsequent behaviour after seeing what the data looked like? Except when an external constraint fixes the sampling procedure, the answer probably is: "most people have done it". If that has happened, you can infer that the reported <m>p</m>-values are wrong. Worse yet, because we don't know what decision process they actually followed, we have no way to know what the <m>p</m>-values <em>should</em> have been. You can't compute a <m>p</m>-value when you don't know the decision-making procedure that the researcher used. And so the reported <m>p</m>-value remains a lie.
+      Now consider this: the scientific literature is filled with <m>t</m>-tests, ANOVAs,
+      regressions and chi-square tests. The tests in this book and the ones baked into CogStat
+      aren't picked arbitrarily. The reason why these four tools appear in most introductory
+      statistics texts is that these are the bread and butter tools of science. None of these tools
+      includes a correction to deal with <q>data peeking</q>: they all assume that you're not doing
+      it. But how realistic is that assumption? In real life, how many people do you think have
+      <q>peeked</q> at their data before the experiment was finished and adapted their subsequent
+      behaviour after seeing what the data looked like? Except when an external constraint fixes the
+      sampling procedure, the answer probably is: <q>most people have done it</q>. If that has
+      happened, you can infer that the reported <m>p</m>-values are wrong. Worse yet, because we
+      don't know what decision process they actually followed, we have no way to know what the
+      <m>p</m>-values <em>should</em> have been. You can't compute a <m>p</m>-value when you don't
+      know the decision-making procedure that the researcher used. And so the reported <m>p</m>-value
+      remains a lie.
     </p>
 
     <p>
-      Given all of the above, what is the take-home message? It's not that Bayesian methods are foolproof. If a researcher is determined to cheat, they can always do so. Bayes' rule cannot stop people from lying, nor can it stop them from rigging an experiment. The reason why we run statistical tests is to protect us from ourselves. And the reason why "data peeking" is such a concern is that it's so tempting, <em>even for honest researchers</em>. A theory for statistical inference has to acknowledge this. Yes, you might try to defend <m>p</m>-values by saying that it's the researcher's fault for not using them correctly. A theory of statistical inference that is so utterly naive about humans that it doesn't even consider the possibility that the researcher might <em>look at their data</em> isn't a theory worth having. The point here is:
+      Given all of the above, what is the take-home message? It's not that Bayesian methods are
+      foolproof. If a researcher is determined to cheat, they can always do so. Bayes' rule cannot
+      stop people from lying, nor can it stop them from rigging an experiment. The reason why we run
+      statistical tests is to protect us from ourselves. And the reason why <q>data peeking</q> is
+      such a concern is that it's so tempting, <em>even for honest researchers</em>. A theory for
+      statistical inference has to acknowledge this. Yes, you might try to defend <m>p</m>-values by
+      saying that it's the researcher's fault for not using them correctly. A theory of statistical
+      inference that is so utterly naive about humans that it doesn't even consider the possibility
+      that the researcher might <em>look at their data</em> isn't a theory worth having. The point
+      here is:
     </p>
 
     <blockquote>
-      <p><em>Good laws have their origins in bad morals.</em></p>
-      <attribution><mdash/> Ambrosius Macrobius<fn><url href="http://www.quotationspage.com/quotes/Ambrosius_Macrobius/"/></fn></attribution>
+      <p>
+        <em>Good laws have their origins in bad morals.</em>
+      </p>
+      <attribution>Ambrosius Macrobius<fn><url href="http://www.quotationspage.com/quotes/Ambrosius_Macrobius/" visual="quotationspage.com/quotes/Ambrosius_Macrobius/"/></fn></attribution>
     </blockquote>
 
     <p>
-      Good rules for statistical testing have to acknowledge human frailty. None of us is without sin. None of us is beyond temptation. A good system for statistical inference should still work even when it is used by actual humans. Orthodox null hypothesis testing does not.
+      Good rules for statistical testing have to acknowledge human frailty. None of us is without
+      sin. None of us is beyond temptation. A good system for statistical inference should still work
+      even when it is used by actual humans. Orthodox null hypothesis testing does not.
     </p>
 
     <p>
-      Let us be fair: by adopting a sequential analysis perspective, you can avoid these errors within the orthodox framework as well. You can explicitly design studies with interim analyses in mind. However, that is not the current practice amongst psychology researchers.
+      Let us be fair: by adopting a sequential analysis perspective, you can avoid these errors
+      within the orthodox framework as well. You can explicitly design studies with interim analyses
+      in mind. However, that is not the current practice amongst psychology researchers.
     </p>
 
     <p>
-      So until then, the <em>default</em> Bayes factor methods are much more robust in the face of data analysis practices as they exist in the real world.
+      So until then, the <em>default</em> Bayes factor methods are much more robust in the face of
+      data analysis practices as they exist in the real world.
     </p>
 
   </section>

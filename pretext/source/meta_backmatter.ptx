@@ -4,9 +4,124 @@
 <backmatter xmlns:xi="http://www.w3.org/2001/XInclude" xml:id="meta_backmatter">
   <title>Backmatter</title>
 
-  <references>
+  <references xml:id="references">
     <title>References</title>
-    <p>References will be added here.</p>
+
+    <biblio type="raw" xml:id="Fisher1925">
+      Fisher, R. A. (1925). <em>Statistical Methods for Research Workers</em>.
+      Edinburgh, UK: Oliver and Boyd.
+    </biblio>
+
+    <biblio type="raw" xml:id="Jeffreys1961">
+      Jeffreys, H. (1961). <em>The Theory of Probability</em> (3rd ed.).
+      Oxford: Oxford University Press.
+    </biblio>
+
+    <biblio type="raw" xml:id="Johnson2013">
+      Johnson, V. E. (2013). Revised standards for statistical evidence.
+      <em>Proceedings of the National Academy of Sciences</em>, 110(48), 19313<ndash/>19317.
+    </biblio>
+
+    <biblio type="raw" xml:id="Kass1995">
+      Kass, R. E., and Raftery, A. E. (1995). Bayes factors.
+      <em>Journal of the American Statistical Association</em>, 90, 773<ndash/>795.
+    </biblio>
+    
+    <biblio xml:id="americaneducationalresearchassociationStandardsEducationalPsychological2014" type="raw">
+      American Educational Research Association, American Psychological Association, and National
+      Council on Measurement in Education. (2014).
+      <em>Standards for Educational and Psychological Testing</em>.
+      American Educational Research Association.
+    </biblio>
+
+    <biblio xml:id="Bickel1975" type="raw">
+      Bickel, P. J., Hammel, E. A., and O'Connell, J. W. (1975).
+      Sex bias in graduate admissions: Data from Berkeley.
+      <em>Science</em>, 187, 398&#x2013;404.
+    </biblio>
+
+    <biblio xml:id="bonczResearchMethodologyBasics2015" type="raw">
+      Boncz, I. (2015).
+      <em>Research methodology basics</em>.
+      Pécsi Tudományegyetem.
+    </biblio>
+
+    <biblio xml:id="brodeyValidationNetSCIDAutomated2016" type="raw">
+      Brodey, B. B., First, M., Linthicum, J., Haman, K., Sasiela, J. W., and Ayer, D. (2016).
+      Validation of the NetSCID: An automated web-based adaptive version of the SCID.
+      <em>Comprehensive Psychiatry</em>, 66, 67&#x2013;70.
+    </biblio>
+
+    <biblio xml:id="cowanGeorgeMillerMagical2015" type="raw">
+      Cowan, N. (2015).
+      George Miller's magical number of immediate memory in retrospect: Observations on the
+      faltering progression of science.
+      <em>Psychological Review</em>, 122, 536&#x2013;541.
+    </biblio>
+
+    <biblio xml:id="edwardsFitPurposeModern2018" type="raw">
+      Edwards, M. C., Slagle, A., Rubright, J. D., and Wirth, R. J. (2018).
+      Fit for purpose and modern validity theory in clinical outcomes assessment.
+      <em>Quality of Life Research</em>, 27, 1711&#x2013;1720.
+    </biblio>
+
+    <biblio xml:id="Evans1983" type="raw">
+      Evans, J. St. B. T., Barston, J. L., and Pollard, P. (1983).
+      On the conflict between logic and belief in syllogistic reasoning.
+      <em>Memory and Cognition</em>, 11, 295&#x2013;306.
+    </biblio>
+
+    <biblio xml:id="garcia-romeuOptimalDosingPsilocybin2021" type="raw">
+      Garcia-Romeu, A., Barrett, F. S., Carbonaro, T. M., Johnson, M. W., and Griffiths, R. R.
+      (2021). Optimal dosing for psilocybin pharmacotherapy: Considering weight-adjusted and fixed
+      dosing approaches.
+      <em>Journal of Psychopharmacology</em>, 35, 353&#x2013;361.
+    </biblio>
+
+    <biblio xml:id="howittUnderstandingStatisticsPsychology2020" type="raw">
+      Howitt, D. and Cramer, D. (2020).
+      <em>Understanding Statistics in Psychology with SPSS</em> (8th ed.).
+      Pearson.
+    </biblio>
+
+    <biblio xml:id="hubleyDivergentValidity2014" type="raw">
+      Hubley, A. M. (2014).
+      Divergent validity.
+      In A. C. Michalos (Ed.), <em>Encyclopedia of Quality of Life and Well-Being Research</em>
+      (pp. 1675&#x2013;1676). Springer.
+    </biblio>
+
+    <biblio xml:id="marksResearchMethodsClinical2004" type="raw">
+      Marks, D. and Yardley, L. (Eds.). (2004).
+      <em>Research Methods for Clinical and Health Psychology</em>.
+      SAGE.
+    </biblio>
+
+    <biblio xml:id="michalosEncyclopediaQualityLife2014" type="raw">
+      Michalos, A. C. (Ed.). (2014).
+      <em>Encyclopedia of Quality of Life and Well-Being Research</em>.
+      Springer.
+    </biblio>
+
+    <biblio xml:id="millerMagicalNumberSeven1956" type="raw">
+      Miller, G. A. (1956).
+      The magical number seven, plus or minus two: Some limits on our capacity for processing
+      information.
+      <em>Psychological Review</em>, 63, 81&#x2013;97.
+    </biblio>
+
+    <biblio xml:id="Stevens1946" type="raw">
+      Stevens, S. S. (1946).
+      On the theory of scales of measurement.
+      <em>Science</em>, 103, 677&#x2013;680.
+    </biblio>
+
+    <biblio xml:id="taylorHealthPsychology2021" type="raw">
+      Taylor, S. E. and Stanton, A. L. (2021).
+      <em>Health Psychology</em> (11th ed.).
+      McGraw-Hill.
+    </biblio>
+
   </references>
 
   <index>
