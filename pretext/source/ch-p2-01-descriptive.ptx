@@ -5,8 +5,890 @@
 
   <introduction>
     <p>
-      Content to be added.
+      Any time you get a new data set to look at, one of the first things you might want to do is find ways of summarising the data in a compact, easily understood fashion. This is what <term>descriptive statistics</term> (as opposed to <em>inferential statistics</em>) is all about. In fact, to many people, the term <q>statistics</q> is synonymous with descriptive statistics.
+    </p>
+    <p>
+      The first dataset we'll be looking at is real data relating to the Australian Football League (AFL)<fn>Note for non-Australians: the AFL is an Australian rules football competition. You don't need to know anything about Australian rules in order to follow this section.</fn>. To do this, let us load the <c>aflsmall.csv</c> file.
+    </p>
+    <figure xml:id="fig-loadaflsmall">
+      <caption>Loading <c>aflsmall.csv</c></caption>
+      <image source="loadaflsmall.png"/>
+    </figure>
+    <p>
+      CogStat will help you get familiar with some essential aspects of your variable, like:
+    </p>
+    <ul>
+      <li><p>measures of central tendency (mean, median)</p></li>
+      <li><p>measures of variability (range, minimum, maximum, standard deviation, quartiles)</p></li>
+      <li><p>measures of <q>distortion</q> (skewness, kurtosis).</p></li>
+    </ul>
+    <p>
+      These measures will help you contextualise the results so the conclusions drawn from the variable will be valid.
+    </p>
+    <p>
+      To start understanding a variable in CogStat, select <c>Explore variable</c> so a pop-up appears. Move the name of the data you wish to analyse (in this case: <c>aflmargins</c>) from <c>Available variables</c> to <c>Selected variables</c>, then click <c>OK</c> (see the figure below).
+    </p>
+    <figure xml:id="fig-explorevariable">
+      <caption><c>Explore variable</c> dialogue.</caption>
+      <image source="explorevariable.png"/>
+    </figure>
+    <figure xml:id="fig-cogstatrawaflsmall">
+      <caption><c>Explore variable results</c> for the <c>aflsmall.csv</c> data set. This is the first chart you will see exploring the raw shape of the data.</caption>
+      <image source="cogstatrawaflsmall.png"/>
+    </figure>
+    <p>
+      The first piece of information here is <m>N</m>, which we will use to refer to the number of observations we're analysing. CogStat (or any other software for that matter) will only use valid data for calculations. Sometimes, when working with survey data, you will have missing data points, the number of which you might have to mention in your report. CogStat will quote these for you:
+    </p>
+    <blockquote>
+      <p><c>N of valid cases: 176</c><br/><c>N of missing cases: 0</c></p>
+    </blockquote>
+    <p>
+      In the rest of this chapter, we will explore what these measures mean and what they indicate.
     </p>
   </introduction>
+
+  <section xml:id="sec-centraltendency">
+    <title>Measures of Central Tendency</title>
+    <p>
+      In most situations, the first thing that you'll want to calculate is a measure of <term>central tendency</term>. That is, you'd like to know something about the <q>average</q> or <q>middle</q> of your data lies.
+    </p>
+
+    <subsection xml:id="sec-mean">
+      <title>The Mean</title>
+      <p>
+        The first measure of <em>central tendency</em> is the mean, or arithmetic average. It is calculated by adding up all of the values in the data set and then divide the sum by the total number (count) of values.
+      </p>
+      <definition xml:id="def-mean">
+        <title>Mean</title>
+        <statement>
+          <p>
+            The <term>mean</term> of a set of observations is the sum of the observations divided by the number of observations.
+          </p>
+          <me>
+            \bar{X} = \frac{\sum_{i=1}^N X_i}{N}
+          </me>
+        </statement>
+      </definition>
+      <p>
+        Of course, this definition of the mean isn't news to anyone: averages (i.e., means) are used so often in everyday life that this is quite familiar. By tradition, we use <m>\bar{X}</m> as the notation for the mean, <m>\sum</m> for the idea of summation (see the callout on notation below), <m>X_i</m> for the <m>i</m>th observation, and <m>N</m> for the total number of observations. We use subscripts to indicate which observation we're talking about. That is, we'll use <m>X_1</m> to refer to the first observation, <m>X_2</m> to refer to the second observation, and so on, all the way up to <m>X_N</m> for the last one.
+      </p>
+      <example xml:id="ex-mean">
+        <title>Mean</title>
+        <p>
+          The first five AFL margins were 56, 31, 56, 8 and 32 (which CogStat will display when loading the data, see <xref ref="fig-loadaflsmall"/>), so the mean of these observations is just:
+        </p>
+        <me>
+          \frac{56 + 31 + 56 + 8 + 32}{5} = \frac{183}{5} = 36.60
+        </me>
+        <p>
+          The following table lists the 5 observations in the <c>afl.margins</c> variable, along with the mathematical symbol used to refer to it, and the actual value that the observation corresponds to:
+        </p>
+        <table>
+          <tabular halign="left">
+            <row header="yes">
+              <cell>Observation</cell>
+              <cell>Symbol</cell>
+              <cell>Observed value</cell>
+            </row>
+            <row>
+              <cell>winning margin, game 1</cell>
+              <cell><m>X_1</m></cell>
+              <cell>56 points</cell>
+            </row>
+            <row>
+              <cell>winning margin, game 2</cell>
+              <cell><m>X_2</m></cell>
+              <cell>31 points</cell>
+            </row>
+            <row>
+              <cell>winning margin, game 3</cell>
+              <cell><m>X_3</m></cell>
+              <cell>56 points</cell>
+            </row>
+            <row>
+              <cell>winning margin, game 4</cell>
+              <cell><m>X_4</m></cell>
+              <cell>8 points</cell>
+            </row>
+            <row>
+              <cell>winning margin, game 5</cell>
+              <cell><m>X_5</m></cell>
+              <cell>32 points</cell>
+            </row>
+          </tabular>
+        </table>
+      </example>
+      <p>
+        CogStat calculates the mean automatically when exploring a variable using all valid data points, not just the first five. It will be part of the <c>Descriptives for the variable</c> section, as seen in <xref ref="fig-cogstathistogramaflsmall"/>. The result for our variable is:
+      </p>
+      <blockquote>
+        <p><c>afl.margins</c><br/><c>Mean 35.3</c></p>
+      </blockquote>
+      <figure xml:id="fig-cogstathistogramaflsmall">
+        <caption>Descriptive statistics and histogram for the <c>aflsmall.csv</c> data set. Scrolling down, you'll see CogStat reporting all the descriptive measures while showing you a histogram to understand the shape of your data better.</caption>
+        <image source="cogstathistogramaflsmall.png"/>
+      </figure>
+
+      <remark xml:id="rem-summation">
+        <title>Summation symbol: <m>\sum</m> and Product symbol: <m>\prod</m> notations</title>
+        <p>
+          The summation symbol <m>\sum</m> is used to denote the operation of adding up a sequence of numbers. It is used to write out formulas in a concise way, and is used extensively in mathematics.
+        </p>
+        <me>
+          \sum_{i=1}^n X_i = X_1 + X_2 + ... + X_{n-1} + X_n
+        </me>
+        <p>
+          where <m>i</m> is the <em>index of the observation</em>, which means that the index starts out at the given number, so in this case, at the first observation (<m>X_1</m>). The index is incremented by 1 for each observation (even if <m>i>1</m>), so the next observation is <m>X_2</m>, and so on, until the last observation, which is <m>X_n</m>, as denoted above the symbol.
+        </p>
+        <p>
+          The choice to use <m>\Sigma</m> to denote summation isn't arbitrary: it's the Greek upper case letter sigma, which is the analogue of the letter S in that alphabet.
+        </p>
+        <p>
+          Similarly, there's an equivalent symbol used to denote the multiplication of lots of numbers: because multiplications are also called <q>products</q>, we use the <m>\Pi</m> symbol for this; the Greek upper case pi, which is the analogue of the letter P.
+        </p>
+      </remark>
+    </subsection>
+
+    <subsection xml:id="sec-median">
+      <title>The Median</title>
+      <p>
+        The second measure of <em>central tendency</em> people use a lot is the median<fn><em>medianus</em> is Latin for <q>the one in the middle</q>, originating from the word <em>medius</em>, meaning <q>the middle</q>.</fn>, and it's even easier to describe than the mean.
+      </p>
+      <definition xml:id="def-median">
+        <title>Median</title>
+        <statement>
+          <p>
+            The <term>median</term> is the middle value in a set of observations that has been arranged in ascending or descending order.
+          </p>
+        </statement>
+      </definition>
+      <example xml:id="ex-median">
+        <title>Median</title>
+        <p>
+          As before, let's imagine we were interested only in the first 5 AFL winning margins: 56, 31, 56, 8 and 32. To figure out the median, we sort these numbers into ascending order. From inspection, it's evident that the median value of these five observations is 32 since that's the middle one in the sorted list.
+        </p>
+        <me>
+          8, 31, \mathbf{32}, 56, 56
+        </me>
+        <p>
+          But what should we do if we were interested in the first six games rather than the first 5? Since the sixth game in the season had a winning margin of 14 points, our sorted list is now:
+        </p>
+        <me>
+          8, 14, \mathbf{31}, \mathbf{32}, 56, 56
+        </me>
+        <p>
+          and there are <em>two</em> middle numbers, <m>31</m> and <m>32</m>. The median is defined as the average of those two numbers, which is <m>31.5</m>.
+        </p>
+      </example>
+      <p>
+        In the data set we loaded to CogStat, there were 176 valid cases, so we ought to have two middle numbers. The result in this case is (as seen in <xref ref="fig-cogstathistogramaflsmall"/>):
+      </p>
+      <blockquote>
+        <p><c>afl.margins</c><br/><c>Median 30.5</c></p>
+      </blockquote>
+    </subsection>
+
+    <subsection xml:id="sec-mean-or-median">
+      <title>Mean or Median? What's the Difference?</title>
+      <figure xml:id="fig-meanmedian">
+        <caption>An illustration of the difference between how the mean and the median should be interpreted. The mean is basically the <q>centre of gravity</q> of the data set: if you imagine that the histogram of the data is a solid object, then the point on which you could balance it (as if on a see-saw) is the mean. In contrast, the median is the middle observation. Half of the observations are smaller, and half of the observations are larger.</caption>
+        <image source="meanmedian.png"/>
+      </figure>
+      <p>
+        Knowing how to calculate means and medians is only a part of the story. You also need to understand what each one is saying about the data, what that implies, and which one to choose. This is illustrated in <xref ref="fig-meanmedian"/>; the mean is kind of like the <q>centre of gravity</q> of the data set, whereas the median is where you'd cut it in half. What this implies about which one you should use depends a little on what type of data you've got and what you're trying to achieve. As a rough guide:
+      </p>
+      <ul>
+        <li><p>If your data are <em>nominal scale</em>, you shouldn't be using either the mean or the median. Both the mean and the median rely on the idea that the numbers assigned to values are meaningful (i.e., 1 means 1 of a unit of measure, and not simply a technical coding for <q>1: men, 2: women, 3: nonbinary ...</q>). If the numbering scheme is arbitrary, then use the mode (<xref ref="sec-mode"/>) instead.</p></li>
+        <li><p>If your data are <em>ordinal scale</em>, you can use the median but not the mean. The median only uses the order information in your data (i.e., which numbers are larger) which is the purpose of an ordinal scale. The mean makes use of the precise numeric values assigned to the observations beyond their order info, so it's not appropriate for ordinal data.</p></li>
+        <li><p>For <em>interval</em> and <em>ratio scale</em> data, either one is generally acceptable. Which one you pick depends a bit on what you're trying to achieve. The mean has the advantage of using all the information in the data (which is useful when you don't have a lot of data), but it's very susceptible to extreme values, as we'll see in <xref ref="sec-trimmedmean"/>.</p></li>
+      </ul>
+      <p>
+        Let's expand on that last part a little. One consequence is that there are systematic differences between the mean and the median when the histogram is asymmetric (skewed; see <xref ref="sec-skewnesskurtosis"/>). This is illustrated in <xref ref="fig-meanmedian"/> <mdash/> notice that the median (right hand side) is located closer to the <q>body</q> of the histogram, whereas the mean (left hand side) gets dragged towards the <q>tail</q> (where the extreme values are).
+      </p>
+      <example xml:id="ex-meanmedian">
+        <title>Mean or Median</title>
+        <p>
+          Suppose Bob (income $50,000), Kate (income $60,000) and Jane (income $65,000) are sitting at a table: the average income at the table is $58,333 and the median income is $60,000. Then Bill sits down with them (income $100,000,000). The average income has now jumped to $25,043,750 but the median rises only to $62,500. If you're interested in looking at the overall income at the table, the mean might be the right answer; but if you're interested in what counts as a typical income at the table, the median would be a better choice here.
+        </p>
+      </example>
+    </subsection>
+
+    <subsection xml:id="sec-trimmedmean">
+      <title>Trimmed Mean</title>
+      <example xml:id="ex-outliers">
+        <title>Outliers</title>
+        <p>
+          Consider this rather strange-looking data set:
+        </p>
+        <me>-100,2,3,4,5,6,7,8,9,10</me>
+        <p>
+          If you were to observe this in a real-life data set, you'd probably suspect that there is something odd about the <m>-100</m> value. It's probably an <term>outlier</term>, a value that doesn't belong with the others. You might consider removing it from the data set entirely. In this particular case, it might be the right call. However, you don't always get such cut-and-dried examples. For instance, you might get this instead:
+        </p>
+        <me>-15,2,3,4,5,6,7,8,9,12</me>
+        <p>
+          The <m>-15</m> looks suspicious, but not as much as that <m>-100</m> did. In this case, it's a little trickier. It <em>might</em> be a legitimate observation; it might not.
+        </p>
+      </example>
+      <p>
+        When faced with a situation where some of the most extreme-valued observations might not be quite trustworthy, the mean is not necessarily a good measure of central tendency. It is highly sensitive to one or two extreme values and might not be a <em>robust</em> measure in all cases. One remedy is to use the median. An alternative solution is to use a <term>trimmed mean</term>.
+      </p>
+      <definition xml:id="def-trimmedmean">
+        <title>Trimmed Mean</title>
+        <statement>
+          <p>
+            A <term>trimmed mean</term> is a measure of central tendency, a type of average, that is calculated by discarding a certain percentage of the largest and smallest observations from the data, and then calculating the arithmetic average of the remaining observations.
+          </p>
+        </statement>
+      </definition>
+      <p>
+        The goal is to preserve the best characteristics of the mean and the median: just like a median, you aren't highly influenced by extreme outliers. Generally, we describe a trimmed mean in terms of the percentage of observations on either side that are discarded. So, for instance, a 10% trimmed mean discards the largest 10% of the observations <em>and</em> the smallest 10% of the observations and then takes the mean of the remaining 80% of the observations. Not surprisingly, the 0% trimmed mean is just the regular mean, and the 50% trimmed mean is the median. In that sense, trimmed means provide a whole family of central tendency measures that span the range from the mean to the median.
+      </p>
+      <example xml:id="ex-trimmedmean">
+        <p>
+          For our toy example above, we have 10 observations. So a 10% trimmed mean is calculated by ignoring the largest value (i.e. <m>12</m>) and the smallest value (i.e. <m>-15</m>) and taking the mean of the remaining values.
+        </p>
+        <blockquote>
+          <p><c>Mean: 4.1</c><br/><c>Median: 5.5</c></p>
+        </blockquote>
+        <p>
+          That's a fairly substantial difference. But the mean is being influenced too much by the extreme values at either end of the data set, especially the <m>-15</m> one. If we take a 10% trimmed mean, we'll drop the extreme values on either side and take the mean of the rest:
+        </p>
+        <blockquote>
+          <p><c>Mean: 5.5</c></p>
+        </blockquote>
+        <p>
+          Which, in this case, gives exactly the same answer as the median.
+        </p>
+      </example>
+      <p>
+        Currently, there is no direct way for you to do that in CogStat, but you can certainly trim those outlying data points in your source file and re-load the data.
+      </p>
+    </subsection>
+
+    <subsection xml:id="sec-mode">
+      <title>Mode</title>
+      <definition xml:id="def-mode">
+        <title>Mode</title>
+        <statement>
+          <p>
+            The <term>mode</term> is a measure of central tendency that indicates the value that occurs most frequently in the data set.
+          </p>
+        </statement>
+      </definition>
+      <example xml:id="ex-mode">
+        <title>Mode</title>
+        <p>
+          Consider the following data set:
+        </p>
+        <blockquote>
+          <p>0, 1, 1, 2, 3, 5, 8, 13, 21</p>
+        </blockquote>
+        <p>
+          The mode would be 1, as it's the value the occurs most frequently. A <term>frequency table</term> helps you identify the mode in more complex datasets even if it's not calculated automatically.
+        </p>
+        <blockquote>
+          <p>
+            Value: Frequency (Relative frequency)<br/>
+            0: 1 (11.1%)<br/>
+            1: 2 (22.2%)<br/>
+            2: 1 (11.1%)<br/>
+            3: 1 (11.1%)<br/>
+            5: 1 (11.1%)<br/>
+            8: 1 (11.1%)<br/>
+            13: 1 (11.1%)<br/>
+            21: 1 (11.1%)
+          </p>
+        </blockquote>
+      </example>
+      <p>
+        In CogStat, you will see a frequency table (see the figure below) of the values in your data if you have <c>Frequencies</c> ticked in the <c>Explore variable</c> dialogue.
+      </p>
+      <figure xml:id="fig-cogstatfrequencyaflsmall">
+        <caption>The frequency table sorts non-nominal values from lowest to highest.</caption>
+        <image source="cogstatfrequencyaflsmall.png"/>
+      </figure>
+      <p>
+        While it's generally true that the mode is most often calculated when you have nominal scale data <mdash/> because means and medians are useless for those sorts of variables <mdash/>, there are some situations in which you do want to know the mode of an ordinal, interval or ratio scale variable.
+      </p>
+      <example xml:id="ex-mode2">
+        <title>Mode for Ordinal, Interval and Ratio Scale</title>
+        <p>
+          Let's look at our <c>afl.margins</c> variable we loaded into CogStat. This variable is clearly ratio scale, and so in most situations the mean or the median is the measure of central tendency that you want. But consider that a friend of yours is offering a bet. They pick a football game at random, and without knowing who is playing you have to guess the <em>exact</em> margin. If you guess correctly, you win $50. If you don't, you lose $1. There are no consolation prizes for <q>almost</q> getting the right answer. You have to guess exactly the right margin.<fn>This is called a <q>0-1 loss function</q>, meaning that you either win (1) or you lose (0), with no middle ground.</fn> For this bet, the mean and the median are completely useless to you. It is the mode that you should bet on. So, we look at the frequency table offered by the result set: the data suggest you should bet on a <m>3.0</m> point margin, and since this was observed in 8 of the 176 games (4.5% of games <mdash/> the <em>relative frequency</em>), the odds are firmly in your favour.
+        </p>
+      </example>
+
+      <remark xml:id="rem-bimodal">
+        <title>Bimodal Distributions</title>
+        <p>
+          A data set which has only one mode (or in other terms, a density distribution with only one local maximum) is called <em>unimodal</em>, regardless if the peak is in the middle or at either end. A perfect example of a unimodal distribution is the normal distribution (the <em>bell-curve</em>). This is the one that we use when explaining the theory in this book. However, a distribution can have more than one modes or more than one local maxima, and some simplistic rules of thumb don't necessarily work. Distributions with more than one modes are called <em>bimodal</em> (i.e., two peaks) or <em>multimodal</em> (i.e., multiple peaks) distributions.
+        </p>
+        <p>
+          You will likely encounter bimodal distributions in your data when you have multiple groups in one dataset. For example, when you measure an attitude towards a politically divisive subject with a Likert scale. When you graph the response on that item, you'll likely see a bimodal distribution, but if you split the data by group (based on a binary demographic item measuring political affiliation, for example), you'll likely see two unimodal distributions with different skewness.
+        </p>
+      </remark>
+    </subsection>
+  </section>
+
+  <section xml:id="sec-var">
+    <title>Measures of Variability</title>
+    <p>
+      The statistics that we've discussed so far all relate to <em>central tendency</em>. They all talk about which values are <q>in the middle</q> or <q>popular</q> in the data. However, central tendency is not the only type of summary statistic that we want to calculate. The second thing that we really want is a measure of the <term>variability</term> (or, <em>dispersion</em>) of the data. That is, how <q>spread out</q> are the data? How <q>far</q> away from the mean or median do the observed values tend to be?
+    </p>
+    <p>
+      For now, let's assume that the data are interval or ratio scale, so we'll continue to use the <c>afl.margins</c> data. We'll use this data to discuss several different measures of spread, each with different strengths and weaknesses.
+    </p>
+
+    <subsection xml:id="sec-range">
+      <title>Range</title>
+      <definition xml:id="def-range">
+        <title>Range</title>
+        <statement>
+          <p>
+            As a measure of variability, the <term>range</term> of a variable is the difference between the largest and smallest observation in the data set.
+          </p>
+          <me>
+            \text{Range}=\max(x)-\min(x)
+          </me>
+        </statement>
+      </definition>
+      <example xml:id="ex-range">
+        <title>Range</title>
+        <p>
+          For the AFL winning margins data, the maximum value is <m>116</m>, and the minimum is <m>0</m>, so the range is:
+        </p>
+        <me>116-0=\mathbf{116}</me>
+      </example>
+      <p>
+        CogStat automatically calculates all these values (see <xref ref="fig-cogstathistogramaflsmall"/>), so there is nothing we need to do about this, only to understand what it implies.
+      </p>
+      <p>
+        Although the range is the simplest way to quantify the notion of variability, it's not a fit-for-all tool. Recall from our discussion of the mean that we want our summary measure to be robust. If the data set has one or two extremely <q>bad</q> values in it (i.e., <em>outliers</em>), we'd like our statistics not to be unduly influenced by these cases.
+      </p>
+      <example xml:id="ex-range2">
+        <title>Range with Outliers Present</title>
+        <p>
+          Let us look once again at our toy example of a data set containing very extreme outliers:
+        </p>
+        <me>-100,2,3,4,5,6,7,8,9,10</me>
+        <p>
+          It is clear that the range is not robust since this has a range of <m>110</m>, but if the outlier was removed, we would have a range of only <m>8</m>.
+        </p>
+      </example>
+
+      <remark xml:id="rem-quantile">
+        <title>Quantiles</title>
+        <p>
+          Quantiles are cut points that divide an ordered data set into equal-sized groups of observations when the data is continuous. Or more generally, they cut a probability distribution to equally probable intervals.
+        </p>
+        <p>
+          For example, a data set of 40 observations can be divided into 4 equal-sized groups of 10 observations each. This is called a <term>quartile</term> (i.e., 1/4). If we wanted to define in percentages, this would be able to define 25th, 50th and 75th <term>percentiles</term> of a data set. The <em>25th percentile</em> (<em>1st quartile</em> or <em>lower quartile</em>) holds the value in a distribution that is greater than 25% of the values and less than 75% of the values. The <em>50th percentile</em> (<em>2nd quartile</em>) is the <em>median</em>, and the <em>75th percentile</em> (<em>3rd quartile</em> or <em>upper quartile</em>) is the value that is greater than 75% of the values and less than 25% of the values.
+        </p>
+        <p>
+          The data can be divided into other quantiles as well: e.g. a distribution cut in 5 equal-sized groups are called <term>quintiles</term>, and a distribution cut in 10 equal-sized groups are called <term>deciles</term>, and so on.
+        </p>
+        <p>
+          There are different methods to cutting discrete data into quantiles, but we're not going to discuss them here.
+        </p>
+      </remark>
+    </subsection>
+
+    <subsection xml:id="sec-IQR">
+      <title>Interquartile Range</title>
+      <p>
+        The <term>interquartile range</term> (IQR) is similar to the range in terms of measuring variability, but instead of calculating the difference between the largest and smallest value, it calculates the difference between the 25th and 75th quantile, hence, somewhat minimising the effect of a few outliers.
+      </p>
+      <definition xml:id="def-IQR">
+        <title>Interquartile Range</title>
+        <statement>
+          <p>
+            The <term>interquartile range</term> (IQR) is the difference between the 25th and 75th quantile of a data set. It is a measure of variability that is less sensitive to outliers than the range.
+          </p>
+        </statement>
+      </definition>
+      <p>
+        CogStat provides you with both the 25th (<c>Lower quartile</c>) and 75th quantiles (<c>Upper quartile</c>) automatically:
+      </p>
+      <blockquote>
+        <p><c>Upper quartile: 50.5</c><br/><c>Lower quartile: 12.8</c></p>
+      </blockquote>
+      <example xml:id="ex-IQR">
+        <title>Interquartile Range</title>
+        <p>
+          We can see that the interquartile range for the 2010 AFL winning margins data is:
+        </p>
+        <me>50.5 - 12.8 = \mathbf{37.7}</me>
+      </example>
+      <p>
+        While it's obvious how to interpret the range, it's a little less obvious how to interpret the IQR. The simplest way to think about it is like this: the interquartile range is the range spanned by the <q>middle half</q> of the data, ignoring any data between <m>-\infty</m> and <m>Q_1</m>, and between <m>Q_3</m> and <m>+\infty</m>. That is, one quarter of the data falls below the 25th percentile, one quarter of the data is above the 75th percentile, leaving the <q>middle half</q> of the data lying in between the two. And the IQR is the range covered by this middle half.
+      </p>
+
+      <remark xml:id="rem-boxplots">
+        <title>Boxplots</title>
+        <p>
+          Boxplots (or <q>box and whiskers</q> plots) are a standardised method to display the distribution of a data set based on a five-number summary:
+        </p>
+        <ul>
+          <li><p>the minimum and maximum (i.e., range),</p></li>
+          <li><p>first quartile and third quartile (i.e., IQR),</p></li>
+          <li><p>and the median.</p></li>
+        </ul>
+        <p>
+          Like histograms, they're most suited for interval or ratio scale data. Some boxplots separate out those observations that are <q>suspiciously</q> distant from the rest of the data, i.e., the outliers. These are usually displayed with a circle or a dot.
+        </p>
+      </remark>
+    </subsection>
+
+    <subsection xml:id="sec-aad">
+      <title>Mean Absolute Deviation (Average Absolute Deviation)</title>
+      <p>
+        The two measures we've looked at so far, the range and the interquartile range, both rely on the idea that we can measure the spread of the data by looking at quantiles. However, this isn't the only way to think about the problem. A different approach is to select some meaningful reference point (usually the mean or the median) and then report the <q>typical</q> deviations from that. In practice, this leads to two different measures, the <q>mean absolute deviation</q> (from the mean) and the <q>median absolute deviation</q> (from the median). Irritatingly, <q>mean absolute deviation</q> and <q>median absolute deviation</q> have the same acronym (i.e., MAD), which leads to a certain amount of ambiguity. What we'll do is use <em>AAD</em> (<em>average absolute deviation</em>) for <em>mean absolute deviation</em>, while <em>MAD</em> will stand for <em>median absolute deviation</em>.
+      </p>
+      <definition xml:id="def-AAD">
+        <title>Average Absolute Deviation</title>
+        <statement>
+          <p>
+            The <term>average absolute deviation</term> (AAD) is a measure of variability calculated as the average of the absolute difference between each observation and the <em>mean</em> of the data set.
+          </p>
+          <me>
+            \text{AAD} = \frac{1}{n} \sum_{i=1}^n |X_i - \bar{X}|
+          </me>
+          <p>
+            where <m>n</m> is the number of observations, <m>X_i</m> is the <m>i</m>th observation, and <m>\bar{X}</m> is the mean of the data set.
+          </p>
+        </statement>
+      </definition>
+      <example xml:id="ex-AAD">
+        <title>Average Absolute Deviation</title>
+        <p>
+          Let's think about our AFL winning margins data, and once again we'll start by pretending that there's only 5 games in total, with winning margins of 56, 31, 56, 8 and 32. Our calculations rely on an examination of the deviation from some reference point, in this case, the mean.
+        </p>
+        <ol>
+          <li><p>The first thing we need to look up is the mean, <m>\bar{X}</m>. For these five observations, our mean is <m>\bar{X} = 36.6</m>.</p></li>
+          <li><p>The next step is to convert each of our observations <m>X_i</m> into a deviation score. We do this by calculating the difference between the observation <m>X_i</m> and the mean <m>\bar{X}</m> (i.e., the deviation score: <m>X_i - \bar{X}</m>).</p></li>
+          <li><p>Then we convert these deviations to absolute deviations. Mathematically, we would denote the absolute value of <m>-3</m> as <m>|-3|</m>, and so we say that <m>|-3| = 3</m>. We use the absolute value function here because we don't care whether the value is higher than the mean or lower than the mean; we're just interested in how <em>close</em> it is to the mean.</p></li>
+        </ol>
+        <p>
+          To help make this process as obvious as possible, the table below shows these calculations for all five observations:
+        </p>
+        <table>
+          <tabular halign="left">
+            <row header="yes">
+              <cell>Observation</cell>
+              <cell>Symbol</cell>
+              <cell>Observed value</cell>
+              <cell>Deviation score <m>X_i - \bar{X}</m></cell>
+              <cell>Absolute d.s. <m>|X_i - \bar{X}|</m></cell>
+            </row>
+            <row>
+              <cell>winning margin, game 1</cell>
+              <cell><m>X_1</m></cell>
+              <cell>56 points</cell>
+              <cell>56 - 36.6 = 19.4</cell>
+              <cell>19.4</cell>
+            </row>
+            <row>
+              <cell>winning margin, game 2</cell>
+              <cell><m>X_2</m></cell>
+              <cell>31 points</cell>
+              <cell>31 - 36.6 = -5.6</cell>
+              <cell>5.6</cell>
+            </row>
+            <row>
+              <cell>winning margin, game 3</cell>
+              <cell><m>X_3</m></cell>
+              <cell>56 points</cell>
+              <cell>56 - 36.6 = 19.4</cell>
+              <cell>19.4</cell>
+            </row>
+            <row>
+              <cell>winning margin, game 4</cell>
+              <cell><m>X_4</m></cell>
+              <cell>8 points</cell>
+              <cell>8 - 36.6 = -28.6</cell>
+              <cell>28.6</cell>
+            </row>
+            <row>
+              <cell>winning margin, game 5</cell>
+              <cell><m>X_5</m></cell>
+              <cell>32 points</cell>
+              <cell>32 - 36.6 = -4.6</cell>
+              <cell>4.6</cell>
+            </row>
+          </tabular>
+        </table>
+        <p>
+          Now that we have calculated the absolute deviation score for every observation in the data set, we only have to calculate the mean of these scores. Let's do that:
+        </p>
+        <me>\frac{19.4 + 5.6 + 19.4 + 28.6 + 4.6}{5} = 15.52</me>
+        <p>
+          And we're done. The mean absolute deviation for these five scores is 15.52.
+        </p>
+      </example>
+      <p>
+        Currently, AAD is not calculated in CogStat, but you can calculate this with other statistics software. When this is added, we'll update this section.
+      </p>
+    </subsection>
+
+    <subsection xml:id="sec-mad">
+      <title>Median Absolute Deviation</title>
+      <p>
+        The basic idea behind <em>median absolute deviation</em> (MAD) is identical to the one behind the mean absolute deviation (<xref ref="sec-aad"/>). The difference is that you use the median. This has a straightforward interpretation: every observation in the data set lies some distance away from the typical value (the median). So the MAD is an attempt to describe a <em>typical deviation from a typical value</em> in the data set.
+      </p>
+      <definition xml:id="def-MAD">
+        <title>Median Absolute Deviation</title>
+        <statement>
+          <p>
+            The <term>median absolute deviation</term> (MAD) is a measure of variability calculated as the average of the absolute difference between each observation and the <em>median</em> of the data set.
+          </p>
+          <me>
+            \text{MAD} = \frac{1}{n} \sum_{i=1}^n |X_i - \text{median}(X)|
+          </me>
+          <p>
+            where <m>n</m> is the number of observations, <m>X_i</m> is the <m>i</m>th observation, and <m>\text{median}(X)</m> is the median of the data set.
+          </p>
+        </statement>
+      </definition>
+      <example xml:id="ex-MAD">
+        <title>Median Absolute Deviation</title>
+        <p>
+          Let's think about our AFL winning margins data, and once again we'll start by pretending that there's only 5 games in total, with winning margins of 56, 31, 56, 8 and 32. Our calculations rely on an examination of the deviation from some reference point, in this case, the median. The median for these five observations is <m>\text{median}(X) = 32</m>. We'll repeat the same steps as before with the mean absolute deviation, and we'll have the following result:
+        </p>
+        <me>
+          \text{MAD} = \frac{1}{5} \left( |56 - 32| + |31 - 32| + |56 - 32| + |8 - 32| + |32 - 32| \right) = 19.5
+        </me>
+      </example>
+    </subsection>
+
+    <subsection xml:id="sec-variance">
+      <title>Variance</title>
+      <p>
+        Variance isn't all too different from the mean absolute deviation. The main difference is that we use squared deviations instead of absolute deviations. With squared deviations, we obtain a measure called <term>variance</term>.
+      </p>
+      <definition xml:id="def-Var">
+        <title>Variance</title>
+        <statement>
+          <p>
+            <term>Variance</term> is a measure of variability calculated as the average of the <em>squared difference</em> between each observation and the <em>mean</em> of the data set.
+          </p>
+          <me>
+            \text{Var}(X) = \frac{1}{n} \sum_{i=1}^n (X_i - \bar{X})^2
+          </me>
+          <p>
+            where <m>n</m> is the number of observations, <m>X_i</m> is the <m>i</m>th observation, and <m>\bar{X}</m> is the mean of the data set.
+          </p>
+        </statement>
+      </definition>
+      <p>
+        Variances are <em>additive</em>. Suppose we have two variables (<m>X</m> and <m>Y</m>), whose variances are <m>\text{Var}(X)</m> and <m>\text{Var}(Y)</m> respectively. Now imagine we want to define a new variable <m>Z</m> that is the sum of the two, <m>Z = X+Y</m>. As it turns out, the variance of <m>Z</m> is equal to <m>\text{Var}(X) + \text{Var}(Y)</m>.
+      </p>
+      <example xml:id="ex-VarAddit">
+        <title>Additive Property of the Variance</title>
+        <p>
+          Let's use the first five AFL games as our data. If we follow the same approach that we took last time, we end up with the following table:
+        </p>
+        <table>
+          <tabular halign="left">
+            <row header="yes">
+              <cell>Which game</cell>
+              <cell>Value</cell>
+              <cell>Deviation from mean</cell>
+              <cell>Absolute squared deviation</cell>
+            </row>
+            <row header="yes">
+              <cell><m>i</m></cell>
+              <cell><m>X_i</m></cell>
+              <cell><m>X_i - \bar{X}</m></cell>
+              <cell><m>(X_i - \bar{X})^2</m></cell>
+            </row>
+            <row>
+              <cell>1</cell>
+              <cell>56</cell>
+              <cell>19.4</cell>
+              <cell>376.36</cell>
+            </row>
+            <row>
+              <cell>2</cell>
+              <cell>31</cell>
+              <cell>-5.6</cell>
+              <cell>31.36</cell>
+            </row>
+            <row>
+              <cell>3</cell>
+              <cell>56</cell>
+              <cell>19.4</cell>
+              <cell>376.36</cell>
+            </row>
+            <row>
+              <cell>4</cell>
+              <cell>8</cell>
+              <cell>-28.6</cell>
+              <cell>817.96</cell>
+            </row>
+            <row>
+              <cell>5</cell>
+              <cell>32</cell>
+              <cell>-4.6</cell>
+              <cell>21.16</cell>
+            </row>
+          </tabular>
+        </table>
+        <p>
+          That last column contains all of our squared deviations, so all we have to do is average them.
+        </p>
+        <me>
+          \frac{( 376.36 + 31.36 + 376.36 + 817.96 + 21.16 )}{5} = 324.64
+        </me>
+      </example>
+      <p>
+        Let's tackle the burning question you're probably thinking: how do you <em>interpret</em> the variance? Unfortunately, the reason why we haven't given you the human-friendly interpretation of the variance is that there really isn't one. It does have some elegant mathematical properties that suggest that it really is a fundamental quantity for expressing variation and spread. The reason for the difficulty is that all the numbers have been squared, and they don't necessarily mean anything in the original units. For example, if you're running an analysis on vitamin D levels in a study about mood disorders, you'll have a base unit of measure of nmol/L or ng/mL. If you square these numbers, you'll end up with a variance in nmol/L-squared or ng/mL-squared. This is a meaningless unit of measure on its own. However, variance is still a good measure to indicate a spread of data, and it's a good measure to use when comparing variances between different groups.
+      </p>
+      <p>
+        CogStat will not attempt to interpret the variance nor will it give you the raw value.
+      </p>
+
+      <remark xml:id="rem-popvar">
+        <title>Population Variance versus Variance Estimate</title>
+        <p>
+          If you are extremely lucky and have a data set that contains the entire population, then you can calculate the variance as given in the definition above. This is called <term>population variance</term>. In this case the variance is denoted <m>\sigma^2</m>, the mean is denoted as <m>\mu</m>.
+        </p>
+        <me>
+          \sigma^2 = \frac{1}{n} \sum_{i=1}^n (X_i - \mu)^2
+        </me>
+        <p>
+          In research, however, you are most likely to have gathered data for merely a <em>sample</em> of the population. There is an alternative formula for this case. This is called <term>variance estimate</term>, or <em>estimated variance</em>, or <em>sample variance</em>, or <em>estimated population variance</em>, and is denoted <m>s^2</m>. The formula for the variance estimate is:
+        </p>
+        <me>
+          s^2 = \frac{1}{n-1} \sum_{i=1}^n (X_i - \bar{X})^2
+        </me>
+        <p>
+          where <m>n</m> is the number of observations in the sample, <m>X_i</m> is the <m>i</m>th observation, and <m>\bar{X}</m> is the mean of the sample. You'll notice the difference is the denominator using <m>n-1</m> instead of <m>n</m>.
+        </p>
+      </remark>
+    </subsection>
+
+    <subsection xml:id="sec-sd">
+      <title>Standard Deviation</title>
+      <p>
+        Suppose you would like to have a measure expressed in the same units as the data itself (i.e. nmol/L, not nmol/L-squared). What should you do? The solution to the problem is obvious: take the square root of the variance, known as the <term>standard deviation</term> (usually shortened as <em>SD</em> or <em>Std dev.</em>), also called the <em>root mean squared deviation</em>, or RMSD. This solves our problem with variance fairly neatly: it's much easier to understand <q>a standard deviation of 18.01 nmol/L</q> since it's expressed in the original units.
+      </p>
+      <definition xml:id="def-SD">
+        <title>Standard Deviation</title>
+        <statement>
+          <p>
+            <term>Standard deviation</term> is the <em>square root</em> of the average of the <em>squared difference</em> between each observation and the <em>mean</em> of the data set.
+          </p>
+          <me>
+            \text{SD} = \sqrt{ \frac{1}{n} \sum_{i=1}^n \left( X_i - \bar{X} \right)^2 }
+          </me>
+        </statement>
+      </definition>
+      <p>
+        So how do we interpret standard deviation? Standard deviation has the same unit of measure as the observations, e.g., nmol/L, but just like variance, it doesn't have a simple interpretation either. The interpretation is based on the scale of the measurement. E.g. 3.5 can be big or small depending on the scale of measurement. For example, a 3.5 nmol/L SD value for vitamin D level suggests a fairly consistent measurement, considering 50-75 nmol/L is adequate, >75 is optimum, and &lt;25 is deficient according to NHS UK guidelines<fn><url href="https://www.southtees.nhs.uk/services/pathology/tests/vitamin-d/">https://www.southtees.nhs.uk/services/pathology/tests/vitamin-d/</url> in 2023.</fn>. But an SD of 3.5 for a 5-level Likert scale is massive, indicating a less consistent data point and high variability.
+      </p>
+      <p>
+        There are different ways to standardise the SD. One way is to divide the SD by the mean, which gives you the <term>coefficient of variation</term> (CV). Another way is by utilizing <m>z</m>-scores which assumes the data are <em>normally</em> distributed, which is an important concept discussed in <xref ref="ch-probability"/>. We'll discuss z-scores shortly in <xref ref="sec-zscore"/>.
+      </p>
+
+      <remark xml:id="rem-popsd">
+        <title>Population SD versus Estimated SD</title>
+        <p>
+          Similarly to variance, we can differentiate between a population-based standard deviation and a sample-based standard deviation.
+        </p>
+        <p>
+          The <term>population SD</term> is denoted <m>\sigma</m>, the mean is denoted as <m>\mu</m>.
+        </p>
+        <me>
+          \sigma = \sqrt{ \frac{1}{n} \sum_{i=1}^n \left( X_i - \mu \right)^2 }
+        </me>
+        <p>
+          For calculating a population <em>estimate</em> based on sample data, we use the <term>estimated standard deviation</term> (<m>s</m>) formula.
+        </p>
+        <me>
+          s = \sqrt{ \frac{1}{n-1} \sum_{i=1}^n \left( X_i - \bar{X} \right)^2 }
+        </me>
+        <p>
+          where <m>n</m> is the number of observations in the sample, <m>X_i</m> is the <m>i</m>th observation, and <m>\bar{X}</m> is the mean of the sample. The denominator is <m>n-1</m> instead of <m>n</m>.
+        </p>
+      </remark>
+    </subsection>
+
+    <subsection xml:id="sec-which-measure">
+      <title>Which Measure to Use?</title>
+      <p>
+        We've discussed quite a few measures of spread and hinted at their strengths and weaknesses. Here's a quick summary:
+      </p>
+      <ul>
+        <li><p><em>Range</em>. Gives you the full spread of the data. It's very vulnerable to outliers, and as a consequence, it isn't often used unless you have good reasons to care about the extremes in the data.</p></li>
+        <li><p><em>Interquartile range</em>. Tells you where the <q>middle half</q> of the data sits. It's pretty robust and complements the median nicely. This is used a lot.</p></li>
+        <li><p><em>Average absolute deviation</em>. Tells you how far <q>on average</q> the observations are from the mean. It's very interpretable but has a few minor issues that make it less attractive to statisticians than the standard deviation. Used sometimes, but not often.</p></li>
+        <li><p><em>Median absolute deviation</em>. The typical deviation from the median value.</p></li>
+        <li><p><em>Variance</em>. Tells you the average squared deviation from the mean. It's mathematically elegant and is probably the <q>right</q> way to describe variation around the mean, but it's completely uninterpretable because it doesn't use the same units as the data. Almost never used except as a mathematical tool, but it's buried <q>under the hood</q> of a very large number of statistical tools.</p></li>
+        <li><p><em>Standard deviation</em>. This is the square root of the variance. It's fairly elegant mathematically, and it's expressed in the same units as the data, so it can be interpreted pretty well. In situations where the mean is the measure of central tendency, this is the default. This is by far the most popular measure of variation.</p></li>
+      </ul>
+      <p>
+        In short, the IQR and the standard deviation are easily the two most common measures used to report the variability of the data. Still, there are situations in which range or other measures are used.
+      </p>
+    </subsection>
+  </section>
+
+  <section xml:id="sec-skewnesskurtosis">
+    <title>Skewness and Kurtosis</title>
+    <p>
+      There are two more descriptive statistics that you will likely see reported in the psychological literature, known as <term>skewness</term> and <term>kurtosis</term>. These are measures of the shape of the distribution of the data.
+    </p>
+    <definition xml:id="def-skewness">
+      <title>Skewness</title>
+      <statement>
+        <p>
+          <term>Skewness</term> is a measure of asymmetry of a distribution.
+        </p>
+        <p>
+          In case of unimodal distributions, a negative skew means the median and mean are smaller than the mode, resulting in a long tail on the left; and a positive skew means the median and mean are larger than the mode, resulting in a long tail on the right. A skewness of 0 means the median and mean are equal to the mode, resulting in a symmetrical distribution.
+        </p>
+        <p>
+          The formula for sample skewness is:
+        </p>
+        <me>
+          \text{skewness}(X) = \frac{1}{N \hat{\sigma}^3} \sum_{i=1}^N \left( X_i - \bar{X} \right)^3
+        </me>
+        <p>
+          where <m>N</m> is the number of observations in the sample, <m>X_i</m> is the <m>i</m>th observation, <m>\bar{X}</m> is the mean of the sample, and <m>\hat{\sigma}</m> is the sample standard deviation.
+        </p>
+      </statement>
+    </definition>
+    <p>
+      If the data tend to have a lot of extreme small values (i.e., the lower tail is <q>longer</q> than the upper tail) and not so many extremely large values, then we say that the data are <em>negatively skewed</em>. On the other hand, if there are more extremely large values than extremely small ones we say that the data are <em>positively skewed</em>.
+    </p>
+    <p>
+      Not surprisingly, it turns out that the AFL winning margins data is fairly skewed: <m>0.8</m> (see <xref ref="fig-cogstathistogramaflsmall"/> depicting the analysis results from CogStat).
+    </p>
+    <definition xml:id="def-kurtosis">
+      <title>Kurtosis</title>
+      <statement>
+        <p>
+          <term>Kurtosis</term> describes the degree of steepness of a distribution.
+        </p>
+        <p>
+          A steep distribution is <em>leptokurtic</em> (positive kurtosis) distribution, a flat distribution is <em>platykurtic</em> (negative kurtosis), and the normal distribution is <em>mesokurtic</em> (kurtosis is 0).
+        </p>
+        <me>
+          \text{kurtosis}(X) = \frac{1}{N \hat{\sigma}^4} \sum_{i=1}^N \left( X_i - \bar{X} \right)^4 - 3
+        </me>
+        <p>
+          where <m>N</m> is the number of observations, <m>\bar{X}</m> is the sample mean, and <m>\hat{\sigma}</m> is the standard deviation (the <q>divide by <m>N-1</m></q> version, that is).
+        </p>
+      </statement>
+    </definition>
+    <p>
+      Kurtosis, put simply, is a measure of the <q>pointiness</q> of a data set. When reading the automatically calculated kurtosis value from our CogStat result set, we discover that the AFL winning margins data is just pointy enough: <m>0.1</m>.
+    </p>
+  </section>
+
+  <section xml:id="sec-zscore">
+    <title>Standard Scores (<m>z</m>-score)</title>
+    <p>
+      Suppose a friend is creating a new questionnaire to measure <q>grumpiness</q>. The survey has 50 questions, which you can answer in a grumpy way or not. Across a big sample (hypothetically, let's imagine a million people or so!), the data are fairly normally distributed, with the mean grumpiness score being 17 out of 50 questions answered in a grumpy way and the standard deviation is 5. In contrast, when we take the questionnaire, we answer 35 out of 50 questions in a grumpy way. So, how grumpy are we? One way to think about it would be to say that we have a grumpiness of 35/50, so you might say that we're 70% grumpy. But that's a bit weird when you think about it. Suppose our friend had phrased her questions a bit differently. In that case, people might have answered them differently, so the overall distribution of answers could easily move up or down depending on the precise way the questions were asked. So, we're only 70% grumpy <em>with respect to this set of survey questions</em>. Even if it's an excellent questionnaire, this isn't a very informative statement.
+    </p>
+    <p>
+      A simpler way around this is to describe our grumpiness by comparing us to other people. Shockingly, out of a sample of 1,000,000 people, only 159 people were as grumpy as us, suggesting that we're in the top 0.016% of people for grumpiness. This makes much more sense than trying to interpret the raw data. This idea <mdash/> that we should describe our grumpiness in terms of the overall distribution of the grumpiness of humans <mdash/> is the qualitative idea that standardisation attempts to get at. One way to do this is to describe everything in terms of percentiles. However, the problem with doing this is that <q>it's lonely at the top</q>.
+    </p>
+    <p>
+      Suppose that our friend had only collected a sample of 1000 people, and this time got a mean of 16 out of 50 with a standard deviation of 5. The problem is that, almost certainly, not a single person in that sample would be as grumpy as us.
+    </p>
+    <p>
+      However, all is not lost. A different approach is to convert our grumpiness score into a <term>standard score</term>, also referred to as a <m>z</m>-score. The standard score is defined as the number of standard deviations above the mean that my grumpiness score lies. To phrase it in <q>pseudo-maths</q>, the standard score is calculated like this:
+    </p>
+    <me>
+      \text{standard score} = \frac{\text{raw score} - \text{mean}}{\text{standard deviation}}
+    </me>
+    <p>
+      In actual maths, the equation for the <m>z</m>-score is
+    </p>
+    <me>
+      z_i = \frac{X_i - \bar{X}}{\hat{\sigma}}
+    </me>
+    <p>
+      So, going back to the grumpiness data, we can now transform our raw grumpiness into a standardised grumpiness score. If the mean is 17 and the standard deviation is 5 then my standardised grumpiness score would be (in a bit simplistic way, since we haven't discussed estimations yet):
+    </p>
+    <me>
+      z = \frac{35 - 17}{5} = 3.6
+    </me>
+    <p>
+      To interpret this value, recall the rough heuristic from <xref ref="sec-sd"/>: 99.7% of values are expected to lie within 3 standard deviations of the mean. So the fact that our grumpiness corresponds to a <m>z</m> score of 3.6 indicates that we're very grumpy indeed. A theoretical percentile rank for grumpiness, would be <m>0.9998409</m>.<fn>Note that this is true given a normal distribution. More on that later.</fn>
+    </p>
+    <p>
+      In addition to allowing you to interpret a raw score in relation to a larger population (and thereby allowing you to make sense of variables that lie on arbitrary scales), standard scores serve a second useful function. Standard scores can be compared to one another in situations where the raw scores can't. Suppose our friend also had another questionnaire that measured extraversion using a 24 items questionnaire. The overall mean for this measure turns out to be 13 with a standard deviation 4; and we scored a 2. As you can imagine, it doesn't make a lot of sense to compare this raw score of 2 on the extraversion questionnaire to our raw score of 35 on the grumpiness questionnaire. The raw scores for the two variables are <q>about</q> fundamentally different things, so this would be like comparing apples to oranges.
+    </p>
+    <p>
+      What about the standard scores? Well, this is a little different. If we calculate the standard scores, we get <m>z = (35-17)/5 = 3.6</m> for grumpiness and <m>z = (2-13)/4 = -2.75</m> for extraversion. These two numbers <em>can</em> be compared to each other.<fn>Though some caution is usually warranted. It's not always the case that one standard deviation on variable A corresponds to the same <q>kind</q> of thing as one standard deviation on variable B. Use common sense when trying to determine whether or not the <m>z</m> scores of two variables can be meaningfully compared.</fn> We'd be much less extraverted than most people (<m>z = -2.75</m>) and much grumpier than most people (<m>z = 3.6</m>): but the extent of our unusualness is much more extreme for grumpiness (since 3.6 is a bigger number than 2.75). Because each standardised score is a statement about where an observation falls <em>relative to its own population</em>, it <em>is</em> possible to compare standardised scores across completely different variables.
+    </p>
+  </section>
+
+  <conclusion xml:id="sec-descriptive-summary">
+    <title>Summary</title>
+    <p>
+      We have covered some key aspects of how to summarise what we have learned about the data. As a summary, the following table lists the measures that CogStat will calculate for you, with a brief explanation of what they are and how they are used.
+    </p>
+    <table xml:id="tab-descriptive-summary">
+      <title>Descriptives for the variable</title>
+      <tabular halign="left">
+        <row header="yes">
+          <cell>Measure</cell>
+          <cell>afl.margins</cell>
+          <cell>Meaning</cell>
+        </row>
+        <row>
+          <cell>Mean</cell>
+          <cell>35.3</cell>
+          <cell>Average <mdash/> the <q>centre of gravity</q> of the data</cell>
+        </row>
+        <row>
+          <cell>Standard deviation</cell>
+          <cell>26.0</cell>
+          <cell>How clustered is the data around the mean (smaller figure means more clustered, larger figure closer to interquartile range means more spread out)</cell>
+        </row>
+        <row>
+          <cell>Skewness</cell>
+          <cell>0.8</cell>
+          <cell>The asymmetry of the data compared to a normal distribution (bell curve)</cell>
+        </row>
+        <row>
+          <cell>Kurtosis</cell>
+          <cell>0.1</cell>
+          <cell>Pointiness of the data. Smaller figure means more pointy, larger figure means less pointy</cell>
+        </row>
+        <row>
+          <cell>Range</cell>
+          <cell>116.0</cell>
+          <cell>The spread of the data set between the maximum and minimum values</cell>
+        </row>
+        <row>
+          <cell>Maximum</cell>
+          <cell>116.0</cell>
+          <cell>The highest value in the data set</cell>
+        </row>
+        <row>
+          <cell>Upper quartile</cell>
+          <cell>50.5</cell>
+          <cell>25% of the data points reside at and above this value</cell>
+        </row>
+        <row>
+          <cell>Median</cell>
+          <cell>30.5</cell>
+          <cell>This is the value of the data point in the middle (or the average of the two middle points in case of even number of data points). 50-50% of data points reside at above and below this value</cell>
+        </row>
+        <row>
+          <cell>Lower quartile</cell>
+          <cell>12.8</cell>
+          <cell>25% of the data points reside at and below this value</cell>
+        </row>
+        <row>
+          <cell>Minimum</cell>
+          <cell>0.0</cell>
+          <cell>The lowest value in the data set</cell>
+        </row>
+      </tabular>
+    </table>
+  </conclusion>
 
 </chapter>

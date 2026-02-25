@@ -5,8 +5,210 @@
 
   <introduction>
     <p>
-      Content to be added.
+      This is a non-comprehensive summary guide about the tools used.
     </p>
   </introduction>
+
+  <section xml:id="sec-summary-descriptive">
+    <title>Descriptive statistics</title>
+
+    <table>
+      <title/>
+      <tabular halign="left">
+        <row header="yes" bottom="medium">
+          <cell></cell>
+          <cell>Meaning</cell>
+        </row>
+        <row>
+          <cell>Mean</cell>
+          <cell>Average <mdash/> the "centre of gravity" of the data</cell>
+        </row>
+        <row>
+          <cell>Standard deviation</cell>
+          <cell>How clustered is the data around the mean (smaller figure means more clustered, larger figure closer to interquartile range means more spread out)</cell>
+        </row>
+        <row>
+          <cell>Skewness</cell>
+          <cell>The assymetry of the data compared to a normal distribution (bell curve)</cell>
+        </row>
+        <row>
+          <cell>Kurtosis</cell>
+          <cell>Pointiness of the data. Smaller figure means more pointy, larger figure means less pointy</cell>
+        </row>
+        <row>
+          <cell>Range</cell>
+          <cell>The spread of the data set between the maximum and minimum values</cell>
+        </row>
+        <row>
+          <cell>Maximum</cell>
+          <cell>The highest value in the data set</cell>
+        </row>
+        <row>
+          <cell>Upper quartile</cell>
+          <cell>25% of the data points reside at and above this value</cell>
+        </row>
+        <row>
+          <cell>Median</cell>
+          <cell>This is the value of the data point in the middle (or the average of the two middle points in case of even number of data points). 50-50% of data points reside at above and below this value</cell>
+        </row>
+        <row>
+          <cell>Lower quartile</cell>
+          <cell>25% of the data points reside at and below this value</cell>
+        </row>
+        <row>
+          <cell>Minimum</cell>
+          <cell>The lowest value in the data set</cell>
+        </row>
+      </tabular>
+    </table>
+
+  </section>
+
+  <section xml:id="sec-summary-differences">
+    <title>Analysing differences with hypothesis testing</title>
+
+    <table>
+      <title/>
+      <tabular halign="left">
+        <row header="yes" bottom="medium">
+          <cell>Test</cell>
+          <cell>Description</cell>
+          <cell>Example from the chapter</cell>
+        </row>
+        <row>
+          <cell><em>CATEGORICAL DATA</em></cell>
+          <cell></cell>
+          <cell></cell>
+        </row>
+        <row>
+          <cell><m>\chi^2</m> goodness-of-fit test</cell>
+          <cell>Tests whether the observed data fits a theoretical distribution</cell>
+          <cell>Probability of card suits being random</cell>
+        </row>
+        <row>
+          <cell><m>\chi^2</m> test for independence</cell>
+          <cell>Tests whether two distributions are the same</cell>
+          <cell>Probability that a member of species <m>j</m> gives response <m>i</m> to aliens</cell>
+        </row>
+        <row>
+          <cell>Fisher's exact test</cell>
+          <cell>Tests whether two distributions are the same (small sample sizes and contingency tables</cell>
+          <cell>Witches' happiness being burned in Salem</cell>
+        </row>
+        <row>
+          <cell>McNemar test of marginal homogeneity</cell>
+          <cell>2 by 2 contingency table with nominal data</cell>
+          <cell>Whether the frequencies of suit choices are different the second time than the first time</cell>
+        </row>
+        <row>
+          <cell><em>NON-CATEGORICAL DATA</em></cell>
+          <cell></cell>
+          <cell></cell>
+        </row>
+        <row>
+          <cell><em>One group in one situation</em></cell>
+          <cell></cell>
+          <cell></cell>
+        </row>
+        <row>
+          <cell>One-sample z-test</cell>
+          <cell>Tests whether the mean is equal to a given hypothetical value (you know the population standard deviation and your sample size is large)</cell>
+          <cell>The mean of grades in Dr Zeppo's class is above 67.5</cell>
+        </row>
+        <row>
+          <cell>One-sample t-test or Student's t-test</cell>
+          <cell>Tests whether the mean is equal to a given hypothetical value (you only have an estimated standard deviation, you cannot speak for the population)</cell>
+          <cell>The mean of grades in Dr Zeppo's class is above 67.5</cell>
+        </row>
+        <row>
+          <cell><em>Two groups in one situation</em></cell>
+          <cell></cell>
+          <cell></cell>
+        </row>
+        <row>
+          <cell>Independent samples t-test (Student's)</cell>
+          <cell>Comparing two groups: Tests whether the means of two independent samples are equal (assumes normal distribution)</cell>
+          <cell>The mean of grades of students tutored by Anastasia and Bernadette in Dr Harpo's class</cell>
+        </row>
+        <row>
+          <cell>Independent samples t-test (Welch)</cell>
+          <cell>Comparing two groups: Tests whether the means of two independent samples are equal (assumes unequal variances)</cell>
+          <cell>The mean of grades of students tutored by Anastasia and Bernadette in Dr Harpo's class (with an alternative data set that violates normality assumption)</cell>
+        </row>
+        <row>
+          <cell>Two-sample Wilcoxon test (Mann-Whitney test)</cell>
+          <cell>Tests whether the means of two independent samples are equal (assumes non-normal distribution)</cell>
+          <cell>AFL games attendance if the game is finals or not</cell>
+        </row>
+        <row>
+          <cell><em>One group in two situations</em></cell>
+          <cell></cell>
+          <cell></cell>
+        </row>
+        <row>
+          <cell>Paired samples t-test</cell>
+          <cell>Tests whether the means of two samples are equal (assumes normal distribution)</cell>
+          <cell>Changes to the mean of grades between the first test and the second test in Dr Chico's class</cell>
+        </row>
+        <row>
+          <cell>Wilcoxon signed-rank test (paired)</cell>
+          <cell>Tests whether the means of two paired samples are equal (assumes non-normal distribution)</cell>
+          <cell>Whether a biology class has any effect on the happiness of students</cell>
+        </row>
+        <row>
+          <cell><em>Three or more groups</em></cell>
+          <cell></cell>
+          <cell></cell>
+        </row>
+        <row>
+          <cell>One-way ANOVA</cell>
+          <cell>Tests whether the means of three or more independent samples are equal (assumes normal distribution)</cell>
+          <cell>Effects of 3 drugs on mood in our clinical trial</cell>
+        </row>
+        <row>
+          <cell>Kruskal-Wallis rank sum test</cell>
+          <cell>Tests whether the means of three or more independent samples are equal (assumes non-normal distribution)</cell>
+          <cell>Effects of 3 drugs on mood in our clinical trial (adjusted data set)</cell>
+        </row>
+        <row>
+          <cell>Factorial ANOVA</cell>
+          <cell>Tests whether the means of three or more independent samples are equal but with more than one grouping variable</cell>
+          <cell>Effects of 3 drugs and 2 therapy methods on mood in our clinical trial</cell>
+        </row>
+      </tabular>
+    </table>
+
+  </section>
+
+  <section xml:id="sec-summary-relationships">
+    <title>Analysing relationship with hypothesis testing</title>
+
+    <table>
+      <title/>
+      <tabular halign="left">
+        <row header="yes" bottom="medium">
+          <cell>Test</cell>
+          <cell>Description</cell>
+          <cell>Example from the chapter</cell>
+        </row>
+        <row>
+          <cell>Pearson's correlation coefficient</cell>
+          <cell>Tests whether two variables are correlated (continuous data)</cell>
+          <cell>Correlation between the number of hours of slept and mood</cell>
+        </row>
+        <row>
+          <cell>Spearman's rank-order correlation</cell>
+          <cell>Tests whether two variables are correlated (ordinal data)</cell>
+          <cell>Correlation between effort and grade</cell>
+        </row>
+        <row>
+          <cell>Linear regression</cell>
+          <cell>Tests whether a linear relationship exists between two variables (continuous data)</cell>
+          <cell>Correlation between the number of hours of sleep (parent, baby) and parent grumpiness</cell>
+        </row>
+      </tabular>
+    </table>
+
+  </section>
 
 </chapter>
