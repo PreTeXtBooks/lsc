@@ -1139,4 +1139,236 @@
 
   </section>
 
+  <!-- ============================================================ -->
+  <!-- Section 4: Effect size (Cramér's V)                          -->
+  <!-- ============================================================ -->
+  <section xml:id="sec-chisqeffectsize">
+    <title>Effect Size (Cramér's <m>V</m>)</title>
+
+    <p>
+      As we discussed earlier in a previous chapter on effect size, it's becoming commonplace to ask
+      researchers to report some measure of effect size. So, suppose that you've run your chi-square test,
+      which turns out to be significant. So you now know that there is some association between your
+      variables (independence test) or some deviation from the specified probabilities (goodness of fit
+      test). Now you want to report a measure of effect size. That is, given that there is an
+      association/deviation, how strong is it?
+    </p>
+    <p>
+      There are several different measures you can choose to report and several different tools you can use
+      to calculate them. By default, the two measures that people tend to report most frequently are the
+      <m>\phi</m> (pronounced: <q>phi</q>) statistic and the somewhat superior version, known as Cramér's
+      <m>V</m>. While CogStat gives you only Cramér's <m>V</m>, we need to start with <m>\phi</m> because
+      they are related.
+    </p>
+    <p>
+      Mathematically, they're both very simple. To calculate the <m>\phi</m> statistic, you just divide
+      your <m>X^2</m> value by the sample size and take the square root:
+      <me>\phi = \sqrt{\frac{X^2}{N}}</me>
+      The idea here is that the <m>\phi</m> statistic is supposed to range between 0 (no association at
+      all) and 1 (perfect association). However, it doesn't always do this when your contingency table is
+      bigger than <m>2 \times 2</m> (like in our original chapek9 data set), which is a total pain. So,
+      to correct this, people usually prefer to report the <m>V</m> statistic proposed by
+      <xref provisional="Cramer1946"/>. It's a pretty simple adjustment to <m>\phi</m>. If you've got a
+      contingency table with <m>r</m> rows and <m>c</m> columns, then define <m>k = \min(r,c)</m> to be
+      the smaller of the two values. If so, then <alert>Cramér's <m>V</m></alert> statistic is
+      <me>\phi_c = \sqrt{\frac{X^2}{N(k-1)}}</me>
+      And you're done. This seems to be a reasonably popular measure, presumably because it's easy to
+      calculate, and it gives answers that aren't completely silly: you know that <m>V</m> does range from
+      <em>0 (no association at all)</em> to <em>1 (perfect association)</em>.
+    </p>
+    <p>
+      Calculating <m>V</m> is automatic in CogStat, as you've seen in the result sets earlier in both the
+      original chapek9 data set (<xref ref="fig-cogstatchapek9hypo"/>) and the modified one
+      (<xref ref="fig-chapek9two"/>). Now let's look at the original chapek9 effect size.
+    </p>
+
+    <remark xml:id="cogstat-effect1">
+      <title>CogStat Output: Standardized Effect Sizes</title>
+      <p>
+        <alert>Standardized effect sizes</alert>
+      </p>
+      <tabular>
+        <row>
+          <cell></cell>
+          <cell>Value</cell>
+        </row>
+        <row>
+          <cell>Cramér's V measure of association</cell>
+          <cell><m>\phi_c = 0.244</m></cell>
+        </row>
+      </tabular>
+    </remark>
+
+    <p>
+      A Cramér's V of 0.244 tells us that there is a moderate association between the two variables. The
+      usual guidance is that anything below 0.2 is a weak association, 0.2 to 0.6 is a moderate
+      association, and anything above 0.6 is a strong association. However, you must always look at the
+      context of your data when determining the effect size.
+    </p>
+
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- Section 5: Assumptions of the test(s)                        -->
+  <!-- ============================================================ -->
+  <section xml:id="sec-chisqassumptions">
+    <title>Assumptions of the Test(s)</title>
+
+    <p>
+      All statistical tests make assumptions, and it's usually a good idea to check that those assumptions
+      are met. For the chi-square tests discussed so far in this chapter, the assumptions are:
+    </p>
+
+    <ul>
+      <li>
+        <p>
+          <em>Expected frequencies are sufficiently large.</em> Remember how in the previous section, we
+          saw that the <m>\chi^2</m> sampling distribution emerges because the binomial distribution is
+          similar to a normal distribution? Well, as we discussed in an earlier chapter on probability,
+          this is only true when the number of observations is sufficiently large. What that means in
+          practice is that all of the expected frequencies need to be reasonably big. How big is reasonably
+          big? Opinions differ, but the default assumption seems to be that you generally would like to see
+          all your expected frequencies larger than about 5, though for larger tables, you would probably
+          be okay if at least 80% of the expected frequencies are above 5 and none of them are below 1.
+          However, these seem to have been proposed as rough guidelines, not hard and fast rules; and they
+          seem somewhat conservative <xref provisional="Larntz1978"/>.
+        </p>
+      </li>
+      <li>
+        <p>
+          <em>Data are independent of one another.</em> One somewhat hidden assumption of the chi-square
+          test is that you have to believe that the observations are genuinely independent. Suppose we are
+          interested in the proportion of babies born at a particular hospital that are boys. We walk around
+          the maternity wards and observe 20 girls and only 10 boys. Seems like a pretty convincing
+          difference, right? But later on, it turns out that we'd actually walked into the same ward 10
+          times, and in fact, we'd only seen 2 girls and 1 boy. Not as convincing, is it? Our original 30
+          <em>observations</em> were massively non-independent. And were only, in fact, equivalent to 3
+          independent observations. Obviously, this is an extreme(ly silly) example, but it illustrates the
+          fundamental issue. Non-independence <q>stuffs things up</q>. Sometimes it causes you to falsely
+          reject the null, as the silly hospital example illustrates, but it can go the other way too.
+          Let's consider what would happen if we'd done the cards experiment slightly differently: instead
+          of asking 200 people to try to imagine sampling one card at random, suppose we asked 50 people to
+          select 4 cards. One possibility would be that <em>everyone</em> selects one heart, one club, one
+          diamond and one spade (in keeping with the <q>representativeness heuristic</q>; Tversky &amp;
+          Kahneman 1974). This is highly non-random behaviour from people, but in this case, we would get
+          an observed frequency of 50 for all four suits. For this example, the fact that the observations
+          are non-independent (because the four cards that you pick will be related to each other) actually
+          leads to the opposite effect, falsely retaining the null.
+        </p>
+      </li>
+    </ul>
+
+    <p>
+      If you find yourself in a situation where independence is violated, it may be possible to use the
+      McNemar test. Similarly, if your expected cell counts are too small, check out the Fisher exact test.
+    </p>
+
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- Section 6: The Fisher exact test                             -->
+  <!-- ============================================================ -->
+  <section xml:id="sec-fisherexacttest">
+    <title>The Fisher Exact Test</title>
+
+    <p>
+      What should you do if your cell counts are too small, but you'd still like to test the null
+      hypothesis that the two variables are independent? One answer would be <q>collect more data</q>, but
+      that's far too glib: there are a lot of situations in which it would be either infeasible or
+      unethical to do. If so, statisticians are morally obligated to provide scientists with better tests.
+      In this instance, Fisher (1922) kindly provided the right answer to the question. To illustrate the
+      basic idea, let's suppose we're analysing data from a field experiment, looking at the emotional
+      status of people accused of witchcraft. Some of them are currently being burned at the stake.<fn>This
+      example is based on a joke article published in the <em>Journal of Irreproducible Results</em>.</fn>
+      Unfortunately for the scientist (but rather fortunately for the general populace), it's quite hard to
+      find people in the process of being set on fire, so the cell counts are microscopic. The
+      <c>salem.csv</c> file illustrates the point.
+    </p>
+
+    <figure xml:id="fig-cogstatsalemload">
+      <caption>The <c>salem</c> data set</caption>
+      <image source="cogstatsalemload.png" width="80%">
+        <description>CogStat showing the salem data set loaded</description>
+      </image>
+    </figure>
+
+    <p>
+      Looking at this data, you'd be hard pressed not to suspect that people not on fire are more likely to
+      be happy than people on fire. However, the chi-square test (even with the Yates correction for the
+      2x2 data) makes this very hard to test because of the small sample size.
+    </p>
+
+    <figure xml:id="fig-cogstatsalemresult">
+      <caption>CogStat results for the <c>salem</c> data set</caption>
+      <image source="cogstatsalemresult.png" width="80%">
+        <description>CogStat chi-square test results for the salem data set</description>
+      </image>
+    </figure>
+
+    <p>
+      We'd <em>really</em> like to be able to get a better answer than this provided we really don't want
+      to be on fire. This is where <alert>Fisher's exact test</alert> <xref provisional="Fisher1922"/>
+      comes in very handy. The Fisher exact test works somewhat differently to the chi-square test (or in
+      fact any of the other hypothesis tests in this book) insofar as it doesn't have a test statistic; it
+      calculates the <m>p</m>-value <q>directly</q>.
+    </p>
+    <p>Let's have some notation:</p>
+
+    <table xml:id="table-salem-notation">
+      <title>Notation for the salem contingency table</title>
+      <tabular halign="center">
+        <row header="yes">
+          <cell></cell>
+          <cell>Happy</cell>
+          <cell>Sad</cell>
+          <cell>Total</cell>
+        </row>
+        <row>
+          <cell>Set on fire</cell>
+          <cell><m>O_{11}</m></cell>
+          <cell><m>O_{12}</m></cell>
+          <cell><m>R_{1}</m></cell>
+        </row>
+        <row>
+          <cell>Not set on fire</cell>
+          <cell><m>O_{21}</m></cell>
+          <cell><m>O_{22}</m></cell>
+          <cell><m>R_{2}</m></cell>
+        </row>
+        <row>
+          <cell>Total</cell>
+          <cell><m>C_{1}</m></cell>
+          <cell><m>C_{2}</m></cell>
+          <cell><m>N</m></cell>
+        </row>
+      </tabular>
+    </table>
+
+    <p>
+      In order to construct the test Fisher treats both the row and column totals (<m>R_1</m>, <m>R_2</m>,
+      <m>C_1</m> and <m>C_2</m>) are known, fixed quantities; and then calculates the probability that we
+      would have obtained the observed frequencies that we did (<m>O_{11}</m>, <m>O_{12}</m>,
+      <m>O_{21}</m> and <m>O_{22}</m>) given those totals. In the notation that we developed in an earlier
+      chapter on probability this is written:
+      <me>P(O_{11}, O_{12}, O_{21}, O_{22} \ | \ R_1, R_2, C_1, C_2)</me>
+      and as you might imagine, it's a slightly tricky exercise to figure out what this probability is, but
+      it turns out that this probability is described by a distribution known as the <em>hypergeometric
+      distribution</em>. Now that we know this, what we have to do to calculate our <m>p</m>-value is
+      calculate the probability of observing this particular table <em>or a table that is <q>more
+      extreme</q></em>.<fn>Not surprisingly, the Fisher exact test is motivated by Fisher's interpretation
+      of a <m>p</m>-value, not Neyman's!</fn> Back in the 1920s, computing this sum was daunting even in
+      the simplest of situations, but these days it's pretty easy as long as the tables aren't too big and
+      the sample size isn't too large. The conceptually tricky issue is to figure out what it means to say
+      that one contingency table is more <q>extreme</q> than another. The easiest solution is to say that
+      the table with the lowest probability is the most extreme. This then gives us the <m>p</m>-value of
+      <m>0.03571</m>.
+    </p>
+    <p>
+      The implementation of the test in CogStat is not yet available. The main thing we're interested in
+      here is the <m>p</m>-value, which in this case is small enough (<m>p=.036</m>) to justify rejecting
+      the null hypothesis that people on fire are just as happy as people not on fire.
+    </p>
+
+  </section>
+
 </chapter>
