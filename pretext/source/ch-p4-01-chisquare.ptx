@@ -1371,4 +1371,410 @@
 
   </section>
 
+  <!-- ============================================================ -->
+  <!-- Section 7: The McNemar test                                  -->
+  <!-- ============================================================ -->
+  <section xml:id="sec-mcnemar">
+    <title>The McNemar Test</title>
+
+    <p>
+      Suppose you've been hired to work for the <em>Australian Generic Political Party</em> (AGPP), and
+      part of your job is to find out how effective the AGPP political advertisements are. So, what you
+      do, is you put together a sample of <m>N=100</m> people and ask them to watch the AGPP ads. Before
+      they see anything, you ask them if they intend to vote for the AGPP; after showing the ads, you ask
+      them again to see if anyone has changed their minds. One way to describe your data is via the
+      following contingency table:
+    </p>
+
+    <table xml:id="table-agpp-raw">
+      <title>AGPP voting intentions before and after ads</title>
+      <tabular halign="center">
+        <row header="yes">
+          <cell></cell>
+          <cell>Before</cell>
+          <cell>After</cell>
+          <cell>Total</cell>
+        </row>
+        <row>
+          <cell>Yes</cell>
+          <cell>30</cell>
+          <cell>10</cell>
+          <cell>40</cell>
+        </row>
+        <row>
+          <cell>No</cell>
+          <cell>70</cell>
+          <cell>90</cell>
+          <cell>160</cell>
+        </row>
+        <row>
+          <cell>Total</cell>
+          <cell>100</cell>
+          <cell>100</cell>
+          <cell>200</cell>
+        </row>
+      </tabular>
+    </table>
+
+    <p>
+      At first pass, you might think that this situation lends itself to the Pearson <m>\chi^2</m> test of
+      independence (as per <xref ref="sec-chisqindependence"/>). However, we've got a problem: we have
+      100 participants but 200 observations. This is because each person has given us an answer in
+      <em>both</em> the before and after columns. What this means is that the 200 observations aren't
+      independent of each other: if voter A says <q>yes</q> the first time and voter B says <q>no</q>,
+      then you'd expect that voter A is more likely to say <q>yes</q> the second time than voter B! The
+      consequence of this is that the usual <m>\chi^2</m> test won't give trustworthy answers due to the
+      violation of the independence assumption. Now, if this were a really uncommon situation, I wouldn't
+      be bothering to waste your time talking about it. But it's not uncommon at all: this is a
+      <em>standard</em> repeated measures design, and none of the tests we've considered so far can handle
+      it.
+    </p>
+    <p>
+      The solution to the problem was published by <xref provisional="McNemar1947"/>. The trick is to
+      start by tabulating your data in a slightly different way:
+    </p>
+
+    <table xml:id="table-agpp-retabulated">
+      <title>AGPP data retabulated so each participant appears in only one cell</title>
+      <tabular halign="center">
+        <row header="yes">
+          <cell></cell>
+          <cell>Before: Yes</cell>
+          <cell>Before: No</cell>
+          <cell>Total</cell>
+        </row>
+        <row>
+          <cell>After: Yes</cell>
+          <cell>5</cell>
+          <cell>5</cell>
+          <cell>10</cell>
+        </row>
+        <row>
+          <cell>After: No</cell>
+          <cell>25</cell>
+          <cell>65</cell>
+          <cell>90</cell>
+        </row>
+        <row>
+          <cell>Total</cell>
+          <cell>30</cell>
+          <cell>70</cell>
+          <cell>100</cell>
+        </row>
+      </tabular>
+    </table>
+
+    <p>
+      This is exactly the same data, but it's been rewritten so that each of our 100 participants appears
+      in only one cell. Because we've written our data this way, the independence assumption is now
+      satisfied, and this is a contingency table that we <em>can</em> use to construct an <m>X^2</m>
+      goodness of fit statistic. However, as we'll see, we need to do it in a slightly nonstandard way.
+      To see what's going on, it helps to label the entries in our table a little differently:
+    </p>
+
+    <table xml:id="table-agpp-labelled">
+      <title>AGPP data with symbolic labels</title>
+      <tabular halign="center">
+        <row header="yes">
+          <cell></cell>
+          <cell>Before: Yes</cell>
+          <cell>Before: No</cell>
+          <cell>Total</cell>
+        </row>
+        <row>
+          <cell>After: Yes</cell>
+          <cell><m>a</m></cell>
+          <cell><m>b</m></cell>
+          <cell><m>a+b</m></cell>
+        </row>
+        <row>
+          <cell>After: No</cell>
+          <cell><m>c</m></cell>
+          <cell><m>d</m></cell>
+          <cell><m>c+d</m></cell>
+        </row>
+        <row>
+          <cell>Total</cell>
+          <cell><m>a+c</m></cell>
+          <cell><m>b+d</m></cell>
+          <cell><m>n</m></cell>
+        </row>
+      </tabular>
+    </table>
+
+    <p>
+      Next, let's think about what our null hypothesis is: it's that the <q>before</q> test and the
+      <q>after</q> test have the same proportion of people saying, <q>Yes, I will vote for AGPP</q>.
+      Because of the way we have rewritten the data, it means that we're now testing the hypothesis that
+      the <em>row totals</em> and <em>column totals</em> come from the same distribution. Thus, the null
+      hypothesis in McNemar's test is that we have <q>marginal homogeneity</q>. That is, the row totals
+      and column totals have the same distribution: <m>P_a + P_b = P_a + P_c</m>, and similarly that
+      <m>P_c + P_d = P_b + P_d</m>. Notice that this means that the null hypothesis actually simplifies
+      to <m>P_b = P_c</m>.
+    </p>
+    <p>
+      In other words, as far as the McNemar test is concerned, it's only the off-diagonal entries in this
+      table (i.e. <m>b</m> and <m>c</m>) that matter! After noticing this, the <alert>McNemar test of
+      marginal homogeneity</alert> is no different to a usual <m>\chi^2</m> test. After (automatically)
+      applying the Yates correction, our test statistic becomes:
+      <me>X^2 = \frac{(|b-c| - 0.5)^2}{b+c}</me>
+      or, to revert to the notation that we used earlier in this chapter:
+      <me>X^2 = \frac{(|O_{12}-O_{21}| - 0.5)^2}{O_{12} + O_{21}}</me>
+      and this statistic has an (approximately) <m>\chi^2</m> distribution with <m>df=1</m>. However,
+      remember that — just like the other <m>\chi^2</m> tests — it's only an approximation, so you need
+      to have reasonably large expected cell counts for it to work.
+    </p>
+    <p>
+      Now that you know what the McNemar test is all about, lets actually run one. The <c>agpp.csv</c>
+      file contains the raw data. It contains three variables, an <c>id</c> variable that labels each
+      participant in the data set, a <c>responseBefore</c> variable that records the person's answer when
+      they were asked the question the first time, and a <c>responseAfter</c> variable that shows the
+      answer that they gave when asked the same question a second time.
+    </p>
+
+    <figure xml:id="fig-cogstatloadagpp">
+      <caption>Loading the <c>agpp</c> data set in CogStat</caption>
+      <image source="cogstatloadagpp.png" width="80%">
+        <description>CogStat showing the agpp data set loaded</description>
+      </image>
+    </figure>
+
+    <p>
+      Let us think what we want to do here. We have the same participants giving us two answers. We want
+      to test whether the two answers (the <em>before</em> and the <em>after</em>) are independent of
+      each other. Or, in other words, we want to compare a <alert>repeated measure</alert>. In CogStat,
+      we need to select <c>Compare repeated measures variables</c> and add the <c>responseBefore</c> and
+      <c>responseAfter</c> variables to the <c>Selected variables</c> box to run an analysis
+      (<xref ref="fig-cogstatrepeatagpp"/>). The results are shown in
+      <xref ref="fig-cogstatagppresults"/>.
+    </p>
+
+    <figure xml:id="fig-cogstatrepeatagpp">
+      <caption>Repeated measures analysis of the AGPP data in CogStat</caption>
+      <image source="cogstatrepeatagpp.png" width="80%">
+        <description>CogStat Compare repeated measures variables dialog for agpp data</description>
+      </image>
+    </figure>
+
+    <figure xml:id="fig-cogstatagppresults">
+      <caption>Results of the repeated measures analysis of the AGPP data in CogStat</caption>
+      <sidebyside widths="48% 48%">
+        <image source="cogstatagppresults1.png">
+          <description>First part of CogStat results for the agpp repeated measures analysis</description>
+        </image>
+        <image source="cogstatagppresults2.png">
+          <description>Second part of CogStat results for the agpp repeated measures analysis</description>
+        </image>
+      </sidebyside>
+    </figure>
+
+    <remark xml:id="cogstat-hyp2">
+      <title>CogStat Output: Hypothesis Tests (McNemar)</title>
+      <p>
+        <alert>Hypothesis tests</alert>
+      </p>
+      <p>
+        <em>Testing if the distributions are the same.</em>
+      </p>
+      <p>
+        Two variables. Nominal dichotomous variables. <m>\gg</m> Running McNemar test.
+      </p>
+      <p>
+        Result of the McNemar test: <m>\chi^2(1, N = 100) = 12.03, p \lt .001</m>
+      </p>
+    </remark>
+
+    <p>
+      And we're done. We've just run a McNemar's test automatically, since our data set was identified by
+      CogStat as categorical data.
+    </p>
+    <p>The results would tell us something like this:</p>
+
+    <blockquote>
+      <p>
+        The test was significant (<m>\chi^2(1) = 12.03, p \lt .001</m>), suggesting that people were not
+        just as likely to vote AGPP after the ads as they were before hand. In fact, the ads had a
+        negative effect: people were less likely to vote AGPP after seeing the ads.
+      </p>
+    </blockquote>
+
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- Section 8: What's the difference between McNemar and         -->
+  <!--            independence?                                      -->
+  <!-- ============================================================ -->
+  <section xml:id="sec-mcnemar-vs-independence">
+    <title>What's the Difference Between McNemar and Independence?</title>
+
+    <p>
+      Let's go back to the beginning of the chapter and look at the <c>cards</c> data set again. If you
+      recall, the experimental design described involved people making <em>two</em> choices. Because we
+      have information about the first choice and the second choice that everyone made, we can construct
+      the following contingency table that cross-tabulates the first choice against the second choice.
+    </p>
+
+    <table xml:id="table-cards-contingency">
+      <title>Contingency table for the cards data set as seen in CogStat when running <c>Compare repeated measures variables</c> or <c>Explore relation of variable pair</c></title>
+      <tabular halign="center">
+        <row header="yes">
+          <cell></cell>
+          <cell>clubs</cell>
+          <cell>diamonds</cell>
+          <cell>hearts</cell>
+          <cell>spades</cell>
+          <cell>Total</cell>
+        </row>
+        <row>
+          <cell>clubs</cell>
+          <cell>10</cell>
+          <cell>9</cell>
+          <cell>10</cell>
+          <cell>6</cell>
+          <cell>35</cell>
+        </row>
+        <row>
+          <cell>diamonds</cell>
+          <cell>20</cell>
+          <cell>4</cell>
+          <cell>13</cell>
+          <cell>14</cell>
+          <cell>51</cell>
+        </row>
+        <row>
+          <cell>hearts</cell>
+          <cell>20</cell>
+          <cell>18</cell>
+          <cell>3</cell>
+          <cell>23</cell>
+          <cell>64</cell>
+        </row>
+        <row>
+          <cell>spades</cell>
+          <cell>18</cell>
+          <cell>13</cell>
+          <cell>15</cell>
+          <cell>4</cell>
+          <cell>50</cell>
+        </row>
+        <row>
+          <cell>Total</cell>
+          <cell>68</cell>
+          <cell>44</cell>
+          <cell>41</cell>
+          <cell>47</cell>
+          <cell>200</cell>
+        </row>
+      </tabular>
+    </table>
+
+    <p>
+      First, we wanted to know whether the choice you make the second time is dependent on the choice you
+      made the first time (for this, we'll run the <c>Explore relation of variable pair</c> analysis).
+      This is where a test of independence is useful, and what we're trying to do is see if there's some
+      relationship between the rows and columns of this table.
+    </p>
+    <p>
+      Second, we wanted to know if <em>on average</em>, the frequencies of suit choices were different
+      the second time than the first time. In that situation, we're trying to see if the row totals in
+      <c>cardChoices</c> (i.e. the frequencies for <c>choice_1</c>) are different from the column totals
+      (i.e. the frequencies for <c>choice_2</c>). That's when we'd use the McNemar test. However, when
+      running the <c>Compare repeated measures variables</c> analysis, we get an error, as the function
+      for non-dichotomous nominal data is not implemented yet.
+    </p>
+    <p>Here's the result if we run the <c>Explore relation of variable pair</c> analysis in CogStat:</p>
+
+    <remark xml:id="cogstat-hyp3">
+      <title>CogStat Output: Hypothesis Tests (Independence, cards data)</title>
+      <p>
+        <alert>Hypothesis tests</alert>
+      </p>
+      <p>
+        <em>Testing if variables are independent.</em>
+      </p>
+      <p>
+        Nominal variables. <m>\gg</m> Running Cramér's V.
+      </p>
+      <p>
+        Sensitivity power analysis. Minimal effect size to reach 95% power with the present sample size
+        for the present hypothesis test. Minimal effect size in <m>\omega</m>: 0.34.
+      </p>
+      <p>
+        Result of the Pearson's chi-squared test: <m>\chi^2(9, N = 200) = 29.24, p \lt .001</m>
+      </p>
+    </remark>
+
+    <figure xml:id="fig-cogstatmcn">
+      <caption>Hypothesis test results when running either <c>Compare repeated measures variables</c> or <c>Explore relation of variable pair</c> in CogStat</caption>
+      <sidebyside widths="48% 48%">
+        <image source="cogstatmcn1.png">
+          <description>First CogStat panel showing hypothesis test results for the cards data</description>
+        </image>
+        <image source="cogstatmcn2.png">
+          <description>Second CogStat panel showing hypothesis test results for the cards data</description>
+        </image>
+      </sidebyside>
+    </figure>
+
+    <p>
+      For the second case, running the McNemar test, the answer would be McNemar's chi-squared =
+      <m>16.03</m>, df = <m>6</m>, p-value = <m>0.014</m>. This is a significant result, suggesting that
+      the frequencies of suit choices were different the second time than the first time.
+    </p>
+    <p>Notice that the results are different! These aren't the same test.</p>
+
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- Section 9: Summary                                           -->
+  <!-- ============================================================ -->
+  <section xml:id="sec-chisquare-summary">
+    <title>Summary</title>
+
+    <p>The key ideas discussed in this chapter are:</p>
+
+    <ul>
+      <li>
+        <p>
+          The chi-square goodness of fit test (<xref ref="sec-goftest"/>) is used when you have a table
+          of observed frequencies of different categories; the null hypothesis gives you a set of
+          <q>known</q> probabilities to compare them to.
+        </p>
+      </li>
+      <li>
+        <p>
+          The chi-square test of independence (<xref ref="sec-chisqindependence"/>) is used when you
+          have a contingency table (cross-tabulation) of two categorical variables. The null hypothesis
+          is that there is no relationship/association between the variables.
+        </p>
+      </li>
+      <li>
+        <p>
+          Effect size for a contingency table can be measured in several ways
+          (<xref ref="sec-chisqeffectsize"/>). In particular, we noted the Cramér's <m>V</m> statistic.
+        </p>
+      </li>
+      <li>
+        <p>
+          Both versions of the Pearson test rely on two assumptions: that the expected frequencies are
+          sufficiently large and that the observations are independent
+          (<xref ref="sec-chisqassumptions"/>). The Fisher exact test
+          (<xref ref="sec-fisherexacttest"/>) can be used when the expected frequencies are small. The
+          McNemar test (<xref ref="sec-mcnemar"/>) can be used for some kinds of violations of
+          independence.
+        </p>
+      </li>
+    </ul>
+
+    <p>
+      If you're interested in learning more about categorical data analysis, an excellent first choice
+      would be <xref provisional="Agresti1996"/>, which, as the title suggests, provides an
+      <em>Introduction to Categorical Data Analysis</em>. If the introductory book isn't enough for you
+      (or you can't solve the problem you're working on), you could consider
+      <xref provisional="Agresti2002"/>, <em>Categorical Data Analysis</em>. The latter is a more
+      advanced text, so it's probably not wise to jump straight from this book to that one.
+    </p>
+
+  </section>
+
 </chapter>
