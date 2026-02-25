@@ -791,7 +791,8 @@
         significance levels allow you to reject the null hypothesis. This is summarised in
         <xref ref="tbl-pval-table"/>. This allows us to soften the decision rule a little bit since
         <m>p &lt; .01</m> implies that the data meet a stronger evidentiary standard than
-        <m>p &lt; .05</m> would.
+        <m>p &lt; .05</m> would. Nevertheless, since these levels are fixed in advance by convention,
+        it does prevent people from choosing their <m>\alpha</m> level after looking at the data.
       </p>
 
       <table xml:id="tbl-pval-table">
@@ -916,7 +917,8 @@
         figure is the fact that when the null hypothesis is wrong, a much larger proportion of the
         sampling distribution falls in the critical region. And, of course, that's what should
         happen: the probability of rejecting the null hypothesis is larger when the null hypothesis
-        is actually false!
+        is actually false! However, <m>\theta = 0.55</m> is not the only possibility that is consistent
+        with the alternative hypothesis.
       </p>
 
       <p>
@@ -925,6 +927,8 @@
         that almost the entirety of the sampling distribution has now moved into the critical region.
         Therefore, if <m>\theta = 0.7</m>, the probability of us correctly rejecting the null
         hypothesis (i.e. the power of the test) is much larger than if <m>\theta = 0.55</m>.
+        In short, while <m>\theta = 0.55</m> and <m>\theta = 0.7</m> are both part of the alternative
+        hypothesis, the Type II error rate is different.
       </p>
 
       <figure xml:id="fig-crit4">
