@@ -596,7 +596,7 @@
         </me>
       </p>
 
-<p>Yeah, yeah. I know what you’re thinking: notation, notation, notation. Really, who cares? Very few readers of this book are here for the notation, so we should probably move on and talk about how to use the binomial distribution. We’ve included the formula for the binomial distribution in Table 7.2, since some readers may want to play with it themselves, but since most people probably don’t care that much and because we don’t need the formula in this book, let’s not talk about it in any detail. Instead, let’s just see what the binomial distribution looks like. </p>
+<p>Yeah, yeah. I know what you're thinking: notation, notation, notation. Really, who cares? Very few readers of this book are here for the notation, so we should probably move on and talk about how to use the binomial distribution. We've included the formula for the binomial distribution in Table 7.2, since some readers may want to play with it themselves, but since most people probably don't care that much and because we don't need the formula in this book, let's not talk about it in any detail. Instead, let's just see what the binomial distribution looks like. </p>
       <p>
         Instead, let's just see what the binomial distribution looks like. <xref ref="fig-binomial"/>
         plots the binomial probabilities for all possible values of <m>X</m> for our dice rolling
@@ -611,7 +611,11 @@
 
       <table xml:id="tbl-dist-formulas">
         <title>Formulas for the binomial and normal distributions. We don't use these formulas for
-        anything in this book, but they're pretty important for more advanced work.</title>
+        anything in this book, but they're pretty important for more advanced work.
+In the equation for the binomial, <m>X!</m> is the factorial function (i.e., multiply all whole numbers from 1 to
+<m>X</m>), and for the normal distribution "exp" refers to the exponential function, which we
+discussed in the Chapter on Data Handling. If these equations don't make a lot of sense to you,
+don't worry too much about them.</title>
         <tabular halign="center">
           <row header="yes" bottom="minor">
             <cell>Binomial</cell>
@@ -822,6 +826,8 @@
       </p>
 
       <p>
+Okay, so that explains part of the story. We've explained a little bit about how continuous probability distributions should be interpreted (i.e., the area under the curve is the key thing), but we haven't actually explained what the formula for 
+<m>p(x)</m> actually means. Obviously, <m>p(x)</m> doesn't describe a probability, but what is it?
         The name for this quantity <m>p(x)</m> is a <term>probability density</term>, and in terms
         of the plots we've been drawing, it corresponds to the <em>height</em> of the curve. The
         densities themselves aren't meaningful in and of themselves: but they're <q>rigged</q> to
@@ -829,6 +835,11 @@
         probabilities.
       </p>
 
+<p>For those readers who know a little calculus, let's give a slightly more precise explanation. In the same way that probabilities are non-negative numbers that must sum to 1, probability densities are non-negative numbers that must integrate to 1 (where the integral is taken across all possible values of 
+<m>X</m>). To calculate the probability that <m>X</m> falls between <m>a</m> and <m>b</m>
+ we calculate the definite integral of the density function over the corresponding range, 
+<m>\integral^b_a p(x) dx. If you don't remember or never learned calculus, don't worry about
+this. It's not needed for this book.</p>
     </subsection>
 
     <subsection xml:id="subsec-other-distributions">
