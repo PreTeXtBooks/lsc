@@ -195,7 +195,16 @@
             try to collect a separate random sample from each stratum. Stratified sampling is
             sometimes easier to do than simple random sampling, especially when the population is
             already divided into distinct strata. It can also be more efficient than simple random
-            sampling, especially when some subpopulations are rare.
+            sampling, especially when some subpopulations are rare. For instance, when studying
+            schizophrenia, it would be much better to divide the population into
+            two<fn>Nothing in life is that simple: there's not an obvious division of people into
+            binary categories like <q>schizophrenic</q> and <q>not schizophrenic</q>. But this isn't
+            a clinical psychology text, so please forgive a few simplifications here and there.</fn>
+            strata (schizophrenic and not-schizophrenic), and then sample an equal number of people
+            from each group. If you selected people randomly, you would get so few schizophrenic
+            people in the sample that your study would be useless. This specific kind of stratified
+            sampling is called <em>oversampling</em> because it deliberately attempts to
+            over-represent rare groups.
           </p>
         </li>
         <li>
@@ -422,7 +431,13 @@
       larger, the sample mean tends to get closer to the true population mean. Or, to say it a
       little bit more precisely, as the sample size <q>approaches</q> infinity (written as
       <m>N \rightarrow \infty</m>) the sample mean approaches the population mean
-      (<m>\bar{X} \rightarrow \mu</m>).
+      (<m>\bar{X} \rightarrow \mu</m>).<fn>Technically, the law of large numbers pertains to any
+      sample statistic that can be described as an average of independent quantities. That's
+      certainly true for the sample mean. However, it's also possible to write many other sample
+      statistics as averages of one form or another. The variance of a sample, for instance, can be
+      rewritten as an average and so is subject to the law of large numbers. The minimum value of a
+      sample, however, cannot be written as an average of anything and is therefore not governed by
+      the law of large numbers.</fn>
     </p>
 
     <p>
@@ -708,7 +723,14 @@
       <p>
         Because we divide the population standard deviation <m>\sigma</m> by the square root of the
         sample size <m>N</m>, the SEM gets smaller as the sample size increases. It also tells us
-        that the shape of the sampling distribution becomes normal.
+        that the shape of the sampling distribution becomes normal.<fn>As usual, we're being a bit
+        sloppy here. The central limit theorem is a bit more general than this section implies. Like
+        most introductory stats texts, we have discussed one situation where the central limit
+        theorem holds: when you're taking an average across lots of independent events drawn from
+        the same distribution. However, the central limit theorem is much broader than this. There's
+        a whole class of things called <q><m>U</m>-statistics</q>, all of which satisfy the central
+        limit theorem and therefore become normally distributed for large sample sizes. The mean is
+        one such statistic, but it's not the only one.</fn>
       </p>
 
       <p>
@@ -748,8 +770,27 @@
       This is very handy, but of course, almost every research project of interest involves looking
       at a different population of people to those used in the test norms. For instance, suppose you
       wanted to measure the effect of low-level lead poisoning on cognitive functioning in Port
-      Pirie, a South Australian industrial town with a lead smelter. Regardless of which town you're
-      thinking about, it doesn't make a lot of sense simply to <em>assume</em> that the true
+      Pirie, a South Australian industrial town with a lead smelter. Perhaps you decide that you want
+      to compare IQ scores among people in Port Pirie to a comparable sample in Whyalla, a South
+      Australian industrial town with a steel refinery.<fn>Please note that if you were
+      <em>actually</em> interested in this question, you would need to be a <em>lot</em> more careful
+      than we are being here. You <em>can't</em> simply compare IQ scores in Whyalla to Port Pirie
+      and assume that any differences are due to lead poisoning. Even if it were true that the only
+      differences between the two towns corresponded to the different refineries (and it isn't, not
+      by a long shot), you need to account for the fact that people already <em>believe</em> that
+      lead pollution causes cognitive deficits: this means that there are different demand effects
+      for the Port Pirie sample than for the Whyalla sample. In other words, you might end up with
+      an illusory group difference in your data, caused by the fact that people <em>think</em> that
+      there is a real difference. It is pretty implausible to think that the locals wouldn't be well
+      aware of what you were trying to do if a bunch of researchers turned up in Port Pirie with lab
+      coats and IQ tests, and even less plausible to think that a lot of people would be pretty
+      resentful of you for doing it. Those people won't be as cooperative in the tests. Other people
+      in Port Pirie might be <em>more</em> motivated to do well because they don't want their home
+      town to look bad. The motivational effects that would apply in Whyalla are likely to be weaker
+      because people don't have any concept of <q>iron ore poisoning</q> in the same way that they
+      have a concept for <q>lead poisoning</q>. Psychology is <em>hard</em>.</fn>
+      Regardless of which town you're thinking about, it doesn't make a lot of sense simply to
+      <em>assume</em> that the true
       population mean IQ is 100. No one has produced sensible norming data that can automatically be
       applied to South Australian industrial towns. We're going to have to <term>estimate</term> the
       population parameters from a sample of data. So how do we do this?
@@ -829,17 +870,57 @@
         construct an <term>estimate of the population standard deviation</term>, which we'll denote
         <m>\hat\sigma</m>. What shall we use as our estimate in this case? Your first thought might
         be that we could do the same thing we did when estimating the mean and just use the sample
-        statistic as our estimate. That's almost the right thing to do, but not quite.
+        statistic as our estimate. That's almost the right thing to do, but not quite. Here's why:
       </p>
 
       <p>
-        This intuition feels right, but it would be nice to demonstrate this somehow. Let's consider
-        the situation where we measure <m>N=2</m> IQ scores repeatedly and calculate the sample
-        standard deviation. With a population standard deviation of 15, the <term>sampling
-        distribution of the standard deviation</term> is shown in <xref ref="fig-sampdistsd"/>. Even
-        though the true population standard deviation is 15, the average of the <em>sample</em>
-        standard deviations is only 8.5. Notice that this is a very different result from what we
-        found when we plotted the sampling distribution of the mean.
+        Suppose we have a sample that contains a single observation. For this example, it helps to
+        consider a sample where you have no intuitions about the true population values, so let's use
+        something completely fictitious. Suppose the observation in question measures the
+        <em>cromulence</em><fn>The word <em>cromulent</em> was invented in a Simpsons episode in 1996
+        and, based on its context, might mean <q>possible</q>, <q>acceptable</q>, or <q>fine</q>.
+        However, the whole point here is, we don't really know what it is.</fn> of a shoe. It turns
+        out that this shoe has a cromulence of 20. So here's our sample:
+        <cd>20</cd>
+        This is a legitimate sample, even if it has a sample size of <m>N=1</m>. It has a sample
+        mean of 20, and because every observation in this sample is equal to the sample mean
+        (obviously!), it has a sample standard deviation of 0. As a description of the <em>sample</em>
+        this seems quite right: the sample contains a single observation, and therefore there is no
+        variation observed within the sample. A sample standard deviation of <m>s = 0</m> is the
+        right answer here. But as an estimate of the <em>population</em> standard deviation, it feels
+        completely insane, right? Admittedly, we don't know anything at all about what
+        <q>cromulence</q> is, but we know something about data: the only reason that we don't see any
+        variability in the <em>sample</em> is that the sample is too small to display any variation!
+        So, if you have a sample size of <m>N=1</m>, it <em>feels</em> like the right answer is just
+        to say <q>no idea at all</q>.
+      </p>
+
+      <p>
+        Notice that you <em>don't</em> have the same intuition regarding the sample mean and the
+        population mean. If forced to make the best guess about the population mean, it doesn't feel
+        completely insane to guess that the population mean is 20. Sure, you probably wouldn't feel
+        very confident in that guess because you have only one observation to work with, but it's
+        still the best guess you can make.
+      </p>
+
+      <p>
+        Let's extend this example a little. Suppose we now make a second observation. The data set
+        now has <m>N=2</m> observations of the cromulence of shoes, and the complete sample now looks
+        like this:
+        <cd>20   22</cd>
+        This time around, our sample is <em>just</em> large enough for us to observe some
+        variability: two observations is the bare minimum number needed for any variability to be
+        observed! For our new data set, the sample mean is <m>\bar{X}=21</m>, and the sample standard
+        deviation is <m>s=1</m>. What intuitions do we have about the population? Again, as far as
+        the population mean goes, the best guess we can possibly make is the sample mean: if forced
+        to guess, we'd probably say that the population mean cromulence is 21. What about the
+        standard deviation? This is a little more complicated. The sample standard deviation is only
+        based on two observations, and if you're at all like me you probably have the intuition that,
+        with only two observations, we haven't given the population <q>enough of a chance</q> to
+        reveal its true variability to us. It's not just that we suspect that the estimate is
+        <em>wrong</em>: after all, with only two observations, we expect it to be wrong to some
+        degree. The worry is that the error is <em>systematic</em>. Specifically, we suspect that the
+        sample standard deviation is likely to be smaller than the population standard deviation.
       </p>
 
       <figure xml:id="fig-sampdistsd">
@@ -853,14 +934,36 @@
       </figure>
 
       <p>
+        This intuition feels right, but it would be nice to demonstrate this somehow. There are, in
+        fact, mathematical proofs that confirm this intuition, but unless you have the right
+        mathematical background, they don't help very much.
+      </p>
+
+      <p>
+        With that in mind, let's return to our IQ studies. Suppose the actual population mean IQ is
+        100 and the standard deviation is 15. Let's measure <m>N=2</m> IQ scores and calculate the
+        sample standard deviation. If we do this repeatedly and plot a histogram of these sample
+        standard deviations, we have the <term>sampling distribution of the standard deviation</term>
+        (see <xref ref="fig-sampdistsd"/>). Even though the true population standard deviation is 15,
+        the average of the <em>sample</em> standard deviations is only 8.5. Notice that this is a
+        very different result from what we found when we plotted the sampling distribution of the
+        mean. If you look at that sampling distribution, what you see is that the population mean is
+        100, and the average of the sample means is also 100.
+      </p>
+
+      <p>
         Now let's extend the simulation. Instead of restricting ourselves to the situation where we
         have a sample size of <m>N=2</m>, let's repeat the exercise for sample sizes from 1 to 10.
         If we plot the average sample mean and average sample standard deviation as a function of
         sample size, you get the results shown in <xref ref="fig-estimatorbias"/>. On the left side
         (panel a), you see the average sample mean, and on the right (panel b), the average standard
         deviation. The two plots are quite different: <em>on average</em>, the average sample mean
-        is equal to the population mean. It is an <term>unbiased estimator</term>. The plot on the
-        right is quite different: on average, the sample standard deviation <m>s</m> is <em>smaller</em>
+        is equal to the population mean. It is an <term>unbiased estimator</term>, which is
+        essentially why your best estimate for the population mean is the sample mean.<fn>Unbiasedness
+        is a desirable characteristic for an estimator, but there are other things that matter besides
+        bias. However, it's beyond the scope of this book to discuss this in any detail. Just note
+        that there's some hidden complexity here.</fn> The plot on the right is quite different: on
+        average, the sample standard deviation <m>s</m> is <em>smaller</em>
         than the population standard deviation <m>\sigma</m>. It is a <term>biased estimator</term>.
         In other words, if we want to make a <q>best guess</q> <m>\hat\sigma</m> about the value of
         the population standard deviation <m>\sigma</m>, we should make sure our guess is a little
@@ -897,7 +1000,33 @@
         <me>
           \hat\sigma = \sqrt{\frac{1}{N-1} \sum_{i=1}^N (X_i - \bar{X})^2}
         </me>
-        and when using statistics software, they calculate <m>\hat\sigma</m>, not <m>s</m>.
+        and when using statistics software, they calculate <m>\hat\sigma</m>, not <m>s</m>.<fn>While
+        <m>\hat\sigma^2</m> is an unbiased estimate of the population variance <m>\sigma^2</m>, when
+        you take the square root, it turns out that <m>\hat\sigma</m> is a biased estimator of the
+        population standard deviation <m>\sigma</m>. So, why is <m>\hat\sigma</m> biased? The
+        technical answer is <q>because non-linear transformations (e.g. the square root) don't
+        commute with expectation</q>, but that just sounds like gibberish to everyone who hasn't
+        taken a course in mathematical statistics. Fortunately, it doesn't matter for practical
+        purposes. The bias is so small, and in real life, everyone uses <m>\hat\sigma</m>, and it
+        works just fine. Sometimes mathematics is just annoying.</fn>
+      </p>
+
+      <p>
+        One final point: in practice, many people refer to <m>\hat{\sigma}</m> (i.e. the formula
+        where we divide by <m>N-1</m>) as the <em>sample</em> standard deviation. Technically, this
+        is incorrect: the <em>sample</em> standard deviation should be equal to <m>s</m> (i.e. the
+        formula where we divide by <m>N</m>). These aren't the same thing, either conceptually or
+        numerically. One is a property of the sample, and the other is an estimated characteristic
+        of the population. However, in almost every real-life application, what we care about is the
+        estimate of the population parameter, and so people always report <m>\hat\sigma</m> rather
+        than <m>s</m>. This is the right number to report, of course. People tend to get a little
+        bit imprecise about terminology when they write it up because <q>sample standard deviation</q>
+        is shorter than <q>estimated population standard deviation</q>. It's no big deal, and in
+        practice, many do the same thing everyone else does. Nevertheless, it's important to keep
+        the two <em>concepts</em> separate: it's never a good idea to confuse <q>known properties of
+        your sample</q> with <q>guesses about the population from which it came</q>. The moment you
+        start thinking that <m>s</m> and <m>\hat\sigma</m> are the same things, you start doing
+        exactly that.
       </p>
 
       <table xml:id="tbl-sd-notation">
