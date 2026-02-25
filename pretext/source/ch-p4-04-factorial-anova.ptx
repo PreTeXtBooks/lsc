@@ -953,4 +953,807 @@
 
   </section>
 
+  <!-- ============================================================ -->
+  <!-- Section 4: Post hoc tests                                    -->
+  <!-- ============================================================ -->
+  <section xml:id="sec-posthoc2">
+    <title>Post Hoc Tests</title>
+
+    <p>
+      Let's suppose you've done your ANOVA, and it turns out that you obtained some significant effects.
+      Because of the fact that the <m>F</m>-tests are <q>omnibus</q> tests that only really test the
+      null hypothesis that there are no differences among groups, obtaining a significant effect doesn't
+      tell you which groups are different to which other ones.
+    </p>
+    <p>
+      We discussed this issue in the one-way ANOVA chapter, and in that chapter we mentioned an easy
+      solution to run <m>t</m>-tests for all possible pairs of groups, but CogStat opts for Tukey's HSD,
+      which is the right call in terms of ANOVA.
+    </p>
+    <p>We would be interested in the following four comparisons:</p>
+    <ul>
+      <li><p>The difference in mood gain for people given Anxifree versus people given the placebo.</p></li>
+      <li><p>The difference in mood gain for people given Joyzepam versus people given the placebo.</p></li>
+      <li><p>The difference in mood gain for people given Anxifree versus people given Joyzepam.</p></li>
+      <li><p>The difference in mood gain for people treated with CBT and people given no therapy.</p></li>
+    </ul>
+    <p>
+      For any one of these comparisons, we're interested in the true difference between (population) group
+      means. Tukey's HSD constructs <alert>simultaneous confidence intervals</alert> for all four of
+      these comparisons. What we mean by 95% <q>simultaneous</q> confidence interval is that there is a
+      95% probability that <em>all</em> of these confidence intervals contain the relevant true value.
+      Moreover, we can use these confidence intervals to calculate an adjusted <m>p</m> value for any
+      specific comparison.
+    </p>
+    <p>Currently, CogStat does not do a stacked Tukey's HSD for multi-way ANOVA.</p>
+    <p>
+      We can run the <c>Compare groups</c> function in CogStat but with only <c>drug</c> as grouping
+      variable, as we did in the one-way ANOVA chapter. The confidence intervals would be slightly
+      different, though. For the second variable, namely <c>therapy</c>, we don't get a Tukey's HSD, as
+      it's a two-level factor.
+    </p>
+    <p>
+      But what would be quite interesting, is the situation where your model includes interaction terms.
+      The number of pairwise comparisons that we would need to consider starts to increase. As before, we
+      need to consider the three comparisons that are relevant to the main effect of <c>drug</c> and the
+      one comparison that is relevant to the main effect of <c>therapy</c>. But, if we want to consider
+      the possibility of a significant interaction (and try to find the group differences that underpin
+      that significant interaction), we need to include comparisons such as the following:
+    </p>
+    <ul>
+      <li>
+        <p>
+          The difference in mood gain for people given Anxifree and treated with CBT, versus people given
+          the placebo and treated with CBT
+        </p>
+      </li>
+      <li>
+        <p>
+          The difference in mood gain for people given Anxifree and given no therapy, versus people given
+          the placebo and given no therapy.
+        </p>
+      </li>
+      <li><p>etc.</p></li>
+    </ul>
+    <p>
+      There are quite a lot of these comparisons that you need to consider. So, the ideal output of
+      Tukey's HSD would make a <em>lot</em> of pairwise comparisons (19 in total). This is not yet
+      possible in CogStat, but let's look at what the result would look like if it were.
+    </p>
+
+    <table xml:id="table-tukey-hsd">
+      <title>Tukey's HSD for a multi-way ANOVA</title>
+      <tabular halign="center">
+        <row header="yes">
+          <cell>Pair</cell>
+          <cell>Difference</cell>
+          <cell>CI 95% (Lower)</cell>
+          <cell>CI 95% (Upper)</cell>
+          <cell><m>p</m></cell>
+        </row>
+        <row>
+          <cell colspan="5"><em>… - placebo-no_therapy</em></cell>
+        </row>
+        <row>
+          <cell>anxifree-no_therapy</cell>
+          <cell>0.100</cell>
+          <cell>-0.540</cell>
+          <cell>0.740</cell>
+          <cell>0.994</cell>
+        </row>
+        <row>
+          <cell>joyzepam-no_therapy</cell>
+          <cell>1.167</cell>
+          <cell>0.527</cell>
+          <cell>1.807</cell>
+          <cell>0.001</cell>
+        </row>
+        <row>
+          <cell>placebo-CBT</cell>
+          <cell>0.300</cell>
+          <cell>-0.340</cell>
+          <cell>0.940</cell>
+          <cell>0.628</cell>
+        </row>
+        <row>
+          <cell>anxifree-CBT</cell>
+          <cell>0.733</cell>
+          <cell>0.093</cell>
+          <cell>1.373</cell>
+          <cell>0.022</cell>
+        </row>
+        <row>
+          <cell>joyzepam-CBT</cell>
+          <cell>1.200</cell>
+          <cell>0.560</cell>
+          <cell>1.840</cell>
+          <cell>0.000</cell>
+        </row>
+        <row>
+          <cell colspan="5"><em>… - anxifree-no_therapy</em></cell>
+        </row>
+        <row>
+          <cell>joyzepam-no_therapy</cell>
+          <cell>1.067</cell>
+          <cell>0.427</cell>
+          <cell>1.707</cell>
+          <cell>0.001</cell>
+        </row>
+        <row>
+          <cell>placebo-CBT</cell>
+          <cell>0.200</cell>
+          <cell>-0.440</cell>
+          <cell>0.840</cell>
+          <cell>0.892</cell>
+        </row>
+        <row>
+          <cell>anxifree-CBT</cell>
+          <cell>0.633</cell>
+          <cell>-0.007</cell>
+          <cell>1.273</cell>
+          <cell>0.053</cell>
+        </row>
+        <row>
+          <cell>joyzepam-CBT</cell>
+          <cell>1.100</cell>
+          <cell>0.460</cell>
+          <cell>1.740</cell>
+          <cell>0.001</cell>
+        </row>
+        <row>
+          <cell colspan="5"><em>… - joyzepam-no_therapy</em></cell>
+        </row>
+        <row>
+          <cell>placebo-CBT</cell>
+          <cell>-0.867</cell>
+          <cell>-1.507</cell>
+          <cell>-0.227</cell>
+          <cell>0.007</cell>
+        </row>
+        <row>
+          <cell>anxifree-CBT</cell>
+          <cell>-0.433</cell>
+          <cell>-1.073</cell>
+          <cell>0.207</cell>
+          <cell>0.275</cell>
+        </row>
+        <row>
+          <cell>joyzepam-CBT</cell>
+          <cell>0.033</cell>
+          <cell>-0.607</cell>
+          <cell>0.673</cell>
+          <cell>1.000</cell>
+        </row>
+        <row>
+          <cell colspan="5"><em>… - placebo-CBT</em></cell>
+        </row>
+        <row>
+          <cell>anxifree-CBT</cell>
+          <cell>0.433</cell>
+          <cell>-0.207</cell>
+          <cell>1.073</cell>
+          <cell>0.275</cell>
+        </row>
+        <row>
+          <cell>joyzepam-CBT</cell>
+          <cell>0.900</cell>
+          <cell>0.260</cell>
+          <cell>1.540</cell>
+          <cell>0.005</cell>
+        </row>
+        <row>
+          <cell colspan="5"><em>… - anxifree-CBT</em></cell>
+        </row>
+        <row>
+          <cell>joyzepam-CBT</cell>
+          <cell>0.467</cell>
+          <cell>-0.173</cell>
+          <cell>1.107</cell>
+          <cell>0.214</cell>
+        </row>
+      </tabular>
+    </table>
+
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- Section 5: Unbalanced designs and types of sums of squares   -->
+  <!-- ============================================================ -->
+  <section xml:id="sec-unbalancedanova">
+    <title>Unbalanced Designs and Types of Sums of Squares</title>
+
+    <p>
+      In real life, we're rarely lucky enough to have perfectly balanced designs. For one reason or
+      another, it's typical to end up with more observations in some cells than in others. Or, to put it
+      another way, we have an <alert>unbalanced design</alert>.
+    </p>
+    <p>
+      Unbalanced designs need to be treated with a lot more care than balanced designs, and the
+      statistical theory that underpins them is a lot messier. But we must not ignore this issue, like a
+      lot of stats textbooks (or psychology students) tend to do. The net result of this is that a lot
+      of active researchers in the field don't actually know that there are several different <q>types</q>
+      of unbalanced ANOVAs, and they produce quite different answers. In fact, reading the psychological
+      literature, it seems that most people don't even realise that their statistical software package is
+      making a whole lot of substantive data analysis decisions on their behalf. CogStat will also make
+      all decisions for you, but when interpreting the results, it's important to know what the software
+      is doing and what is the underlying statistical theory.
+    </p>
+    <p>
+      As usual, it will help us to work with some data. The <c>coffee.csv</c> file contains a
+      hypothetical data set that produces an unbalanced <m>3 \times 2</m> ANOVA. Suppose we were
+      interested in finding out whether or not the tendency of people to <c>babble</c> when they have
+      too much coffee is purely an effect of the coffee itself, or whether there's some effect of the
+      <c>milk</c> and <c>sugar</c> that people add to the coffee. Suppose we took 18 people, and gave
+      them some coffee to drink. The amount of coffee / caffeine was held constant, and we varied whether
+      or not milk was added: so <c>milk</c> is a binary factor with two levels, <c>"yes"</c> and
+      <c>"no"</c>. We also varied the kind of sugar involved. The coffee might contain <c>"real"</c>
+      sugar, or it might contain <c>"fake"</c> sugar (i.e., artificial sweetener), or it might contain
+      <c>"none"</c> at all, so the <c>sugar</c> variable is a three-level factor. Our outcome variable
+      is a continuous variable that presumably refers to some psychologically sensible measure of the
+      extent to which someone is <q>babbling</q>. The details don't really matter for our purpose. To
+      get a sense of what the data look like, let's load it into CogStat and run the
+      <c>Compare groups</c> function. Let's look at the sample properties:
+    </p>
+
+    <figure xml:id="fig-cogstatcoffeedescr">
+      <caption>The coffee data set loaded in CogStat</caption>
+      <image source="cogstatcoffeedescr.png" width="80%">
+        <description>CogStat showing descriptive statistics for the coffee data set</description>
+      </image>
+    </figure>
+
+    <p>
+      Across groups, the standard deviation varies from <m>.10</m> to <m>.62</m>, which is fairly small
+      relative to the differences in group means. So far, it's looking like a straightforward factorial
+      ANOVA, just like we did earlier.
+    </p>
+    <p>
+      Unbalanced designs lead us to the somewhat unsettling discovery that there isn't really any one
+      thing that we might refer to as a standard ANOVA. In fact, it turns out that there are
+      <em>three</em> fundamentally different ways<fn>Actually, this is a bit of a lie. ANOVAs can vary
+      in other ways besides the ones discussed in this book. For instance, we ignored the difference
+      between fixed-effect models, in which the levels of a factor are <q>fixed</q> by the experimenter
+      or the world, and random-effect models, in which the levels are random samples from a larger
+      population of possible levels (this book only covers fixed-effect models). Don't make the mistake
+      of thinking that this book — or any other one — will tell you <q>everything you need to know</q>
+      about statistics, any more than a single book could possibly tell you everything you need to know
+      about psychology, physics or philosophy. Life is too complicated for that to <em>ever</em> be true.
+      This isn't a cause for despair, though. Most researchers get by with a basic working knowledge of
+      ANOVA that doesn't go any further than this book does. Keep in mind that this book is only the
+      beginning of a very long story, not the whole story.</fn> in which you might want to run an ANOVA
+      in an unbalanced design. If you have a balanced design, all three versions produce identical
+      results, with the sums of squares, <m>F</m>-values and so on. All conforming to the formulas from
+      the start of this chapter. However, when your design is unbalanced they don't give the same
+      answers. Furthermore, they are not all equally appropriate to every situation: some methods will
+      be more appropriate to your situation than others. Given all this, it's important to understand
+      what the different types of ANOVA are and how they differ from one another.
+    </p>
+    <p>
+      The first kind of ANOVA is conventionally referred to as <em>Type I sum of squares</em>. You can
+      guess what the other two are called. The <q>sum of squares</q> part of the name was introduced by
+      the SAS statistical software package, and has become standard nomenclature, but it's a bit
+      misleading in some ways. The logic for referring to them as different types of sum of squares is
+      that, when you look at the ANOVA tables that they produce, the key difference in the numbers is
+      the SS values. The degrees of freedom don't change, the MS values are still defined as SS divided
+      by df, etc. However, what the terminology gets wrong is that it hides the reason <em>why</em> the
+      SS values are different from one another.
+    </p>
+    <p>
+      To that end, it's a lot more helpful to think of the three different kinds of ANOVA as three
+      different <em>hypothesis testing strategies</em>. These different strategies lead to different SS
+      values, to be sure, but it's the strategy that is the important thing here, not the SS values
+      themselves. Any particular <m>F</m>-test is best thought of as a comparison between two linear
+      models. So when you're looking at an ANOVA result, it helps to remember that each of those
+      <m>F</m>-tests corresponds to a <em>pair</em> of models that are being compared. Of course, this
+      leads naturally to the question of <em>which</em> pair of models is being compared. This is the
+      fundamental difference between ANOVA Types I, II and III: each one corresponds to a different way
+      of choosing the model pairs for the tests.
+    </p>
+
+    <subsection xml:id="subsec-type1-ss">
+      <title>Type I Sum of Squares</title>
+
+      <p>
+        The Type I method is sometimes referred to as the <q>sequential</q> sum of squares, because it
+        involves a process of adding terms to the model one at a time. Consider the coffee data, for
+        instance. Suppose we want to run the full <m>3 \times 2</m> factorial ANOVA, including
+        interaction terms.
+      </p>
+      <p>
+        The simplest possible model for the data would be one in which neither milk nor sugar is assumed
+        to have any effect on babbling. The only term that would be included in such a model is the
+        intercept. This is our initial null hypothesis.
+      </p>
+      <p>
+        The next simplest model for the data would be one in which only one of the two main effects is
+        included. In the coffee data, there are two different possible choices here, because we could
+        choose to add milk first or to add sugar first. The order actually matters, but for now, let's
+        just make a choice arbitrarily, and pick sugar. So the second model in our sequence of models is
+        <c>babble | sugar</c>. This comparison forms our hypothesis test of the main effect of
+        <c>sugar</c>. The next step in our model-building exercise it to add the other main effect term,
+        so the next model in our sequence is <c>babble | sugar + milk</c>. This comparison forms our
+        hypothesis test of the main effect of <c>milk</c>. In one sense, this approach is very elegant:
+        the alternative hypothesis from the first test forms the null hypothesis for the second one. It
+        is in this sense that the Type I method is strictly sequential. Every test builds directly on
+        the results of the last one. However, in another sense, it's very inelegant because there's a
+        strong asymmetry between the two tests. The test of the main effect of <c>sugar</c> (the first
+        test) completely ignores <c>milk</c>, whereas the test of the main effect of <c>milk</c> (the
+        second test) does take <c>sugar</c> into account. In any case, the fourth model in our sequence
+        is now the full model, <c>babble | sugar + milk + sugar:milk</c>.
+      </p>
+
+      <table xml:id="table-type1-sugar-first">
+        <title>Hypotheses for the Type I Sum of Squares for the <c>coffee</c> dataset (sugar first)</title>
+        <tabular>
+          <row header="yes">
+            <cell>Model</cell>
+            <cell><m>H_0</m> Null hypothesis</cell>
+            <cell><m>H_1</m> Alternative hypothesis</cell>
+            <cell>Main effect</cell>
+          </row>
+          <row>
+            <cell>Model 1</cell>
+            <cell><c>babble | 1</c></cell>
+            <cell><c>babble | sugar</c></cell>
+            <cell>sugar</cell>
+          </row>
+          <row>
+            <cell>Model 2</cell>
+            <cell><c>babble | sugar</c></cell>
+            <cell><c>babble | sugar + milk</c></cell>
+            <cell>milk</cell>
+          </row>
+          <row>
+            <cell>Model 3</cell>
+            <cell><c>babble | sugar + milk</c></cell>
+            <cell><c>babble | sugar + milk + sugar×milk</c></cell>
+            <cell>sugar×milk</cell>
+          </row>
+        </tabular>
+      </table>
+
+      <p>
+        When run (in another statistical software package that allows for selection of Type I, II or III),
+        the results of the analysis are the following:
+      </p>
+
+      <table xml:id="table-type1-sugar-first-results">
+        <title>Test of between-subject effects with Type I Sum of Squares for the <c>coffee</c> dataset (sugar first)</title>
+        <tabular halign="center">
+          <row header="yes">
+            <cell>Source</cell>
+            <cell>Type I SS</cell>
+            <cell>df</cell>
+            <cell>MS</cell>
+            <cell><m>F</m></cell>
+            <cell><m>p</m></cell>
+          </row>
+          <row>
+            <cell>sugar</cell>
+            <cell>3.558</cell>
+            <cell>2</cell>
+            <cell>1.779</cell>
+            <cell>6.749</cell>
+            <cell>0.011</cell>
+          </row>
+          <row>
+            <cell>milk</cell>
+            <cell>0.956</cell>
+            <cell>1</cell>
+            <cell>0.956</cell>
+            <cell>3.628</cell>
+            <cell>0.081</cell>
+          </row>
+          <row>
+            <cell>sugar×milk</cell>
+            <cell>5.944</cell>
+            <cell>2</cell>
+            <cell>2.972</cell>
+            <cell>11.277</cell>
+            <cell>0.002</cell>
+          </row>
+        </tabular>
+      </table>
+
+      <p>
+        The big problem with using Type I sum of squares is the fact that it really does depend on the
+        order in which you enter the variables. Yet, in many situations, the researcher has no reason to
+        prefer one ordering over another. This is presumably the case for our milk and sugar problem.
+        Should we add milk first, or sugar first? It feels exactly as arbitrary as a data analysis
+        question as it does as a coffee-making question. There may in fact be some people with firm
+        opinions about ordering, but it's hard to imagine a principled answer to the question. Yet, look
+        what happens when we change the ordering:
+      </p>
+
+      <table xml:id="table-type1-milk-first">
+        <title>Hypotheses for the Type I Sum of Squares for the <c>coffee</c> dataset (milk first)</title>
+        <tabular>
+          <row header="yes">
+            <cell>Model</cell>
+            <cell><m>H_0</m> Null hypothesis</cell>
+            <cell><m>H_1</m> Alternative hypothesis</cell>
+            <cell>Main effect</cell>
+          </row>
+          <row>
+            <cell>Model 1</cell>
+            <cell><c>babble | 1</c></cell>
+            <cell><c>babble | milk</c></cell>
+            <cell>milk</cell>
+          </row>
+          <row>
+            <cell>Model 2</cell>
+            <cell><c>babble | milk</c></cell>
+            <cell><c>babble | milk + sugar</c></cell>
+            <cell>sugar</cell>
+          </row>
+          <row>
+            <cell>Model 3</cell>
+            <cell><c>babble | milk + sugar</c></cell>
+            <cell><c>babble | milk + sugar + milk×sugar</c></cell>
+            <cell>milk×sugar</cell>
+          </row>
+        </tabular>
+      </table>
+
+      <table xml:id="table-type1-milk-first-results">
+        <title>Test of between-subject effects with Type I Sum of Squares for the <c>coffee</c> dataset (milk first)</title>
+        <tabular halign="center">
+          <row header="yes">
+            <cell>Source</cell>
+            <cell>Type I SS</cell>
+            <cell>df</cell>
+            <cell>MS</cell>
+            <cell><m>F</m></cell>
+            <cell><m>p</m></cell>
+          </row>
+          <row>
+            <cell>milk</cell>
+            <cell>1.444</cell>
+            <cell>1</cell>
+            <cell>1.444</cell>
+            <cell>5.479</cell>
+            <cell>0.037</cell>
+          </row>
+          <row>
+            <cell>sugar</cell>
+            <cell>3.070</cell>
+            <cell>2</cell>
+            <cell>1.535</cell>
+            <cell>5.824</cell>
+            <cell>0.017</cell>
+          </row>
+          <row>
+            <cell>milk×sugar</cell>
+            <cell>5.944</cell>
+            <cell>2</cell>
+            <cell>2.972</cell>
+            <cell>11.277</cell>
+            <cell>0.002</cell>
+          </row>
+        </tabular>
+      </table>
+
+      <p>
+        The <m>p</m>-values for both main effect terms have changed, and fairly dramatically. Among
+        other things, the effect of <c>milk</c> has become significant (though one should avoid drawing
+        any strong conclusions about this, as I've mentioned previously). Which of these two ANOVAs
+        should one report? It's not immediately obvious.
+      </p>
+      <p>
+        When you look at the hypothesis tests that are used to define the <q>first</q> main effect and
+        the <q>second</q> one, it's clear that they're qualitatively different from one another. In our
+        initial example, we saw that the test for the main effect of <c>sugar</c> completely ignores
+        <c>milk</c>, whereas the test of the main effect of <c>milk</c> does take <c>sugar</c> into
+        account. As such, the Type I testing strategy really does treat the first main effect as if it
+        had a kind of theoretical primacy over the second one. There is very rarely if ever any
+        theoretically primacy of this kind that would justify treating any two main effects asymmetrically.
+      </p>
+      <p>
+        The consequence of all this is that Type I tests are very rarely of much interest.
+      </p>
+
+    </subsection>
+
+    <subsection xml:id="subsec-type3-ss">
+      <title>Type III Sum of Squares</title>
+
+      <p>
+        Having just finished talking about Type I tests, you might think that the natural thing to do
+        next would be to talk about Type II tests. However, it's actually a bit more natural to discuss
+        Type III tests (which are simple) before talking about Type II tests (which are trickier). The
+        basic idea behind Type III tests is extremely simple: regardless of which term you're trying to
+        evaluate, run the <m>F</m>-test in which the alternative hypothesis corresponds to the full ANOVA
+        model as specified by the user, and the null model just deletes that one term that you're testing.
+        For instance, in the coffee example, the hypotheses would look like this:
+      </p>
+
+      <table xml:id="table-type3-hypotheses">
+        <title>Hypotheses for the Type III Sum of Squares for the <c>coffee</c> dataset</title>
+        <tabular>
+          <row header="yes">
+            <cell>Model</cell>
+            <cell><m>H_0</m> Null hypothesis</cell>
+            <cell><m>H_1</m> Alternative hypothesis</cell>
+            <cell>Main effect</cell>
+          </row>
+          <row>
+            <cell>Model 1</cell>
+            <cell><c>babble | milk + sugar×milk</c></cell>
+            <cell><c>babble | sugar + milk + sugar×milk</c></cell>
+            <cell>sugar</cell>
+          </row>
+          <row>
+            <cell>Model 2</cell>
+            <cell><c>babble | sugar + sugar×milk</c></cell>
+            <cell><c>babble | sugar + milk + sugar×milk</c></cell>
+            <cell>milk</cell>
+          </row>
+          <row>
+            <cell>Model 3</cell>
+            <cell><c>babble | sugar + milk</c></cell>
+            <cell><c>babble | sugar + milk + sugar×milk</c></cell>
+            <cell>sugar×milk</cell>
+          </row>
+        </tabular>
+      </table>
+
+      <p>
+        At first pass, Type III tests seem like a nice idea. Firstly, we've removed the asymmetry that
+        caused us to have problems when running Type I tests. And because we're now treating all terms
+        the same way, the results of the hypothesis tests do not depend on the order in which we specify
+        them. This is definitely a good thing.
+      </p>
+      <p>
+        However, there is a big problem when interpreting the results of the tests, especially for main
+        effect terms. Consider the coffee data. Suppose it turns out that the main effect of <c>milk</c>
+        is not significant according to the Type III tests. What this is telling us is that
+        <c>babble | sugar + sugar×milk</c> is a better model for the data than the full model. But what
+        does that even <em>mean</em>? If the interaction term <c>sugar×milk</c> was also non-significant,
+        we'd be tempted to conclude that the data are telling us that the only thing that matters is
+        <c>sugar</c>. But suppose we have a significant interaction term, but a non-significant main
+        effect of <c>milk</c>. In this case, are we to assume that there really is an <q>effect of
+        sugar</q>, an <q>interaction between milk and sugar</q>, but no <q>effect of milk</q>? That
+        seems crazy. The right answer simply <em>must</em> be that it's
+        meaningless<fn>Or, at the very least, rarely of interest.</fn> to talk about the main effect if
+        the interaction is significant. In general, this seems to be what most statisticians advise us
+        to do. But if it really is meaningless to talk about non-significant main effects in the presence
+        of a significant interaction, then it's not at all obvious why Type III tests should allow the
+        null hypothesis to rely on a model that includes the interaction but omits one of the main
+        effects that make it up. When characterised in this fashion, the null hypotheses really don't
+        make much sense at all.
+      </p>
+      <p>Let's look at the results:</p>
+
+      <table xml:id="table-type3-results">
+        <title>Test of between-subject effects with Type III Sum of Squares for the <c>coffee</c> dataset</title>
+        <tabular halign="center">
+          <row header="yes">
+            <cell>Source</cell>
+            <cell>Type III SS</cell>
+            <cell>df</cell>
+            <cell>MS</cell>
+            <cell><m>F</m></cell>
+            <cell><m>p</m></cell>
+          </row>
+          <row>
+            <cell>milk</cell>
+            <cell>1.004</cell>
+            <cell>1</cell>
+            <cell>1.004</cell>
+            <cell>3.810</cell>
+            <cell>0.075</cell>
+          </row>
+          <row>
+            <cell>sugar</cell>
+            <cell>2.132</cell>
+            <cell>2</cell>
+            <cell>1.066</cell>
+            <cell>4.045</cell>
+            <cell>0.045</cell>
+          </row>
+          <row>
+            <cell>milk×sugar</cell>
+            <cell>5.944</cell>
+            <cell>2</cell>
+            <cell>2.972</cell>
+            <cell>11.277</cell>
+            <cell>0.002</cell>
+          </row>
+        </tabular>
+      </table>
+
+      <p>
+        You'll notice that CogStat will automatically use Type III Sums of Squares. This is exactly the
+        same result set that we get from CogStat whether we put <c>milk</c> or <c>sugar</c> first in the
+        <c>Compare groups</c> dialog's <c>Group(s)</c> list.
+      </p>
+      <p>With <c>milk</c> first, we get:</p>
+
+      <remark xml:id="cogstat-hyp11">
+        <title>CogStat Output: Hypothesis Tests (coffee, milk first)</title>
+        <p><alert>Hypothesis tests</alert></p>
+        <p><em>Testing if the means are the same.</em></p>
+        <p>
+          At least two grouping variables. Interval variable. <m>\gg</m> Choosing factorial ANOVA.
+        </p>
+        <p>Result of multi-way ANOVA:</p>
+        <p>Main effect of milk: <m>F(1, 12) = 3.81, p = .075</m></p>
+        <p>Main effect of sugar: <m>F(2, 12) = 4.04, p = .045</m></p>
+        <p>Interaction of milk and sugar: <m>F(2, 12) = 11.28, p = .002</m></p>
+      </remark>
+
+      <p>With <c>sugar</c> first, we get:</p>
+
+      <remark xml:id="cogstat-hyp12">
+        <title>CogStat Output: Hypothesis Tests (coffee, sugar first)</title>
+        <p><alert>Hypothesis tests</alert></p>
+        <p><em>Testing if the means are the same.</em></p>
+        <p>
+          At least two grouping variables. Interval variable. <m>\gg</m> Choosing factorial ANOVA.
+        </p>
+        <p>Result of multi-way ANOVA:</p>
+        <p>Main effect of sugar: <m>F(2, 12) = 4.04, p = .045</m></p>
+        <p>Main effect of milk: <m>F(1, 12) = 3.81, p = .075</m></p>
+        <p>Interaction of sugar and milk: <m>F(2, 12) = 11.28, p = .002</m></p>
+      </remark>
+
+    </subsection>
+
+    <subsection xml:id="subsec-type2-ss">
+      <title>Type II Sum of Squares</title>
+
+      <p>
+        Type II tests are broadly similar to Type III tests: start with a <q>full</q> model, and test a
+        particular term by deleting it from that model. However, Type II tests are based on the
+        <alert>marginality principle</alert> which states that you should not omit a lower order term
+        from your model if there are any higher order ones that depend on it. So, for instance, if your
+        model contains the interaction <c>A:B</c> (a 2nd order term), then it really ought to contain
+        the main effects <c>A</c> and <c>B</c> (1st order terms). Similarly, if it contains a three-way
+        interaction term <c>A:B:C</c>, then the model must also include the main effects <c>A</c>,
+        <c>B</c> and <c>C</c> as well as the simpler interactions <c>A:B</c>, <c>A:C</c> and
+        <c>B:C</c>. Type III tests routinely violate the marginality principle. For instance, consider
+        the test of the main effect of <c>A</c> in the context of a three-way ANOVA that includes all
+        possible interaction terms. According to Type III tests, our null and alternative models are:
+      </p>
+
+      <table xml:id="table-type3-null-alt">
+        <title>Type III null and alternative models for the main effect of <c>A</c></title>
+        <tabular>
+          <row>
+            <cell>Null model:</cell>
+            <cell><c>outcome | B + C + A:B + A:C + B:C + A:B:C</c></cell>
+          </row>
+          <row>
+            <cell>Alternative model:</cell>
+            <cell><c>outcome | A + B + C + A:B + A:C + B:C + A:B:C</c></cell>
+          </row>
+        </tabular>
+      </table>
+
+      <p>
+        Notice that the null hypothesis omits <c>A</c>, but includes <c>A:B</c>, <c>A:C</c> and
+        <c>A:B:C</c> as part of the model. This, according to the Type II tests, is not a good choice
+        of null hypothesis. What we should do instead, if we want to test the null hypothesis that
+        <c>A</c> is not relevant to our <c>outcome</c>, is to specify the null hypothesis that is the
+        most complicated model that does not rely on <c>A</c> in any form, even as an interaction. The
+        alternative hypothesis corresponds to this null model plus a main effect term of <c>A</c>. This
+        is a lot closer to what most people would intuitively think of as a <q>main effect of
+        <c>A</c></q>, and it yields the following as our Type II test of the main effect of
+        <c>A</c>.<fn>Note, of course, that this does depend on the model that the user specified. If
+        original ANOVA model doesn't contain an interaction term for <c>B:C</c>, then obviously it won't
+        appear in either the null or the alternative. But that's true for Types I, II and III. They
+        never include any terms that you <em>didn't</em> include, but they make different choices about
+        how to construct tests for the ones that you did include.</fn>
+      </p>
+
+      <table xml:id="table-type2-null-alt">
+        <title>Type II null and alternative models for the main effect of <c>A</c></title>
+        <tabular>
+          <row>
+            <cell>Null model:</cell>
+            <cell><c>outcome | B + C + B:C</c></cell>
+          </row>
+          <row>
+            <cell>Alternative model:</cell>
+            <cell><c>outcome | A + B + C + B:C</c></cell>
+          </row>
+        </tabular>
+      </table>
+
+      <p>
+        In the context of the two way ANOVA that we've been using in the coffee data, the hypothesis
+        tests are even simpler.
+      </p>
+
+      <table xml:id="table-type2-hypotheses">
+        <title>Hypotheses for the Type II Sum of Squares for the <c>coffee</c> dataset</title>
+        <tabular>
+          <row header="yes">
+            <cell>Model</cell>
+            <cell><m>H_0</m> Null hypothesis</cell>
+            <cell><m>H_1</m> Alternative hypothesis</cell>
+            <cell>Main effect</cell>
+          </row>
+          <row>
+            <cell>Model 1</cell>
+            <cell><c>babble | milk</c></cell>
+            <cell><c>babble | sugar + milk</c></cell>
+            <cell>sugar</cell>
+          </row>
+          <row>
+            <cell>Model 2</cell>
+            <cell><c>babble | sugar</c></cell>
+            <cell><c>babble | sugar + milk</c></cell>
+            <cell>milk</cell>
+          </row>
+          <row>
+            <cell>Model 3</cell>
+            <cell><c>babble | sugar + milk</c></cell>
+            <cell><c>babble | sugar + milk + sugar×milk</c></cell>
+            <cell>sugar×milk</cell>
+          </row>
+        </tabular>
+      </table>
+
+      <p>The results would be:</p>
+
+      <table xml:id="table-type2-results">
+        <title>Test of between-subject effects with Type II Sum of Squares for the <c>coffee</c> dataset</title>
+        <tabular halign="center">
+          <row header="yes">
+            <cell>Source</cell>
+            <cell>Type II SS</cell>
+            <cell>df</cell>
+            <cell>MS</cell>
+            <cell><m>F</m></cell>
+            <cell><m>p</m></cell>
+          </row>
+          <row>
+            <cell>milk</cell>
+            <cell>0.956</cell>
+            <cell>1</cell>
+            <cell>0.956</cell>
+            <cell>3.628</cell>
+            <cell>0.081</cell>
+          </row>
+          <row>
+            <cell>sugar</cell>
+            <cell>3.070</cell>
+            <cell>2</cell>
+            <cell>1.535</cell>
+            <cell>5.824</cell>
+            <cell>0.017</cell>
+          </row>
+          <row>
+            <cell>milk×sugar</cell>
+            <cell>5.944</cell>
+            <cell>2</cell>
+            <cell>2.972</cell>
+            <cell>11.277</cell>
+            <cell>0.002</cell>
+          </row>
+        </tabular>
+      </table>
+
+      <p>
+        Type II tests have some clear advantages over Type I and Type III tests: they don't depend on
+        the order in which you specify factors (unlike Type I), and they don't depend on the
+        contrasts<fn>Which is something we might discuss in a future version of this book.</fn> that you
+        use to specify your factors (unlike Type III).
+      </p>
+      <p>
+        For the moment, you only have Type III available in CogStat, and it is also the default setting
+        in SPSS. It is important, though, that in psychological literature, researchers seldom bother to
+        report which Type of tests they ran. Often they don't report what software they used either.
+      </p>
+      <p>
+        Make sure you indicate what software you used, and if you're reporting ANOVA results for
+        unbalanced data, then specify what type of tests you ran. Or, even better, do hypotheses tests
+        that correspond to things you really care about, and then report those!
+      </p>
+
+    </subsection>
+
+  </section>
+
 </chapter>
