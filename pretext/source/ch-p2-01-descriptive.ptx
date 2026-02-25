@@ -52,6 +52,10 @@
     <p>
       In most situations, the first thing that you'll want to calculate is a measure of <term>central tendency</term>. That is, you'd like to know something about the <q>average</q> or <q>middle</q> of your data lies.
     </p>
+    <figure xml:id="fig-normalDistMMM">
+      <caption>A density plot of a symmetric (normal) distribution with the mean, median and mode all at the centre.</caption>
+      <image source="normalDistMMM.png"/>
+    </figure>
 
     <subsection xml:id="sec-mean">
       <title>The Mean</title>
@@ -322,6 +326,10 @@
         <p>
           A data set which has only one mode (or in other terms, a density distribution with only one local maximum) is called <em>unimodal</em>, regardless if the peak is in the middle or at either end. A perfect example of a unimodal distribution is the normal distribution (the <em>bell-curve</em>). This is the one that we use when explaining the theory in this book. However, a distribution can have more than one modes or more than one local maxima, and some simplistic rules of thumb don't necessarily work. Distributions with more than one modes are called <em>bimodal</em> (i.e., two peaks) or <em>multimodal</em> (i.e., multiple peaks) distributions.
         </p>
+        <figure xml:id="fig-bimodal">
+          <caption>A bimodal distribution with a global maximum (tallest peak) and a local maximum (smaller peak).</caption>
+          <image source="bimodal.png"/>
+        </figure>
         <p>
           You will likely encounter bimodal distributions in your data when you have multiple groups in one dataset. For example, when you measure an attitude towards a politically divisive subject with a Likert scale. When you graph the response on that item, you'll likely see a bimodal distribution, but if you split the data by group (based on a binary demographic item measuring political affiliation, for example), you'll likely see two unimodal distributions with different skewness.
         </p>
@@ -334,6 +342,10 @@
     <p>
       The statistics that we've discussed so far all relate to <em>central tendency</em>. They all talk about which values are <q>in the middle</q> or <q>popular</q> in the data. However, central tendency is not the only type of summary statistic that we want to calculate. The second thing that we really want is a measure of the <term>variability</term> (or, <em>dispersion</em>) of the data. That is, how <q>spread out</q> are the data? How <q>far</q> away from the mean or median do the observed values tend to be?
     </p>
+    <figure xml:id="fig-dualBell">
+      <caption>Two distributions with the same measures of central tendency (mean, median and mode at the centre) but different variability: the narrower curve has a smaller standard deviation than the wider curve.</caption>
+      <image source="dualBell.png"/>
+    </figure>
     <p>
       For now, let's assume that the data are interval or ratio scale, so we'll continue to use the <c>afl.margins</c> data. We'll use this data to discuss several different measures of spread, each with different strengths and weaknesses.
     </p>
@@ -383,6 +395,10 @@
         <p>
           For example, a data set of 40 observations can be divided into 4 equal-sized groups of 10 observations each. This is called a <term>quartile</term> (i.e., 1/4). If we wanted to define in percentages, this would be able to define 25th, 50th and 75th <term>percentiles</term> of a data set. The <em>25th percentile</em> (<em>1st quartile</em> or <em>lower quartile</em>) holds the value in a distribution that is greater than 25% of the values and less than 75% of the values. The <em>50th percentile</em> (<em>2nd quartile</em>) is the <em>median</em>, and the <em>75th percentile</em> (<em>3rd quartile</em> or <em>upper quartile</em>) is the value that is greater than 75% of the values and less than 25% of the values.
         </p>
+        <figure xml:id="fig-quartiles">
+          <caption>The 25th (Q1), 50th (Q2) and 75th (Q3) percentiles of a normal distribution, with the proportion of data below each quartile shown.</caption>
+          <image source="quartiles.png"/>
+        </figure>
         <p>
           The data can be divided into other quantiles as well: e.g. a distribution cut in 5 equal-sized groups are called <term>quintiles</term>, and a distribution cut in 10 equal-sized groups are called <term>deciles</term>, and so on.
         </p>
@@ -432,6 +448,10 @@
           <li><p>first quartile and third quartile (i.e., IQR),</p></li>
           <li><p>and the median.</p></li>
         </ul>
+        <figure xml:id="fig-boxplot">
+          <caption>Example boxplots: the left boxplot shows a basic annotated example with labels for minimum, maximum, Q1, median and Q3; the right boxplot contains outliers shown as red circles.</caption>
+          <image source="boxplot.png"/>
+        </figure>
         <p>
           Like histograms, they're most suited for interval or ratio scale data. Some boxplots separate out those observations that are <q>suspiciously</q> distant from the rest of the data, i.e., the outliers. These are usually displayed with a circle or a dot.
         </p>
@@ -756,6 +776,10 @@
         </p>
       </statement>
     </definition>
+    <figure xml:id="fig-skewness">
+      <caption>An illustration of skewness. A negatively skewed distribution has a long tail to the left; a symmetric distribution has equal tails; a positively skewed distribution has a long tail to the right.</caption>
+      <image source="skewness.png"/>
+    </figure>
     <p>
       If the data tend to have a lot of extreme small values (i.e., the lower tail is <q>longer</q> than the upper tail) and not so many extremely large values, then we say that the data are <em>negatively skewed</em>. On the other hand, if there are more extremely large values than extremely small ones we say that the data are <em>positively skewed</em>.
     </p>
@@ -779,6 +803,10 @@
         </p>
       </statement>
     </definition>
+    <figure xml:id="fig-kurtosis">
+      <caption>An illustration of kurtosis. A platykurtic distribution is flat (negative kurtosis); a mesokurtic distribution is the normal distribution (kurtosis = 0); a leptokurtic distribution is steep or pointy (positive kurtosis).</caption>
+      <image source="kurtosis.png"/>
+    </figure>
     <p>
       Kurtosis, put simply, is a measure of the <q>pointiness</q> of a data set. When reading the automatically calculated kurtosis value from our CogStat result set, we discover that the AFL winning margins data is just pointy enough: <m>0.1</m>.
     </p>

@@ -152,8 +152,12 @@
   <section xml:id="sec-pearson">
     <title>The Correlation Coefficient</title>
     <p>
-      We can make these ideas a bit more explicit by introducing the idea of a <term>correlation coefficient</term> (or, more specifically, <term>Pearson's correlation coefficient</term>), which is traditionally denoted by <m>r</m>. The correlation coefficient between two variables <m>X</m> and <m>Y</m> (sometimes denoted <m>r_{XY}</m>), which we'll define more precisely shortly, is a measure that varies from <m>-1</m> to <m>1</m>. When <m>r = -1</m>, it means that we have a perfect negative relationship, and when <m>r = 1</m>, it means we have a perfect positive relationship. When <m>r = 0</m>, there's no relationship at all.
+      We can make these ideas a bit more explicit by introducing the idea of a <term>correlation coefficient</term> (or, more specifically, <term>Pearson's correlation coefficient</term>), which is traditionally denoted by <m>r</m>. The correlation coefficient between two variables <m>X</m> and <m>Y</m> (sometimes denoted <m>r_{XY}</m>), which we'll define more precisely shortly, is a measure that varies from <m>-1</m> to <m>1</m>. When <m>r = -1</m>, it means that we have a perfect negative relationship, and when <m>r = 1</m>, it means we have a perfect positive relationship. When <m>r = 0</m>, there's no relationship at all. The figure below shows what different correlations look like.
     </p>
+    <figure xml:id="fig-corr">
+      <caption>Illustration of the effect of varying the strength and direction of a correlation. The left column shows positive correlations (<m>r = 0, 0.33, 0.66, 1</m>) and the right column shows negative correlations (<m>r = 0, -0.33, -0.66, -1</m>).</caption>
+      <image source="corr.png"/>
+    </figure>
     <p>
       The Pearson's correlation coefficient formula can be written in several ways. The simplest way to write down the formula is to break it into two steps. Firstly, let's introduce the idea of a <term>covariance</term>. The covariance between two variables <m>X</m> and <m>Y</m> is a generalisation of the notion of the variance. It is a mathematically simple way of describing the relationship between two variables that isn't terribly informative to humans:
     </p>
@@ -245,6 +249,10 @@
     <p>
       You'd think that these four data sets would look pretty similar to one another. They do not. If we draw scatterplots of <m>X</m> against <m>Y</m> for all four variables, we see that all four of these are <em>spectacularly</em> different to each other.
     </p>
+    <figure xml:id="fig-anscombe">
+      <caption>Anscombe's quartet. All four of these data sets have a Pearson correlation of <m>r = .816</m>, but they are qualitatively different from one another.</caption>
+      <image source="anscombe.png"/>
+    </figure>
     <p>
       The lesson here, which so very many people seem to forget in real life, is <q><em>always graph your raw data</em></q>.
     </p>
@@ -261,6 +269,10 @@
     <p>
       To illustrate, consider the data showing the relationship between hours worked and grade received for 10 students taking some classes. The curious thing about this <mdash/> highly fictitious <mdash/> data set is that increasing your effort <em>always</em> increases your grade. It might be by a lot or by a little, but increasing the effort will never decrease your grade.
     </p>
+    <figure xml:id="fig-rankcorrpic">
+      <caption>The relationship between hours worked and grade received for a toy data set of 10 students. The dashed line shows the linear (Pearson) relationship; the solid line shows the perfect monotonic relationship captured by Spearman's rank correlation.</caption>
+      <image source="rankcorrpic.png"/>
+    </figure>
     <p>
       The data are stored in <c>effort.csv</c>. CogStat will calculate a standard Pearson correlation first<fn>Unless, of course, you set your measurement level in the second row of the CSV as <c>"ord"</c> (<em>ordinal</em>), because then you already tell the software that Pearson's <m>r</m> does not make sense to look at.</fn>. It shows a strong relationship between hours worked and grade received: <m>r = 0.909</m>. But this doesn't actually capture the observation that increasing hours worked <em>always</em> increases the grade. There's a sense here in which we want to say that the correlation is <em>perfect</em> but for a somewhat different notion of a <q>relationship</q>. What we're looking for is something that captures the fact that there is a perfect <term>ordinal relationship</term> here. That is, if student 1 works more hours than student 2, then we can guarantee that student 1 will get a better grade. That's not what a correlation of <m>r = 0.91</m> says at all.
     </p>
