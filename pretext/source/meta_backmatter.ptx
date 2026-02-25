@@ -110,6 +110,20 @@
       <em>Psychological Review</em>, 63, 81&#x2013;97.
     </biblio>
 
+    <biblio xml:id="krajcsi_advancing_2021" type="raw">
+      Krajcsi, A. (2021).
+      <em>Advancing best practices in data analysis with automatic and optimized output data
+      analysis software</em> [Preprint]. PsyArXiv.
+      <url href="https://doi.org/10.31234/osf.io/hnmsq">https://doi.org/10.31234/osf.io/hnmsq</url>
+    </biblio>
+
+    <biblio xml:id="open_science_collaboration_estimating_2015" type="raw">
+      Open Science Collaboration. (2015).
+      Estimating the reproducibility of psychological science.
+      <em>Science</em>, 349(6251), aac4716.
+      <url href="https://doi.org/10.1126/science.aac4716">https://doi.org/10.1126/science.aac4716</url>
+    </biblio>
+
     <biblio xml:id="Stevens1946" type="raw">
       Stevens, S. S. (1946).
       On the theory of scales of measurement.
