@@ -1147,7 +1147,7 @@
       <p>
         The first thing you should be aware of is that orthodox NHST is a mash-up of two somewhat
         different approaches to hypothesis testing, one proposed by Sir Ronald Fisher and the other
-        proposed by Jerzy Neyman (for a historical summary, see <xref ref="Lehmann2011"/>). The history is messy because Fisher and Neyman were real people
+        proposed by Jerzy Neyman (for a historical summary, see <xref ref="Lehmann2011"/> or <xref ref="Stigler1986"/>). The history is messy because Fisher and Neyman were real people
         whose opinions changed over time, and at no point did either of them offer <q>the definitive
         statement</q> of how we should interpret their work many decades later. That said, here's a
         quick summary of these two approaches.

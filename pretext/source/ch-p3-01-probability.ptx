@@ -365,8 +365,9 @@
       <p>
         Consider Sir Ronald Fisher, one of the towering figures of 20th-century statistics and a
         vehement opponent of all things Bayesian, whose paper on the mathematical foundations of
-        statistics referred to Bayesian probability as <q>an impenetrable jungle [that] arrests
-        progress towards precision of statistical concepts</q>. Or the psychologist Paul Meehl, who
+        statistics <xref ref="Fisher1922b"/> referred to Bayesian probability as <q>an impenetrable jungle [that] arrests
+        progress towards precision of statistical concepts</q>. Or the psychologist Paul Meehl
+        <xref ref="Meehl1967"/>, who
         suggests that relying on frequentist methods could turn you into <q>a potent but sterile
         intellectual rake who leaves in his merry path a long train of ravished maidens but no viable
         scientific offspring</q>. The history of statistics, as you might gather, is not devoid of
