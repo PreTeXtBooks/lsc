@@ -289,4 +289,917 @@
     </subsection>
   </section>
 
+  <section xml:id="sec-r2">
+    <title>Quantifying the fit of the regression model</title>
+
+    <p>
+      So we now know how to estimate the coefficients of a linear regression model. The problem
+      is, we don't yet know if this regression model is any good. For example, the model
+      <em>claims</em> that every hour of sleep will improve the mood (i.e. reduce grumpiness) by
+      quite a lot, but it might just be rubbish. Remember, the regression model only produces a
+      prediction <m>\hat{Y}_i</m>. But the actual mood is <m>Y_i</m>. If these two are very
+      close, then the regression model has done a good job. If they are very different, then it
+      has done a bad job.
+    </p>
+
+    <p>
+      Once again, let's wrap a little bit of mathematics around this. Firstly, we have the sum
+      of the squared residuals:
+      <me>
+        \begin{array}{rcl}
+        \mbox{SS}_{res} \amp=\amp \sum_i (Y_i - \hat{Y}_i)^2 \\
+            \amp=\amp 1838.722
+        \end{array}
+      </me>
+    </p>
+
+    <p>
+      Secondly, we have the total variability in the outcome variable:
+      <me>
+        \begin{array}{rcl}
+        \mbox{SS}_{tot} \amp=\amp \sum_i (Y_i - \bar{Y})^2 \\
+            \amp=\amp  9998.59
+        \end{array}
+      </me>
+    </p>
+
+    <p>
+      Well, it's a much bigger number than the previous one, so this does suggest that our
+      regression model was making good predictions. But it's not very interpretable.
+    </p>
+
+    <p>
+      Perhaps we can fix this. What we'd like to do is to convert these two fairly meaningless
+      numbers into one number. A nice, interpretable number, which for no particular reason we'll
+      call <m>R^2</m>. What we would like is for the value of <m>R^2</m> to be equal to 1 if
+      the regression model makes no errors in predicting the data. In other words, if it turns
+      out that the residual errors are zero -- that is, if <m>\mbox{SS}_{res} = 0</m> -- then we
+      expect <m>R^2 = 1</m>. The formula that provides us with our <m>R^2</m> value is pretty
+      simple to write down,
+      <me>
+        \begin{array}{rcl}
+        R^2 \amp=\amp 1 - \dfrac{\mbox{SS}_{res}}{\mbox{SS}_{tot}} \\
+            \amp=\amp 1 - \dfrac{1838.722}{9998.59} \\
+            \amp=\amp 0.816
+        \end{array}
+      </me>
+    </p>
+
+    <p>
+      The <m>R^2</m> value, sometimes called the <term>coefficient of determination</term>, has
+      a simple interpretation: it is the <em>proportion</em> of the variance in the outcome
+      variable that can be accounted for by the predictor. So in this case, the fact that we have
+      obtained <m>R^2 = .816</m> means that the predictor (<c>parentsleep</c>) explains 81.6% of
+      the variance in the outcome (<c>parentgrump</c>).
+    </p>
+
+    <p>
+      The <m>R^2</m> value is not currently calculated and displayed by CogStat, so if you need
+      it, you'll have to hold on to your hat and read on a bit.
+    </p>
+
+    <p>
+      At this point, we can revisit our claim that regression, in this very simple form, is
+      basically the same thing as a correlation. Previously, we used the symbol <m>r</m> to
+      denote a Pearson correlation. Might there be some relationship between the value of the
+      correlation coefficient <m>r</m> and the <m>R^2</m> value from linear regression? Of
+      course there is!
+    </p>
+
+    <p>
+      The squared correlation <m>r^2</m> is identical to the <m>R^2</m> value for a linear
+      regression with only a single predictor. So when you scroll down to the end of the result
+      set, you can gather the Pearson correlation <m>r</m>.
+    </p>
+
+    <p>
+      You can see a more precise value in the <c>Standardised effect sizes</c> section of the
+      output: <c>Point estimation</c> for <c>Pearson's correlation, r</c> is <m>-0.903</m>
+      (with a CI 95% interval of <m>-0.934</m> to <m>-0.859</m>).
+    </p>
+
+    <p>
+      You'll also see a two-digit rounded version of it in the <c>Hypothesis tests</c> section:
+    </p>
+
+    <blockquote>
+      <p>
+        Pearson's correlation: <em>r</em>(98) = -0.90, <em>p</em> &lt; 0.001
+      </p>
+    </blockquote>
+
+    <figure xml:id="fig-cogstatrvsrsqrd">
+      <caption>CogStat output showing Pearson's correlation and its relationship to
+      <m>R^2</m></caption>
+      <image source="cogstatrvsrsqrd.png"/>
+    </figure>
+
+    <p>
+      So how about you square the Pearson correlation coefficient <m>r = -0.903</m>?
+      <me>
+        \begin{array}{rcl}
+        r^2 \amp=\amp (-0.903)^2 \\
+            \amp=\amp 0.816
+        \end{array}
+      </me>
+    </p>
+
+    <p>
+      Voilà, same number. In other words, running a Pearson correlation is more or less
+      equivalent to running a linear regression model that uses only one predictor variable.
+    </p>
+
+    <subsection xml:id="sec-adjustedr2">
+      <title>The adjusted <m>R^2</m> value</title>
+
+      <p>
+        One final thing to point out before moving on. It's quite common for people to report a
+        slightly different measure of model performance, known as <q>adjusted <m>R^2</m></q>.
+        The motivation behind calculating the adjusted <m>R^2</m> value is the observation that
+        adding more predictors into the model will <em>always</em> cause the <m>R^2</m> value to
+        increase (or at least not decrease). The adjusted <m>R^2</m> value introduces a slight
+        change to the calculation, as follows. For a regression model with <m>K</m> predictors,
+        fit to a data set containing <m>N</m> observations, the adjusted <m>R^2</m> is:
+        <me>
+          \mbox{adj. } R^2 = 1 - \left(\frac{\mbox{SS}_{res}}{\mbox{SS}_{tot}} \times
+          \frac{N-1}{N-K-1} \right)
+        </me>
+        This adjustment is an attempt to take the degrees of freedom into account. The big
+        advantage of the adjusted <m>R^2</m> value is that when you add more predictors to the
+        model, the adjusted <m>R^2</m> value will only increase if the new variables improve the
+        model performance more than you'd expect by chance. The big disadvantage is that the
+        adjusted <m>R^2</m> value <em>can't</em> be interpreted in the elegant way that
+        <m>R^2</m> can. <m>R^2</m> has a simple interpretation as the proportion of variance in
+        the outcome variable that is explained by the regression model but no equivalent
+        interpretation exists for adjusted <m>R^2</m>.
+      </p>
+
+      <p>
+        An obvious question then, is whether you should report <m>R^2</m> or adjusted
+        <m>R^2</m>. This is probably a matter of personal preference. If you care more about
+        interpretability, then <m>R^2</m> is better. If you care more about correcting for bias,
+        then adjusted <m>R^2</m> is probably better. This feature is not currently implemented
+        in CogStat. Just for your reference, the statistic for our example is:
+        <m>adj. R^2 = 0.814</m>. Not too big a difference.
+      </p>
+    </subsection>
+  </section>
+
+  <section xml:id="sec-regressiontests">
+    <title>Hypothesis tests for regression models</title>
+
+    <p>
+      So far, we've talked about what a regression model is, how the coefficients of a regression
+      model are estimated, and how we quantify the performance of the model (the last of these,
+      incidentally, is basically our measure of effect size). The next thing we need to talk about
+      is hypothesis tests for the regression models themselves.
+    </p>
+
+    <p>
+      There are two different (but related) kinds of hypothesis tests that we need to talk about:
+      those in which we test whether the regression model as a whole is performing significantly
+      better than a null model; and those in which we test whether a particular regression
+      coefficient is significantly different from zero.
+    </p>
+
+    <p>
+      At this point, you're probably groaning internally, thinking we're going to introduce a
+      whole new collection of tests. You're probably sick of hypothesis tests by now, and don't
+      want to learn any new ones. Well, you're lucky, because we can shamelessly reuse the
+      <m>F</m>-test from <xref ref="ch-anova"/> as an overall model test, and the <m>t</m>-test
+      from <xref ref="ch-ttest"/> as testing the coefficients.
+    </p>
+
+    <p>
+      Testing the overall regression model is not implemented in CogStat yet. As you've seen in
+      the result set, the Hypothesis tests section will show the Pearson's correlation coefficient
+      and the Spearman's rank-order correlation coefficient. To be clear, it is testing
+      particularly the null hypothesis that <em>the correlation coefficient is zero</em>, but not
+      the null hypothesis that <em>the regression model is not performing significantly better
+      than a null model</em>.
+    </p>
+
+    <p>
+      However, it's still good to understand these tests, so let's talk about them briefly.
+    </p>
+
+    <subsection xml:id="sec-regressionmodeltest">
+      <title>Testing the model as a whole</title>
+
+      <p>
+        Okay, suppose you've estimated your regression model. The first hypothesis test you might
+        want to try is one in which the null hypothesis is that there is <em>no relationship</em>
+        between the predictors and the outcome, and the alternative hypothesis is that <em>the
+        data are distributed in exactly the way that the regression model predicts</em>. Formally,
+        our <q>null model</q> corresponds to the fairly trivial <q>regression</q> model in which
+        we include 0 predictors, and only include the intercept term <m>b_0</m>
+        <me>
+          H_0: Y_i = b_0 + \epsilon_i
+        </me>
+      </p>
+
+      <p>
+        If our regression model has <m>K</m> predictors, the <q>alternative model</q> is
+        described using the usual formula for a multiple regression model:
+        <me>
+          H_1: Y_i = \left( \sum_{k=1}^K b_{k} X_{ik} \right) + b_0 + \epsilon_i
+        </me>
+      </p>
+
+      <p>
+        How can we test these two hypotheses against each other? The trick is to understand that
+        just like we did with ANOVA, it's possible to divide up the <em>total variance</em>
+        <m>\mbox{SS}_{tot}</m> into the <em>sum of the residual variance</em>
+        <m>\mbox{SS}_{res}</m> and the <em>regression model variance</em>
+        <m>\mbox{SS}_{mod}</m>. Skipping over the technicalities, note that:
+        <me>
+          \mbox{SS}_{mod} = \mbox{SS}_{tot} - \mbox{SS}_{res}
+        </me>
+      </p>
+
+      <p>
+        And, just like we did with the ANOVA, we can convert the sums of squares in to mean
+        squares by dividing by the degrees of freedom.
+        <me>
+          \begin{array}{rcl}
+          \mbox{MS}_{mod} \amp=\amp \displaystyle\frac{\mbox{SS}_{mod} }{df_{mod}} \\ \\
+          \mbox{MS}_{res} \amp=\amp \displaystyle\frac{\mbox{SS}_{res} }{df_{res} }
+          \end{array}
+        </me>
+      </p>
+
+      <p>
+        So, how many degrees of freedom do we have? As you might expect, the <m>df</m>
+        associated with the model is closely tied to the number of predictors that we've
+        included. In fact, it turns out that <m>df_{mod} = K</m>. For the residuals, the total
+        degrees of freedom is <m>df_{res} = N - K - 1</m>.
+      </p>
+
+      <p>
+        Now that we've got our mean square values, you're probably going to be entirely
+        unsurprised (possibly even bored) to discover that we can calculate an <m>F</m>-statistic
+        like this:
+        <me>
+          F =  \frac{\mbox{MS}_{mod}}{\mbox{MS}_{res}}
+        </me>
+        and the degrees of freedom associated with this are <m>K</m> and <m>N-K-1</m>. This
+        <m>F</m> statistic has exactly the same interpretation as the one we introduced in
+        <xref ref="ch-anova"/>. Large <m>F</m> values indicate that the null hypothesis is
+        performing poorly in comparison to the alternative hypothesis.
+      </p>
+
+      <p>
+        The <m>F</m>-test for our <c>parentsleep</c> and <c>parentgrump</c> variable pair is:
+        <me>
+          F(1, 98) = 434.906, p \lt 0.001
+        </me>
+      </p>
+    </subsection>
+
+    <subsection xml:id="sec-regressioncoeftest">
+      <title>Tests for individual coefficients</title>
+
+      <p>
+        The <m>F</m>-test that we've just introduced is useful for checking that the model as a
+        whole is performing better than chance. This is important: if your regression model
+        doesn't produce a significant result for the <m>F</m>-test then you probably don't have
+        a very good regression model (or, quite possibly, you don't have very good data).
+      </p>
+
+      <p>
+        However, while failing the <m>F</m>-test is a pretty strong indicator that the model has
+        problems, <em>passing</em> the test (i.e. rejecting the null) doesn't imply that the
+        model is good! Why is that, you might be wondering?
+      </p>
+
+      <p>
+        The estimated regression coefficient is quite large for the <c>parentsleep</c> variable
+        (<m>-8.937</m>).<fn>If you recall our result was: <c>Linear regression: y = -8.937x +
+        125.95</c></fn> Should we run an analysis with the pair of <c>babysleep</c> and
+        <c>parentgrump</c>, we'd notice the linear regression line is: <c>Linear regression: y =
+        -2.742x + 85.782</c>, meaning our regression coefficient is much smaller.
+      </p>
+
+      <p>
+        Let us combine these two predictors into a single model without CogStat,<fn>This feature
+        is not available in CogStat at the moment of writing, but this section will definitely be
+        updated when it is.</fn> and add both <c>babysleep</c> and <c>parentsleep</c> to the model
+        predicting <c>parentgrump</c>, we get the following result:
+      </p>
+
+      <table xml:id="tbl-linrcomb">
+        <title>Model coefficients for the combined model with both predictors at
+        <m>\alpha = 0.05</m></title>
+        <tabular halign="center">
+          <row header="yes">
+            <cell halign="left">Predictor</cell>
+            <cell>Coefficient estimate</cell>
+            <cell>95% CI (low)</cell>
+            <cell>95% CI (high)</cell>
+          </row>
+          <row>
+            <cell halign="left">babysleep</cell>
+            <cell>0.011</cell>
+            <cell>-0.527</cell>
+            <cell>0.549</cell>
+          </row>
+          <row>
+            <cell halign="left">parentsleep</cell>
+            <cell>-8.950</cell>
+            <cell>-10.049</cell>
+            <cell>-7.852</cell>
+          </row>
+          <row>
+            <cell halign="left">Intercept</cell>
+            <cell>125.966</cell>
+            <cell>119.930</cell>
+            <cell>132.001</cell>
+          </row>
+        </tabular>
+      </table>
+
+      <p>
+        Given that these two variables are absolutely on the same scale (they're both measured in
+        <q>hours slept</q>), this is suspicious. In fact, we should begin to suspect that the
+        amount of sleep that the parent gets is what really only matters in order to predict their
+        grumpiness.
+      </p>
+
+      <p>
+        Once again, we can reuse a hypothesis test that we discussed earlier, this time the
+        <m>t</m>-test. The test that we're interested in has a null hypothesis that the true
+        regression coefficient is zero (<m>b = 0</m>), which is to be tested against the
+        alternative hypothesis that it isn't (<m>b \neq 0</m>). That is:
+        <me>
+          \begin{array}{rl}
+          H_0: \amp b = 0 \\
+          H_1: \amp b \neq 0
+          \end{array}
+        </me>
+      </p>
+
+      <p>
+        How can we test this? Well, if the central limit theorem is kind to us, we might be able
+        to guess that the sampling distribution of <m>\hat{b}</m>, the estimated regression
+        coefficient, is a normal distribution with mean centred on <m>b</m>. What that would mean
+        is that if the null hypothesis were true, then the sampling distribution of <m>\hat{b}</m>
+        has mean zero and unknown standard deviation. Assuming that we can come up with a good
+        estimate for the standard error of the regression coefficient,
+        <m>\mbox{SE}({\hat{b}})</m>, then we're in luck. That's <em>exactly</em> the situation
+        for which we introduced the one-sample <m>t</m> way back in <xref ref="ch-ttest"/>. So
+        let's define a <m>t</m>-statistic like this,
+        <me>
+          t = \frac{\hat{b}}{\mbox{SE}({\hat{b})}}
+        </me>
+      </p>
+
+      <p>
+        Our degrees of freedom in this case are <m>df = N- K- 1</m>. Irritatingly, the estimate
+        of the standard error of the regression coefficient, <m>\mbox{SE}({\hat{b}})</m>, is not
+        as easy to calculate as the standard error of the mean that we used for the simpler
+        <m>t</m>-tests in <xref ref="ch-ttest"/>. In fact, the formula is somewhat ugly, and not
+        terribly helpful to look at. For our purposes, it's sufficient to point out that the
+        standard error of the estimated regression coefficient depends on both the predictor and
+        outcome variables, and is somewhat sensitive to violations of the homogeneity of variance
+        assumption (discussed shortly).
+      </p>
+
+      <p>
+        In any case, this <m>t</m>-statistic can be interpreted in the same way as the
+        <m>t</m>-statistics that we discussed in <xref ref="ch-ttest"/>. Assuming that you have a
+        two-sided alternative (i.e. you don't really care if <m>b &gt;0</m> or <m>b &lt; 0</m>),
+        then it's the extreme values of <m>t</m> (i.e. a lot less than zero or a lot greater than
+        zero) that suggest that you should reject the null hypothesis.
+      </p>
+
+      <table xml:id="tbl-linrcombnobeta">
+        <title>Model coefficients for the combined model with both predictors at
+        <m>\alpha = 0.05</m> with <m>t</m>-statistics</title>
+        <tabular halign="center">
+          <row header="yes">
+            <cell halign="left">Predictor</cell>
+            <cell>Coefficient estimate</cell>
+            <cell>95% CI (low)</cell>
+            <cell>95% CI (high)</cell>
+            <cell><m>t</m>-statistic</cell>
+            <cell><m>p</m>-value</cell>
+          </row>
+          <row>
+            <cell halign="left">babysleep</cell>
+            <cell>0.011</cell>
+            <cell>-0.527</cell>
+            <cell>0.549</cell>
+            <cell>0.039</cell>
+            <cell>0.969</cell>
+          </row>
+          <row>
+            <cell halign="left">parentsleep</cell>
+            <cell>-8.950</cell>
+            <cell>-10.049</cell>
+            <cell>-7.852</cell>
+            <cell>-16.172</cell>
+            <cell>&lt;.001</cell>
+          </row>
+          <row>
+            <cell halign="left">Intercept</cell>
+            <cell>125.966</cell>
+            <cell>119.930</cell>
+            <cell>132.001</cell>
+            <cell>41.423</cell>
+            <cell>&lt;.001</cell>
+          </row>
+        </tabular>
+      </table>
+
+      <p>
+        Let's run the <m>F</m>-test for the combined model with the total degrees of freedom is
+        <m>df_{res} = N - K - 1</m>, and we calculate the <m>R^2</m>, we get:
+        <me>
+          F(2, 97) = 215.238, p \lt 0.001
+        </me>
+        <me>
+          R^2 = 0.816
+        </me>
+      </p>
+
+      <p>
+        So in this case, the model performs significantly better than you'd expect by chance
+        (<m>F(2,97) = 215.2</m>, <m>p&lt;.001</m>), which isn't all that surprising: the
+        <m>R^2 = .816</m> value indicate that the regression model accounts for 81.6% of the
+        variability in the outcome measure. However, when we look back up at the
+        <m>t</m>-tests for each of the individual coefficients, we have pretty strong evidence
+        that the <c>babysleep</c> variable has no significant effect; all the work is being done
+        by the <c>parentsleep</c> variable. Taken together, these results suggest that
+        <c>babysleep &gt; parentgrump</c> is actually the wrong model for the data: you'd
+        probably be better off dropping the <c>babysleep</c> predictor entirely. In other words,
+        the <c>parentsleep &gt; parentgrump</c> model that we started with is the better model.
+      </p>
+    </subsection>
+
+    <subsection xml:id="sec-stdcoef">
+      <title>Calculating standardised regression coefficients</title>
+
+      <p>
+        One more thing that you might want to do is to calculate <q>standardised</q> regression
+        coefficients, often denoted <m>\beta</m>. The rationale behind standardised coefficients
+        goes like this. In a lot of situations, your variables are on fundamentally different
+        scales. E.g. a 7-point Likert scale compared to a 5-point one; IQ scores compared to
+        years of education; or, in our case, hours of sleep compared to grumpiness. In these
+        situations, it's not really fair to compare the regression coefficients for the two
+        variables.
+      </p>
+
+      <p>
+        Yet, there are situations where you simply must make comparisons between different
+        coefficients. Specifically, you might want some kind of standard measure of which
+        predictors have the strongest relationship to the outcome. This is what
+        <term>standardised coefficients</term> aim to do.
+      </p>
+
+      <p>
+        The basic idea is quite simple: the standardised coefficients are the coefficients that
+        you would have obtained if you'd converted all the variables to <m>z</m>-scores before
+        running the regression. The idea here is that, by converting all the predictors to
+        <m>z</m>-scores, they all go into the regression on the same scale, thereby removing the
+        problem of having variables on different scales. Regardless of what the original variables
+        were, a <m>\beta</m> value of 1 means that an increase in the predictor of 1 <em>standard
+        deviation</em> will produce a corresponding 1 <em>standard deviation increase</em> in the
+        outcome variable. Therefore, if variable A has a larger absolute value of <m>\beta</m>
+        than variable B, it is deemed to have a stronger relationship with the outcome. Or at
+        least that's the idea: it's worth being a little cautious here, since this does rely very
+        heavily on the assumption that <q>a 1 standard deviation change</q> is fundamentally the
+        same kind of thing for all variables. It's not always obvious that this is true.
+      </p>
+
+      <p>
+        Leaving aside the interpretation issues, let's look at how it's calculated. What you could
+        do is standardise all the variables yourself and then run a regression.<fn>Which is what
+        you have to do now, as this is not implemented in CogStat yet.</fn>
+      </p>
+
+      <p>
+        The <m>\beta</m> coefficient for a predictor <m>X</m> and outcome <m>Y</m> has a very
+        simple formula, namely
+        <me>
+          \beta_X = b_X \times \frac{\sigma_X}{\sigma_Y}
+        </me>
+        where <m>\sigma_X</m> is the standard deviation of the predictor, and <m>\sigma_Y</m> is
+        the standard deviation of the outcome variable <m>Y</m>.
+      </p>
+
+      <p>
+        What does this mean in our original example (i.e. <c>parentsleep</c> and
+        <c>parentgrump</c>)?
+      </p>
+
+      <p>
+        To calculate this manually with CogStat, you can use <c>Explore variable</c> function to
+        get the Standard deviation of both the predictor and outcome variables:
+      </p>
+
+      <ul>
+        <li><p>(<c>parentsleep</c> is <m>X</m>) <m>\sigma_X = 1.011</m>, and</p></li>
+        <li><p>(<c>parentgrump</c> is <m>Y</m>) <m>\sigma_Y = 10.0</m>.</p></li>
+      </ul>
+
+      <p>
+        Then you can use the <c>Explore relation of variable pair</c> function (which we've been
+        using in this Chapter) to get the <m>b_X</m> value. In this case, it was
+        <m>-8.937</m>. Let's put these figures in the formula:
+        <me>
+          \begin{array}{rcl}
+          \beta_X \amp=\amp b_X \times \dfrac{\sigma_X}{\sigma_Y} \\
+              \amp=\amp -8.937 \times \dfrac{1.011}{10} \\
+              \amp=\amp -0.903
+          \end{array}
+        </me>
+      </p>
+
+      <p>
+        To calculate it for our combined model manually, we can use the same, just with different
+        figures (see <xref ref="tbl-linrcombnobeta"/>): <m>b_X</m> for <c>parentsleep</c> is
+        <m>-8.950</m> and <m>b_X</m> for <c>babysleep</c> is <m>0.011</m>. We know the
+        <m>\sigma</m> values for <c>parentsleep</c> and <c>parentgrump</c>, so we only need to
+        calculate the <m>\sigma</m> value for <c>babysleep</c> using the <c>Explore variable</c>
+        and getting the Standard deviation. In this case, it's <m>2.064</m>.
+      </p>
+
+      <p>
+        So putting these in the formula, we get the followings:
+      </p>
+
+      <ul>
+        <li>
+          <p><c>parentsleep</c>:
+          <me>
+            \begin{array}{rcl}
+            \beta_X \amp=\amp b_X \times \dfrac{\sigma_X}{\sigma_Y} \\
+                \amp=\amp -8.950 \times \dfrac{1.011}{10} \\
+                \amp=\amp -0.905
+            \end{array}
+          </me></p>
+        </li>
+        <li>
+          <p><c>babysleep</c>:
+          <me>
+            \begin{array}{rcl}
+            \beta_X \amp=\amp b_X \times \dfrac{\sigma_X}{\sigma_Y} \\
+                \amp=\amp 0.011 \times \dfrac{2.064}{10} \\
+                \amp=\amp 0.002
+            \end{array}
+          </me></p>
+        </li>
+      </ul>
+
+      <table xml:id="tbl-linrcombstd">
+        <title>Model coefficients (both estimate and standardised estimate) for the combined
+        model with both predictors at <m>\alpha = 0.05</m> with <m>t</m>-statistics</title>
+        <tabular halign="center">
+          <row header="yes">
+            <cell halign="left">Predictor</cell>
+            <cell>Coefficient estimate</cell>
+            <cell>Standardised coefficient (<m>\beta</m>)</cell>
+            <cell>95% CI (low)</cell>
+            <cell>95% CI (high)</cell>
+            <cell><m>t</m>-statistic</cell>
+            <cell><m>p</m>-value</cell>
+          </row>
+          <row>
+            <cell halign="left">babysleep</cell>
+            <cell>0.011</cell>
+            <cell>0.002</cell>
+            <cell>-0.527</cell>
+            <cell>0.549</cell>
+            <cell>0.039</cell>
+            <cell>0.969</cell>
+          </row>
+          <row>
+            <cell halign="left">parentsleep</cell>
+            <cell>-8.950</cell>
+            <cell>-0.905</cell>
+            <cell>-10.049</cell>
+            <cell>-7.852</cell>
+            <cell>-16.172</cell>
+            <cell>&lt;.001</cell>
+          </row>
+          <row>
+            <cell halign="left">Intercept</cell>
+            <cell>125.966</cell>
+            <cell>--</cell>
+            <cell>119.930</cell>
+            <cell>132.001</cell>
+            <cell>41.423</cell>
+            <cell>&lt;.001</cell>
+          </row>
+        </tabular>
+      </table>
+
+      <p>
+        This clearly shows that the <c>parentsleep</c> variable has a much stronger effect than
+        the <c>babysleep</c> variable. Also, let's not forget that this <m>\beta</m> coefficient
+        can also have a confidence interval, which we are not going to cover now.
+      </p>
+
+      <p>
+        This, however, is a perfect example of a situation where it would probably make sense to
+        use the original coefficients <m>b</m> rather than the standardised coefficients
+        <m>\beta</m>. After all, the parent's sleep and the baby's sleep are <em>already</em> on
+        the same scale: number of hours slept. Why complicate matters by converting these to
+        <m>z</m>-scores?
+      </p>
+    </subsection>
+  </section>
+
+  <section xml:id="sec-regressiondiagnostics">
+    <title>Model checking</title>
+
+    <p>
+      The main focus of this section is <term>regression diagnostics</term>, a term that refers
+      to the art of checking that the assumptions of your regression model have been met, figuring
+      out how to fix the model if the assumptions are violated, and generally to check that
+      nothing <q>funny</q> is going on.
+    </p>
+
+    <p>
+      If done manually, and not with an automatic statistics software, it's easy to get lost in
+      all the details of checking this thing or that thing, and it's quite exhausting to try to
+      remember what all the different things are. This has the very nasty side effect that a lot
+      of people get frustrated when trying to learn <em>all</em> the tools, so instead they
+      decide not to do <em>any</em> model checking. This is a bit of a worry!
+    </p>
+
+    <p>
+      In this section, we discuss several different things you can theoretically do to check that
+      your regression model is doing what it's supposed to.
+    </p>
+
+    <subsection xml:id="sec-threeresiduals">
+      <title>Three kinds of residuals</title>
+
+      <p>
+        The majority of regression diagnostics revolve around looking at the residuals. In
+        particular, the following three kinds of residual are referred to in this section:
+        <q>ordinary residuals</q> (which in some cases is identical to <q>Pearson residual</q>),
+        <q>standardised residuals</q>, and <q>Studentised residuals</q>.
+      </p>
+
+      <p>
+        The first and simplest kind of residuals that we care about are
+        <term>ordinary residuals</term>. These are the actual, raw residuals we've been talking
+        about throughout this chapter. The ordinary residual is just the difference between the
+        fitted value <m>\hat{Y}_i</m> and the observed value <m>Y_i</m>. We've been using the
+        notation <m>\epsilon_i</m> to refer to the <m>i</m>-th ordinary residual. With this in
+        mind, we have a very simple equation:
+        <me>
+          \epsilon_i = Y_i - \hat{Y}_i
+        </me>
+      </p>
+
+      <p>
+        One drawback to using ordinary residuals is that they're always on a different scale,
+        depending on what the outcome variable is and how good the regression model is. The
+        ordinary residuals will have mean 0; but the variance is different for every regression.
+      </p>
+
+      <p>
+        In a lot of contexts, especially where you're only interested in the <em>pattern</em> of
+        the residuals and not their actual values, it's convenient to estimate the
+        <term>standardised residuals</term>, which are normalised in such a way as to have
+        standard deviation 1. The way we calculate these is, we divide the ordinary residual by
+        an estimate of the (population) standard deviation of these residuals. For technical
+        reasons, the formula for this is:
+        <me>
+          \epsilon_{i}^\prime = \frac{\epsilon_i}{\hat{\sigma} \sqrt{1-h_i}}
+        </me>
+        where <m>\hat\sigma</m> in this context is the estimated population standard deviation of
+        the ordinary residuals, and <m>h_i</m> is the <q>hat value</q> of the <m>i</m>th
+        observation. For now, it's enough to interpret the standardised residuals as if we'd
+        converted the ordinary residuals to <m>z</m>-scores. In fact, that is more or less the
+        truth, it's just that we're being a bit fancier.
+      </p>
+
+      <p>
+        The third kind of residuals are <term>Studentised residuals</term>, and they're even
+        fancier than standardised residuals. Again, the idea is to take the ordinary residual and
+        divide it by some quantity in order to estimate some standardised notion of the residual,
+        but the formula for doing the calculations this time is subtly different:
+        <me>
+          \epsilon_{i}^* = \frac{\epsilon_i}{\hat{\sigma}_{(-i)} \sqrt{1-h_i}}
+        </me>
+      </p>
+
+      <p>
+        Notice that our estimate of the standard deviation here is written
+        <m>\hat{\sigma}_{(-i)}</m>. This corresponds to the estimate of the residual standard
+        deviation that you <em>would have obtained</em>, if you just deleted the <m>i</m>th
+        observation from the data set. This sounds like the sort of thing that would be a
+        nightmare to calculate, since it seems to be saying that you have to run <m>N</m> new
+        regression models (even a modern computer might grumble a bit at that, especially if
+        you've got a large data set). Fortunately, this standard deviation estimate is actually
+        given by the following equation:
+        <me>
+          \hat\sigma_{(-i)} = \hat{\sigma} \ \sqrt{\frac{N-K-1 - {\epsilon_{i}^\prime}^2}{N-K-2}}
+        </me>
+      </p>
+
+      <p>
+        It's always nice to know how to actually get hold of these things yourself in case you
+        ever need to do something non-standard.
+      </p>
+    </subsection>
+
+    <subsection xml:id="sec-regressionoutliers">
+      <title>Three kinds of anomalous data</title>
+
+      <p>
+        One danger that you can run into with linear regression models is that your analysis
+        might be disproportionately sensitive to a smallish number of <q>unusual</q> or
+        <q>anomalous</q> observations. In the context of linear regression, there are three
+        conceptually distinct ways in which an observation might be called <q>anomalous</q>. All
+        three are interesting, but they have rather different implications for your analysis.
+      </p>
+
+      <p>
+        The first kind of unusual observation is an <term>outlier</term>. The definition of an
+        outlier (in this context) is an observation that is very different from what the
+        regression model predicts. In practice, we operationalise this concept by saying that an
+        outlier is an observation that has a very large Studentised residual, <m>\epsilon_i^*</m>.
+        Outliers are interesting: a big outlier <em>might</em> correspond to junk data. E.g. the
+        variables might have been entered incorrectly, or some other defect may be detectable.
+        Note that you shouldn't throw an observation away just because it's an outlier. But the
+        fact that it's an outlier is often a cue to look more closely at that case, and try to
+        find out why it's so different.
+      </p>
+
+      <figure xml:id="fig-outlier">
+        <caption>An illustration of outliers. The dotted lines plot the regression line that
+        would have been estimated without the anomalous observation included, and the
+        corresponding residual (i.e. the Studentised residual). The solid line shows the
+        regression line with the anomalous observation included. The outlier has an unusual value
+        on the outcome (y axis location) but not the predictor (x axis location), and lies a
+        long way from the regression line.</caption>
+        <image source="unusual_outlier.png"/>
+      </figure>
+
+      <p>
+        The second way in which an observation can be unusual is if it has high
+        <term>leverage</term>: this happens when the observation is very different from all the
+        other observations. This doesn't necessarily have to correspond to a large residual: if
+        the observation happens to be unusual on all variables in precisely the same way, it can
+        actually lie very close to the regression line. An example of this is shown in
+        <xref ref="fig-leverage"/>.
+      </p>
+
+      <figure xml:id="fig-leverage">
+        <caption>An illustration of high leverage points. The anomalous observation in this case
+        is unusual both in terms of the predictor (x axis) and the outcome (y axis), but this
+        unusualness is highly consistent with the pattern of correlations that exists among the
+        other observations; as a consequence, the observation falls very close to the regression
+        line and does not distort it.</caption>
+        <image source="unusual_leverage.png"/>
+      </figure>
+
+      <p>
+        The leverage of an observation is operationalised in terms of its <em>hat value</em>,
+        usually written <m>h_i</m>. The formula for the hat value is rather
+        complicated<fn>For the linear algebra fanatics: the <q>hat matrix</q> is defined to be
+        that matrix <m>H</m> that converts the vector of observed values <m>y</m> into a vector
+        of fitted values <m>\hat{y}</m>, such that <m>\hat{y} = H y</m>. The name comes from the
+        fact that this is the matrix that <q>puts a hat on <m>y</m></q>. The hat <em>value</em>
+        of the <m>i</m>-th observation is the <m>i</m>-th diagonal element of this matrix (so
+        technically: <m>h_{ii}</m> rather than <m>h_{i}</m>). Here's how it's calculated:
+        <m>H = X(X^TX)^{-1} X^T</m>. Pretty, isn't it?</fn> but its interpretation is not:
+        <m>h_i</m> is a measure of the extent to which the <m>i</m>-th observation is <q>in
+        control</q> of where the regression line ends up going.
+      </p>
+
+      <p>
+        In general, if an observation lies far away from the other ones in terms of the predictor
+        variables, it will have a large hat value (as a rough guide, high leverage is when the
+        hat value is more than 2-3 times the average; and note that the sum of the hat values is
+        constrained to be equal to <m>K+1</m>). High leverage points are also worth looking at
+        in more detail, but they're much less likely to be a cause for concern unless they are
+        also outliers.
+      </p>
+
+      <p>
+        This brings us to our third measure of unusualness, the <term>influence</term> of an
+        observation. A high influence observation is an outlier that has high leverage. That is,
+        it is an observation that is very different to all the other ones in some respect, and
+        also lies a long way from the regression line. This is illustrated in
+        <xref ref="fig-influence"/>. Notice the contrast to the previous two figures: outliers
+        don't move the regression line much, and neither do high leverage points. But an outlier
+        that has high leverage will have a big effect on the regression line.
+      </p>
+
+      <figure xml:id="fig-influence">
+        <caption>An illustration of high influence points. In this case, the anomalous
+        observation is highly unusual on the predictor variable (x axis), and falls a long way
+        from the regression line. As a consequence, the regression line is highly distorted,
+        even though (in this case) the anomalous observation is entirely typical in terms of
+        the outcome variable (y axis).</caption>
+        <image source="unusual_influence.png"/>
+      </figure>
+
+      <p>
+        That's why we call these points high-influence; and it's why they're the biggest worry.
+        We operationalise influence in terms of a measure known as <term>Cook's distance</term>,
+        <me>
+          D_i = \frac{{\epsilon_i^*}^2 }{K+1} \times \frac{h_i}{1-h_i}
+        </me>
+      </p>
+
+      <p>
+        Notice that this is a multiplication of something that measures the outlier-ness of the
+        observation (the bit on the left), and something that measures the leverage of the
+        observation (the bit on the right). In other words, in order to have a large Cook's
+        distance, an observation must be a fairly substantial outlier <em>and</em> have high
+        leverage. Some statistics software will provide you with this measure, but it is not
+        available in CogStat yet. It is good to know about it, though.
+      </p>
+
+      <p>
+        As a rough guide, Cook's distance greater than 1 is often considered large, though a
+        quick scan of the internet and a few papers suggests that <m>4/N</m> has also been
+        suggested as a possible rule of thumb.
+      </p>
+
+      <p>
+        An obvious question to ask next is, if you do have large values of Cook's distance, what
+        should you do? As always, there's no hard-and-fast rules. Probably the first thing to do
+        is to run the regression with that point excluded (i.e. removing it from the source data)
+        and see what happens to the model performance and to the regression coefficients. If they
+        really are substantially different, it's time to start digging into your data set and your
+        notes that you no doubt were scribbling as your ran your study; try to figure out
+        <em>why</em> the point is so different. If you start to become convinced that this one
+        data point is badly distorting your results, you might consider excluding it, but that's
+        less than ideal unless you have a solid explanation for why this particular case is
+        qualitatively different from the others and therefore deserves to be handled separately.
+      </p>
+    </subsection>
+
+    <subsection xml:id="sec-regressionnormality">
+      <title>Checking the normality of the residuals</title>
+
+      <p>
+        Like many of the statistical tools we've discussed in this book, regression models rely
+        on a normality assumption. In this case, we assume that the residuals are normally
+        distributed. It never hurts to draw a histogram. You've seen an example of this very
+        early on in this Chapter in <xref ref="fig-residualanalysisplot"/>. If the residuals are
+        normally distributed, you should see a roughly bell-shaped curve in the right-hand chart.
+        CogStat will automatically test for normality as usual.
+      </p>
+
+      <p>
+        The test used by CogStat is not the Shapiro-Wilk test but the <term>Henze-Zirkler
+        test</term> of multivariate normality, but it also provides us with a <m>W</m>-value and
+        <m>p</m>-value. And the rule is, again, if the <m>p</m>-value is less than 0.05, we can
+        reject the null hypothesis that the residuals are normally distributed, meaning, our data
+        set violates the assumption of normality.
+      </p>
+
+      <p>
+        In such a case, CogStat will specifically call out that the confidence intervals for the
+        regression coefficients and the intercept might be biased. Also, only the Spearman's
+        rank-order correlation will be run as part of the Hypothesis tests, because Pearson's
+        correlation assumes normality.
+      </p>
+    </subsection>
+
+    <subsection xml:id="sec-regressionhomogeneity">
+      <title>Checking the homoscedasticity of the residuals</title>
+
+      <p>
+        The regression models that we've talked about all make a homogeneity of variance
+        assumption: the variance of the residuals is assumed to be constant. Again, you might
+        recall from <xref ref="fig-residualanalysisplot"/> that if on the left chart, the
+        residuals are leaning towards one of the sides and are not spread more or less evenly,
+        this is a sign that the variance is not constant, hence the homoscedasticity assumption
+        is violated.
+      </p>
+
+      <p>
+        CogStat uses two tests to determine whether the homoscedasticity assumption is violated
+        (meaning the data is <em>heteroscedastic</em>):
+      </p>
+
+      <ul>
+        <li><p><term>Koenker's studentised score test</term> is a studentised version of
+        Breusch-Pagan's score test, and is robust when long-tailed errors or unusual observations
+        are present;</p></li>
+        <li><p><term>White's test</term> tests for bias due to heteroskedasticity, but it's
+        generally advised to use Koenker's test instead.</p></li>
+      </ul>
+
+      <p>
+        Both tests will give you a test statistic (<m>LM</m><fn>Lagrange Multiplier — which is
+        beyond this textbook's scope to cover.</fn>) and a <m>p</m>-value. If either test's
+        <m>p</m>-value is less than 0.05, we can reject the null hypothesis that the residuals
+        are homoscedastic, in which case CogStat will specifically call out that the confidence
+        intervals for the regression coefficients and the intercept might be biased, and will run,
+        again, only the Spearman's rank-order correlation as part of the Hypothesis tests.
+      </p>
+    </subsection>
+  </section>
+
 </chapter>
