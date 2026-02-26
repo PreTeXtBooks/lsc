@@ -245,8 +245,8 @@
 
     <biblio type="raw" xml:id="Fisher1922b">
       Fisher, R. A. (1922b).
-      On the mathematical foundations of theoretical statistics.
-      <em>Philosophical Transactions of the Royal Society of London, Series A</em>, 222,
+      On the mathematical foundation of theoretical statistics.
+      <em>Philosophical Transactions of the Royal Society A</em>, 222,
       309<ndash/>368.
     </biblio>
 
@@ -302,7 +302,7 @@
 
     <biblio type="raw" xml:id="Stigler1986">
       Stigler, S. M. (1986).
-      <em>The History of Statistics: The Measurement of Uncertainty Before 1900</em>.
+      <em>The History of Statistics</em>.
       Harvard University Press.
     </biblio>
   </references>
