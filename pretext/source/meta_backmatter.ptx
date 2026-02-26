@@ -7,6 +7,31 @@
   <references xml:id="references">
     <title>References</title>
 
+    <biblio type="raw" xml:id="Cohen1988">
+      Cohen, J. (1988). <em>Statistical Power Analysis for the Behavioral Sciences</em> (2nd ed.).
+      Lawrence Erlbaum.
+    </biblio>
+
+    <biblio type="raw" xml:id="Ellis2010">
+      Ellis, P. D. (2010).
+      <em>The Essential Guide to Effect Sizes: Statistical Power, Meta-Analysis, and the
+      Interpretation of Research Results</em>.
+      Cambridge University Press.
+    </biblio>
+
+    <biblio type="raw" xml:id="Gelman2006">
+      Gelman, A. and Stern, H. (2006).
+      The difference between <q>significant</q> and <q>not significant</q> is not itself
+      statistically significant.
+      <em>The American Statistician</em>, 60, 328<ndash/>331.
+    </biblio>
+
+    <biblio type="raw" xml:id="Lehmann2011">
+      Lehmann, E. L. (2011).
+      <em>Fisher, Neyman, and the Creation of Classical Statistics</em>.
+      Springer.
+    </biblio>
+
     <biblio type="raw" xml:id="Fisher1925">
       Fisher, R. A. (1925). <em>Statistical Methods for Research Workers</em>.
       Edinburgh, UK: Oliver and Boyd.
