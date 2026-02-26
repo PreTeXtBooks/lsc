@@ -1035,7 +1035,10 @@
 
       <p>
         In the context of the ESP study, we might still care, since any demonstration of real
-        psychic powers would actually be pretty cool, but in other contexts, a 1% difference isn't
+        psychic powers would actually be pretty cool,<fn>Although, in practice, a very small effect
+        size is worrying because even very minor methodological flaws might be responsible for the
+        effect. And in practice, no experiment is perfect, so there are always methodological issues
+        to worry about.</fn> but in other contexts, a 1% difference isn't
         very interesting, even if it is a real difference.
       </p>
 
@@ -1069,7 +1072,14 @@
         means that you want to design your study so that the effect size gets magnified. For
         instance, in the ESP study, we might believe that psychic powers work best in a quiet,
         darkened room; with fewer distractions to cloud the mind. Therefore, we would try to conduct
-        the experiments in such an environment.
+        the experiments in such an environment. If we can strengthen people's ESP abilities somehow,
+        then the true value of <m>\theta</m> will go up<fn>Notice that the true population parameter
+        <m>\theta</m> doesn't necessarily correspond to an immutable fact of nature. In this context,
+        <m>\theta</m> is just the true probability that people would correctly guess the colour of
+        the card in the other room. As such, the population parameter can be influenced by all sorts
+        of things. Of course, this is all on the assumption that ESP actually exists!</fn> and,
+        therefore, our effect size will be larger. In short, clever experimental design is one way
+        to boost power; because it can alter the effect size.
       </p>
 
       <p>
@@ -1093,7 +1103,10 @@
       <figure xml:id="fig-powerfunctionsample">
         <caption>The power of our test, plotted as a function of the sample size <m>N</m>. In this
         case, the true value of <m>\theta</m> is 0.7, but the null hypothesis is that
-        <m>\theta = 0.5</m>. Overall, larger <m>N</m> means greater power.</caption>
+        <m>\theta = 0.5</m>. Overall, larger <m>N</m> means greater power. (The small zig-zags in
+        this function occur because of some odd interactions between <m>\theta</m>, <m>\alpha</m>
+        and the fact that the binomial distribution is discrete; it doesn't matter for any serious
+        purpose)</caption>
         <image source="powerfunctionsample-1.svg" width="70%"/>
       </figure>
 
@@ -1124,6 +1137,8 @@
       you hate it, you need to know it. However, the approach is not without problems. There are
       several quirks in the framework, historical oddities in how it came to be, theoretical
       disputes over whether or not the framework is proper, and many practical traps for the unwary.
+      Without going into much detail on this topic, it's worth briefly discussing a few of these
+      issues.
     </p>
 
     <subsection xml:id="subsec-neyman-vs-fisher">
