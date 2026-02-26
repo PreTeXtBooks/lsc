@@ -5,8 +5,288 @@
 
   <introduction>
     <p>
-      Content to be added.
+      In the past few chapters, we discussed how to test whether your outcome variable's average
+      value is higher in one group or another. In other words, we have been focusing on
+      <em>differences</em> between group means or their standard deviations.
+    </p>
+
+    <p>
+      The goal of this chapter is to introduce <term>linear regression</term>, the standard tool
+      that statisticians rely on when analysing the <em>relationship</em> between interval scale
+      <em>predictors</em> and interval scale <em>outcomes</em>. Stripped to its bare essentials,
+      linear regression models are basically a slightly fancier version of the Pearson correlation
+      (<xref ref="ch-correlation"/>). Though as we'll see, regression models are much more powerful
+      tools.
+    </p>
+
+    <p>
+      You might have seen already in <xref ref="ch-correlation"/> that CogStat gives you a linear
+      regression result. You might also recall the charts with the regression line and the
+      residuals. In this chapter, we'll learn how to interpret these results and how to use them
+      to make predictions.
     </p>
   </introduction>
+
+  <section xml:id="sec-introregression">
+    <title>What is a linear regression model?</title>
+
+    <p>
+      Since the basic ideas in regression are closely tied to correlation, we'll return to the
+      <c>parenthood.csv</c> file that we were using to illustrate how correlations work. In this
+      data set, we were analysing babies', parents' and their sleep, and the parents' grumpiness.
+    </p>
+
+    <p>
+      Let's go ahead and use <c>Explore relation of a variable pair</c> function with
+      <c>parentsleep</c> and <c>parentgrump</c> variables.
+    </p>
+
+    <figure xml:id="fig-parentscatters">
+      <caption>Scatterplots of parent sleep and grumpiness</caption>
+      <sidebyside widths="45% 45%">
+        <image source="parentsleepgrumpplotnolinreg.png"/>
+        <image source="parentsleepgrumpplot.png"/>
+      </sidebyside>
+    </figure>
+
+    <p>
+      You'll notice that you have two charts (scatterplots) which are very similar: there's one
+      with and one without a line. The line is called a <term>regression line</term>, and it shows
+      the relationship between two variables. It's a straight line that goes through the data
+      points. But what does this mean?
+    </p>
+
+    <p>
+      The formula for a straight line is usually written like this:
+      <me>
+        y = mx + c
+      </me>
+      The two <em>variables</em> are <m>x</m> and <m>y</m>, and we have two <em>coefficients</em>,
+      <m>m</m> and <m>c</m>. The coefficient <m>m</m> represents the <em>slope</em> of the line
+      (<term>regression coefficient</term>), and the coefficient <m>c</m> represents the
+      <em><m>y</m>-intercept</em> (<term>intercept</term>) of the line.
+    </p>
+
+    <p>
+      The regression coefficient is the change in the outcome variable for every unit change in
+      the predictor variable. A slope of <m>m</m> means that if you increase the <m>x</m>-value
+      by 1 unit, then the <m>y</m>-value goes up by <m>m</m> units; a negative slope means that
+      the <m>y</m>-value would go down rather than up. The intercept is the value of the outcome
+      variable when the predictor variable is zero (<m>x=0</m>).
+    </p>
+
+    <p>
+      If <m>Y</m> is the outcome variable (the DV) and <m>X</m> is the predictor variable (the
+      IV), then the formula that describes our regression is written like this:
+      <me>
+        \hat{Y_i} = b_1 X_i + b_0
+      </me>
+      Looks like the same formula, but there are some extra frilly bits in this version. Let's
+      make sure we understand them. Firstly, notice that we have <m>X_i</m> and <m>Y_i</m> rather
+      than just plain old <m>X</m> and <m>Y</m>. This is because we want to remember that we're
+      dealing with actual data. In this equation, <m>X_i</m> is the value of the predictor
+      variable for the <m>i</m>th observation (i.e. the number of hours of sleep on day
+      <m>i</m>), and <m>Y_i</m> is the corresponding value of the outcome variable (i.e. the
+      grumpiness on that day). We're assuming that this formula works for all observations in the
+      data set (i.e. for all <m>i</m>). Secondly, we also have <m>\hat{Y}_i</m> and not
+      <m>Y_i</m>. This is because we want to make the distinction between the <em>actual data</em>
+      <m>Y_i</m>, and the <em>estimate</em> <m>\hat{Y}_i</m> (i.e. the prediction that our
+      regression line is making). Thirdly, we changed the letters used to describe the
+      coefficients from <m>m</m> and <m>c</m> to <m>b_1</m> and <m>b_0</m>. That's just the way
+      that statisticians like to refer to the coefficients in a regression model. In any case,
+      <m>b_0</m> always refers to the intercept term, and <m>b_1</m> refers to the slope.
+    </p>
+
+    <p>
+      We see that the data don't fall perfectly on the line. In other words, the data <m>Y_i</m>
+      are not identical to the predictions of the regression model <m>\hat{Y_i}</m>. Since
+      statisticians love to attach letters, names and numbers to everything, let's refer to the
+      difference between the model prediction and that actual data point as a <em>residual</em>,
+      and we'll refer to it as <m>\epsilon_i</m>.<fn>The <m>\epsilon</m> symbol is the Greek
+      letter epsilon. It's traditional to use <m>\epsilon_i</m> or <m>e_i</m> to denote a
+      residual.</fn> The residuals are defined as:
+      <me>
+        \epsilon_i = Y_i - \hat{Y}_i
+      </me>
+      which in turn means that we can write down the complete linear regression model as:
+      <me>
+        Y_i = b_1 X_i + b_0 + \epsilon_i
+      </me>
+    </p>
+  </section>
+
+  <section xml:id="sec-regressionestimation">
+    <title>Estimating a linear regression model</title>
+
+    <p>
+      Let's redraw the scatterplots just for this example's sake adding some dotted lines to show
+      the distance of each data point to the regression line. The length of the lines from the
+      points to the regression line is proportional to the size of the residual.
+    </p>
+
+    <figure xml:id="fig-parentresiduallines">
+      <caption>Scatterplot outputs from CogStat of <c>parentsleep</c> and <c>parentgrump</c>
+      with and without regression lines</caption>
+      <image source="parentresiduallines.png"/>
+    </figure>
+
+    <p>
+      When the regression line is good, our residuals (the lengths of the dotted black lines) all
+      look pretty small, but when the regression line is a bad one, the residuals are a lot
+      larger. The <q>best fitting</q> regression line is the one that has the smallest residuals.
+      Or better yet:
+    </p>
+
+    <blockquote>
+      <p>
+        The estimated regression coefficients, <m>\hat{b}_0</m> and <m>\hat{b}_1</m> are those
+        that minimise the sum of the squared residuals, which we could either write as
+        <m>\sum_i (Y_i - \hat{Y}_i)^2</m> or as <m>\sum_i {\epsilon_i}^2</m>.
+      </p>
+    </blockquote>
+
+    <p>
+      Do note that our regression coefficients are <em>estimates</em> (we're trying to guess the
+      parameters that describe a population), which is why we have the little hats, so that we
+      get <m>\hat{b}_0</m> and <m>\hat{b}_1</m> rather than <m>b_0</m> and <m>b_1</m>. Since
+      there's actually more than one way to estimate a regression model, the more technical name
+      for this estimation process is <term>ordinary least squares (OLS) regression</term>.
+    </p>
+
+    <p>
+      At this point, we now have a concrete definition for what counts as our <q>best</q> choice
+      of regression coefficients, <m>\hat{b}_0</m> and <m>\hat{b}_1</m>. The natural question to
+      ask next is, if our optimal regression coefficients are those that minimise the sum squared
+      residuals, how do we <em>find</em> these wonderful numbers? The actual answer to this
+      question is complicated, and it doesn't help you understand the logic of
+      regression.<fn>On the off chance that someone reading this is a proper kung fu master of
+      linear algebra, it <em>will</em> help <em>you</em> to know that the solution to the
+      estimation problem turns out to be <m>\hat{b} = (X^TX)^{-1} X^T y</m>, where <m>\hat{b}</m>
+      is a vector containing the estimated regression coefficients, <m>X</m> is the
+      <q>design matrix</q> that contains the predictor variables (plus an additional column
+      containing all ones; strictly <m>X</m> is a matrix of the regressors.), and <m>y</m> is a
+      vector containing the outcome variable. For everyone else, this isn't exactly helpful, and
+      can be downright scary. However, since quite a few things in linear regression can be
+      written in linear algebra terms, you'll see a bunch of footnotes like this one in this
+      chapter. If you can follow the maths in them, great. If not, ignore it.</fn> As a result,
+      this time we're just going to interpret the results.
+    </p>
+  </section>
+
+  <section xml:id="sec-regressioninterpretation">
+    <title>Interpreting the results of a linear regression</title>
+
+    <p>
+      We see that CogStat gave us the formula for our line:
+    </p>
+
+    <table xml:id="tbl-samprop1">
+      <title>Sample properties: regression equation</title>
+      <tabular>
+        <row>
+          <cell><em>Sample properties</em></cell>
+        </row>
+        <row>
+          <cell>Linear regression: y = -8.937x + 125.956</cell>
+        </row>
+      </tabular>
+    </table>
+
+    <p>
+      The most important thing to be able to understand is how to interpret these coefficients.
+      Let's start with <m>\hat{b}_1</m>, the slope. If we remember the definition of the slope, a
+      regression coefficient of <m>\hat{b}_1 = -8.937</m> means that if we increase <m>X_i</m>
+      by 1, then we are decreasing <m>Y_i</m> by 8.937. That is, each additional hour of sleep
+      that the parent gains will improve their mood reducing their grumpiness by 8.937 grumpiness
+      points.
+    </p>
+
+    <p>
+      What about the intercept? Well, since <m>\hat{b}_0</m> corresponds to <q>the expected value
+      of <m>Y_i</m> when <m>X_i</m> equals 0</q>, it's pretty straightforward. It implies that
+      if the parent gets zero hours of sleep (<m>X_i =0</m>) then their grumpiness will go off
+      the scale, to an insane value of (<m>Y_i = 125.956</m>). Best to be avoided.
+    </p>
+
+    <p>
+      The next section in the output is a <em>Residual analysis</em>.
+    </p>
+
+    <figure xml:id="fig-residualanalysisplot">
+      <caption>Residual analysis plots from CogStat</caption>
+      <image source="parentresidualanalysis.png"/>
+    </figure>
+
+    <p>
+      The residual plot shows a horizontal line at zero. The <m>x</m> axis shows the independent
+      variable (i.e. <c>parentsleep</c>), and the <m>y</m> axis shows the residual values.
+      Ideally, the points should be all over the place randomly. If they are not, then there is a
+      problem with the model. This can be due to outliers, or you have a nonlinear relationship
+      between the variables. The residual plot is a good way to check for these problems.
+    </p>
+
+    <p>
+      Next to the residual plot, you see a sideways histogram. It depicts the distribution of the
+      residuals. Ideally, the residuals should be normally distributed. If they are not, then,
+      again, you have a problem with your model.
+    </p>
+
+    <p>
+      In our example, the residuals are beautifully random, and their distribution is normal. This
+      is a sign that our model is a good one.
+    </p>
+
+    <p>
+      Within the <c>Population parameter estimations</c>, you'll see the estimated regression
+      coefficients with their 95% confidence interval given. The confidence interval is a range of
+      values that we are 95% confident that the true value of the parameter lies within. In this
+      case, we are 95% confident that the true value of the slope is between -9.787 and -8.086,
+      and that the true value of the intercept is between 119.971 and 131.942. You'll also see a
+      chart depicting the confidence intervals for the regression line. You'll also note that
+      normality and homoscedasticity are checked. These are two assumptions of linear regression.
+      Normality means that the residuals are normally distributed, which we saw earlier.
+      Homoscedasticity means, very simplistically, that the residuals are equally distributed
+      across the range of the independent variable, so there is no big chunk on one side of the
+      residual plot.
+    </p>
+
+    <figure xml:id="fig-parentregressionresults">
+      <caption>Regression coefficients</caption>
+      <image source="cogstatregressioncoeff.png"/>
+    </figure>
+
+    <subsection xml:id="sec-regressionci">
+      <title>Confidence intervals for the coefficients</title>
+
+      <p>
+        Like any population parameter, the regression coefficients cannot be estimated with
+        complete precision from a sample of data; that's part of why we need hypothesis tests.
+        Given this, it's quite useful to be able to report confidence intervals that capture our
+        uncertainty about the true value of <m>b</m>. This is especially useful when the research
+        question focuses heavily on an attempt to find out <em>how</em> strongly variable <m>X</m>
+        is related to variable <m>Y</m>, since in those situations the interest is primarily in
+        the regression weight <m>b</m>. Fortunately, confidence intervals for the regression
+        weights can be constructed in the usual fashion,
+        <me>
+          \mbox{CI}(b) = \hat{b} \pm \left( t_{crit} \times \mbox{SE}({\hat{b})}  \right)
+        </me>
+        where <m>\mbox{SE}({\hat{b}})</m> is the standard error of the regression coefficient,
+        and <m>t_{crit}</m> is the relevant critical value of the appropriate <m>t</m>
+        distribution. For instance, if it's a 95% confidence interval that we want, then the
+        critical value is the 97.5th quantile of a <m>t</m> distribution with <m>N-K-1</m>
+        degrees of freedom. In other words, this is basically the same approach to calculating
+        confidence intervals that we've used throughout.
+      </p>
+
+      <p>
+        As you've seen on <xref ref="fig-parentregressionresults"/>, CogStat gives us the
+        confidence intervals for the regression coefficients.
+      </p>
+
+      <p>
+        Simple enough.
+      </p>
+    </subsection>
+  </section>
 
 </chapter>
