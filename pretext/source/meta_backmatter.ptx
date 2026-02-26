@@ -227,6 +227,84 @@
       <em>The analysis of variance: Fixed, random and mixed models</em>
       Birkhauser.
     </biblio>
+
+    <biblio type="raw" xml:id="Pearson1900">
+      Pearson, K. (1900).
+      On the criterion that a given system of deviations from the probable in the case of a
+      correlated system of variables is such that it can be reasonably supposed to have arisen
+      from random sampling.
+      <em>Philosophical Magazine</em>, 50, 157<ndash/>175.
+    </biblio>
+
+    <biblio type="raw" xml:id="Fisher1922">
+      Fisher, R. A. (1922a).
+      On the interpretation of <m>\chi^2</m> from contingency tables, and the calculation of
+      <m>p</m>.
+      <em>Journal of the Royal Statistical Society</em>, 84, 87<ndash/>94.
+    </biblio>
+
+    <biblio type="raw" xml:id="Fisher1922b">
+      Fisher, R. A. (1922b).
+      On the mathematical foundations of theoretical statistics.
+      <em>Philosophical Transactions of the Royal Society of London, Series A</em>, 222,
+      309<ndash/>368.
+    </biblio>
+
+    <biblio type="raw" xml:id="Sokal1994">
+      Sokal, R. R. and Rohlf, F. J. (1994).
+      <em>Biometry: The Principles and Practice of Statistics in Biological Research</em>
+      (3rd ed.). Freeman.
+    </biblio>
+
+    <biblio type="raw" xml:id="Hogg2005">
+      Hogg, R. V., McKean, J. V., and Craig, A. T. (2005).
+      <em>Introduction to Mathematical Statistics</em> (6th ed.). Pearson.
+    </biblio>
+
+    <biblio type="raw" xml:id="Yates1934">
+      Yates, F. (1934).
+      Contingency tables involving small numbers and the <m>\chi^2</m> test.
+      <em>Supplement to the Journal of the Royal Statistical Society</em>, 1, 217<ndash/>235.
+    </biblio>
+
+    <biblio type="raw" xml:id="Cramer1946">
+      Cram&#xe9;r, H. (1946).
+      <em>Mathematical Methods of Statistics</em>. Princeton University Press.
+    </biblio>
+
+    <biblio type="raw" xml:id="Larntz1978">
+      Larntz, K. (1978).
+      Small-sample comparisons of exact levels for chi-squared goodness-of-fit statistics.
+      <em>Journal of the American Statistical Association</em>, 73, 253<ndash/>263.
+    </biblio>
+
+    <biblio type="raw" xml:id="McNemar1947">
+      McNemar, Q. (1947).
+      Note on the sampling error of the difference between correlated proportions or percentages.
+      <em>Psychometrika</em>, 12, 153<ndash/>157.
+    </biblio>
+
+    <biblio type="raw" xml:id="Agresti1996">
+      Agresti, A. (1996).
+      <em>An Introduction to Categorical Data Analysis</em>. Wiley.
+    </biblio>
+
+    <biblio type="raw" xml:id="Agresti2002">
+      Agresti, A. (2002).
+      <em>Categorical Data Analysis</em> (2nd ed.). Wiley.
+    </biblio>
+
+    <biblio type="raw" xml:id="Meehl1967">
+      Meehl, P. E. (1967).
+      Theory-testing in psychology and physics: A methodological paradox.
+      <em>Philosophy of Science</em>, 34, 103<ndash/>115.
+    </biblio>
+
+    <biblio type="raw" xml:id="Stigler1986">
+      Stigler, S. M. (1986).
+      <em>The History of Statistics: The Measurement of Uncertainty Before 1900</em>.
+      Harvard University Press.
+    </biblio>
   </references>
 
   <index>

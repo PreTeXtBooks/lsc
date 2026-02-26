@@ -34,8 +34,8 @@
 
     <p>
       The <m>\chi^2</m> goodness-of-fit test is one of the oldest hypothesis tests around: it was invented
-      by Karl Pearson around the turn of the century <xref provisional="Pearson1900"/>, with some
-      corrections made later by Sir Ronald Fisher <xref provisional="Fisher1922"/>. Let's start with some
+      by Karl Pearson around the turn of the century <xref ref="Pearson1900"/>, with some
+      corrections made later by Sir Ronald Fisher <xref ref="Fisher1922"/>. Let's start with some
       psychology to introduce the statistical problem it addresses.
     </p>
     <p>
@@ -644,7 +644,7 @@
         For instance, the test statistic used in the Pearson goodness of fit test is written <m>X^2</m>;
         but there's a closely related test known as the <m>G</m>-test<fn>Complicating matters, the
         <m>G</m>-test is a special case of a whole class of tests that are known as <em>likelihood ratio
-        tests</em>.</fn> <xref provisional="Sokal1994"/>, in which the test statistic is written as
+        tests</em>.</fn> <xref ref="Sokal1994"/>, in which the test statistic is written as
         <m>G</m>. As it happens, the Pearson goodness of fit test and the <m>G</m>-test both test the
         same null hypothesis; and the sampling distribution is exactly the same (i.e. chi-square with
         <m>k-1</m> degrees of freedom). If we'd done a <m>G</m>-test for the cards data rather than a
@@ -845,7 +845,7 @@
         observations is written <m>N</m>, as usual. Finally, <m>R_i</m> denotes the row totals (e.g.
         <m>R_1</m> is the total number of people who chose the flower), and <m>C_j</m> denotes the column
         totals (e.g., <m>C_1</m> is the total number of robots). To use the terminology from another
-        mathematical statistics textbook <xref provisional="Hogg2005"/>, we should technically refer to
+        mathematical statistics textbook <xref ref="Hogg2005"/>, we should technically refer to
         this situation as a <alert>chi-square test of homogeneity</alert>; and reserve the term
         <alert>chi-square test of independence</alert> for the situation where both the row and column
         totals are random outcomes of the experiment.
@@ -1096,7 +1096,7 @@
       This can introduce systematic problems. Specifically, when <m>N</m> is small and when <m>df=1</m>,
       the goodness of fit statistic tends to be <q>too big</q>, meaning that you actually have a bigger
       <m>\alpha</m> value than you think (or, equivalently, the <m>p</m> values are a bit too small).
-      <xref provisional="Yates1934"/> suggested a simple fix, in which you redefine the goodness of fit
+      <xref ref="Yates1934"/> suggested a simple fix, in which you redefine the goodness of fit
       statistic as:
       <me>X^2 = \sum_{i} \frac{(|E_i - O_i| - 0.5)^2}{E_i}</me>
       Basically, he subtracts off 0.5 everywhere. The correction is basically a hack. It's not derived
@@ -1168,7 +1168,7 @@
       all) and 1 (perfect association). However, it doesn't always do this when your contingency table is
       bigger than <m>2 \times 2</m> (like in our original chapek9 data set), which is a total pain. So,
       to correct this, people usually prefer to report the <m>V</m> statistic proposed by
-      <xref provisional="Cramer1946"/>. It's a pretty simple adjustment to <m>\phi</m>. If you've got a
+      <xref ref="Cramer1946"/>. It's a pretty simple adjustment to <m>\phi</m>. If you've got a
       contingency table with <m>r</m> rows and <m>c</m> columns, then define <m>k = \min(r,c)</m> to be
       the smaller of the two values. If so, then <alert>Cramér's <m>V</m></alert> statistic is
       <me>\phi_c = \sqrt{\frac{X^2}{N(k-1)}}</me>
@@ -1231,7 +1231,7 @@
           all your expected frequencies larger than about 5, though for larger tables, you would probably
           be okay if at least 80% of the expected frequencies are above 5 and none of them are below 1.
           However, these seem to have been proposed as rough guidelines, not hard and fast rules; and they
-          seem somewhat conservative <xref provisional="Larntz1978"/>.
+          seem somewhat conservative <xref ref="Larntz1978"/>.
         </p>
       </li>
       <li>
@@ -1307,7 +1307,7 @@
 
     <p>
       We'd <em>really</em> like to be able to get a better answer than this provided we really don't want
-      to be on fire. This is where <alert>Fisher's exact test</alert> <xref provisional="Fisher1922"/>
+      to be on fire. This is where <alert>Fisher's exact test</alert> <xref ref="Fisher1922"/>
       comes in very handy. The Fisher exact test works somewhat differently to the chi-square test (or in
       fact any of the other hypothesis tests in this book) insofar as it doesn't have a test statistic; it
       calculates the <m>p</m>-value <q>directly</q>.
@@ -1348,8 +1348,8 @@
       In order to construct the test Fisher treats both the row and column totals (<m>R_1</m>, <m>R_2</m>,
       <m>C_1</m> and <m>C_2</m>) are known, fixed quantities; and then calculates the probability that we
       would have obtained the observed frequencies that we did (<m>O_{11}</m>, <m>O_{12}</m>,
-      <m>O_{21}</m> and <m>O_{22}</m>) given those totals. In the notation that we developed in an earlier
-      chapter on probability this is written:
+      <m>O_{21}</m> and <m>O_{22}</m>) given those totals. In the notation that we developed in
+      <xref ref="ch-probability" text="type-global"/> this is written:
       <me>P(O_{11}, O_{12}, O_{21}, O_{22} \ | \ R_1, R_2, C_1, C_2)</me>
       and as you might imagine, it's a slightly tricky exercise to figure out what this probability is, but
       it turns out that this probability is described by a distribution known as the <em>hypergeometric
@@ -1430,7 +1430,7 @@
       it.
     </p>
     <p>
-      The solution to the problem was published by <xref provisional="McNemar1947"/>. The trick is to
+      The solution to the problem was published by <xref ref="McNemar1947"/>. The trick is to
       start by tabulating your data in a slightly different way:
     </p>
 
@@ -1768,10 +1768,10 @@
 
     <p>
       If you're interested in learning more about categorical data analysis, an excellent first choice
-      would be <xref provisional="Agresti1996"/>, which, as the title suggests, provides an
+      would be <xref ref="Agresti1996"/>, which, as the title suggests, provides an
       <em>Introduction to Categorical Data Analysis</em>. If the introductory book isn't enough for you
       (or you can't solve the problem you're working on), you could consider
-      <xref provisional="Agresti2002"/>, <em>Categorical Data Analysis</em>. The latter is a more
+      <xref ref="Agresti2002"/>, <em>Categorical Data Analysis</em>. The latter is a more
       advanced text, so it's probably not wise to jump straight from this book to that one.
     </p>
 
