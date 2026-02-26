@@ -37,6 +37,46 @@
 
   </colophon>
 
+  <preface xml:id="meta_frontmatter-about">
+    <title>About This Book</title>
+    <figure xml:id="fig-book-cover">
+      <image source="LSC_small.png" width="67%">
+        <shortdescription>Book cover of Learning Statistics with CogStat</shortdescription>
+      </image>
+    </figure>
+    <blockquote>
+      <p>
+        First published on 27 September 2022 (electronic). Aligns with CogStat v2.3.
+      </p>
+      <p>
+        <alert>Second edition</alert> published on 23 September 2023 (electronic). Aligns with CogStat v2.4.
+      </p>
+    </blockquote>
+    <p>
+      To reference this book, please use the following citation (APA7 format):
+    </p>
+    <blockquote>
+      <p>
+        Navarro, D., &amp; Fodor, R. (2023). <em>Learning Statistics with CogStat</em> (2nd ed.).
+        <url href="https://learningstatisticswithcogstat.com" visual="learningstatisticswithcogstat.com">https://learningstatisticswithcogstat.com</url>
+      </p>
+    </blockquote>
+    <p>
+      <alert>Licensing</alert>
+    </p>
+    <figure xml:id="fig-cc-by-sa">
+      <image source="by-sa.png" width="15%">
+        <shortdescription>Creative Commons Attribution-ShareAlike license badge</shortdescription>
+      </image>
+    </figure>
+    <p>
+      This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License.
+      To view a copy of this license, visit
+      <url href="http://creativecommons.org/licenses/by-sa/4.0/" visual="creativecommons.org/licenses/by-sa/4.0">creativecommons.org/licenses/by-sa/4.0</url>
+      or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+    </p>
+  </preface>
+
   <preface xml:id="meta_frontmatter-preface">
     <title>Overview</title>
     <p>
