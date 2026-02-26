@@ -844,7 +844,7 @@
       <title>Omega-Squared</title>
 
       <p>
-        There's an interesting blog post by Daniel Lakens suggesting that eta-squared itself is
+        There's an interesting blog post by Daniel Lakens<fn>http://daniellakens.blogspot.com.au/2015/06/why-you-should-use-omega-squared.html</fn> suggesting that eta-squared itself is
         perhaps not the best measure of effect size in real world data analysis, but rather
         <term>omega-squared</term> (<m>\omega^2</m>) is. CogStat also opts for omega-squared as
         the default measure of effect size in one-way ANOVA.
