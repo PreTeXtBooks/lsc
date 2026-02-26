@@ -149,6 +149,73 @@
       <url href="https://doi.org/10.1126/science.aac4716">https://doi.org/10.1126/science.aac4716</url>
     </biblio>
 
+    <biblio xml:id="Box1987" type="raw">
+      Box, J. F. (1987).
+      Guinness, Gosset, Fisher, and small samples.
+      <em>Statistical Science</em>, 2, 45<ndash/>52.
+    </biblio>
+
+    <biblio xml:id="Cohen1988" type="raw">
+      Cohen, J. (1988).
+      <em>Statistical Power Analysis for the Behavioral Sciences</em> (2nd ed.).
+      Lawrence Erlbaum.
+    </biblio>
+
+    <biblio xml:id="McGrath2006" type="raw">
+      McGrath, R. E. and Meyer, G. J. (2006).
+      When effect sizes disagree: The case of <m>r</m> and <m>d</m>.
+      <em>Psychological Methods</em>, 11, 386<ndash/>401.
+    </biblio>
+
+    <biblio xml:id="Shapiro1965" type="raw">
+      Shapiro, S. S. and Wilk, M. B. (1965).
+      An analysis of variance test for normality (complete samples).
+      <em>Biometrika</em>, 52, 591<ndash/>611.
+    </biblio>
+
+    <biblio xml:id="Hays1994" type="raw">
+      Hays, W. L. (1994).
+      <em>Statistics</em> (5th ed.).
+      Harcourt Brace, Fort Worth, TX.
+    </biblio>
+
+    <biblio xml:id="Hsu1996" type="raw">
+      Hsu, J. C. (1996).
+      <em>Multiple Comparisons: Theory and Methods</em>.
+      Chapman and Hall, London, UK.
+    </biblio>
+
+    <biblio xml:id="Levene1960" type="raw">
+      Levene, H. (1960).
+      Robust tests for equality of variances.
+      In I. Olkin et al. (Eds.), <em>Contributions to Probability and Statistics: Essays in Honor
+      of Harold Hotelling</em> (pp. 278<ndash/>292). Stanford University Press, Palo Alto, CA.
+    </biblio>
+
+    <biblio xml:id="BrownForsythe1974" type="raw">
+      Brown, M. B. and Forsythe, A. B. (1974).
+      Robust tests for equality of variances.
+      <em>Journal of the American Statistical Association</em>, 69, 364<ndash/>367.
+    </biblio>
+
+    <biblio xml:id="KruskalWallis1952" type="raw">
+      Kruskal, W. H. and Wallis, W. A. (1952).
+      Use of ranks in one-criterion variance analysis.
+      <em>Journal of the American Statistical Association</em>, 47, 583<ndash/>621.
+    </biblio>
+
+    <biblio xml:id="Student1908" type="raw">
+      Student, A. (1908).
+      The probable error of a mean.
+      <em>Biometrika</em>, 6, 1<ndash/>2.
+    </biblio>
+
+    <biblio xml:id="Welch1947" type="raw">
+      Welch, B. L. (1947).
+      The generalization of <q>Student's</q> problem when several different population variances are involved.
+      <em>Biometrika</em>, 34, 28<ndash/>35.
+    </biblio>
+
     <biblio xml:id="Stevens1946" type="raw">
       Stevens, S. S. (1946).
       On the theory of scales of measurement.
