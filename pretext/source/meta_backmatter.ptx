@@ -155,12 +155,6 @@
       <em>Statistical Science</em>, 2, 45<ndash/>52.
     </biblio>
 
-    <biblio xml:id="Cohen1988" type="raw">
-      Cohen, J. (1988).
-      <em>Statistical Power Analysis for the Behavioral Sciences</em> (2nd ed.).
-      Lawrence Erlbaum.
-    </biblio>
-
     <biblio xml:id="McGrath2006" type="raw">
       McGrath, R. E. and Meyer, G. J. (2006).
       When effect sizes disagree: The case of <m>r</m> and <m>d</m>.
@@ -229,7 +223,7 @@
     </biblio>
 
     <biblio xml:id="Sahai2000" type="raw">
-      Sahai, H., & Ageel, M. I. (2000).
+      Sahai, H., &amp; Ageel, M. I. (2000).
       <em>The analysis of variance: Fixed, random and mixed models</em>
       Birkhauser.
     </biblio>
